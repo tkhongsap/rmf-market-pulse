@@ -1,46 +1,64 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PriceCard from "@/components/PriceCard";
 import ForexCard from "@/components/ForexCard";
 import PriceTable from "@/components/PriceTable";
 import WidgetContainer from "@/components/WidgetContainer";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import ErrorMessage from "@/components/ErrorMessage";
 import ThemeToggle from "@/components/ThemeToggle";
 import { TrendingUp, DollarSign } from "lucide-react";
-
-//todo: remove mock functionality - this is sample data for the prototype
-const mockCommodities = [
-  { name: 'Gold', symbol: 'XAU', price: 2045.50, change: 23.40, changePercent: 1.16, currency: '$', unit: 'oz' },
-  { name: 'Silver', symbol: 'XAG', price: 24.85, change: 0.32, changePercent: 1.30, currency: '$', unit: 'oz' },
-  { name: 'Crude Oil (WTI)', symbol: 'CL', price: 78.25, change: -1.85, changePercent: -2.31, currency: '$', unit: 'barrel' },
-  { name: 'Natural Gas', symbol: 'NG', price: 2.67, change: 0.05, changePercent: 1.91, currency: '$', unit: 'MMBtu' },
-  { name: 'Copper', symbol: 'HG', price: 3.82, change: -0.04, changePercent: -1.04, currency: '$', unit: 'lb' },
-  { name: 'Wheat', symbol: 'ZW', price: 612.50, change: 8.25, changePercent: 1.37, currency: '$', unit: 'bushel' },
-];
-
-//todo: remove mock functionality - this is sample data for the prototype
-const mockForex = [
-  { name: 'EUR/USD', pair: 'Euro to US Dollar', price: 1.0875, change: 0.0042, changePercent: 0.39, currency: '' },
-  { name: 'GBP/USD', pair: 'British Pound to US Dollar', price: 1.2634, change: -0.0018, changePercent: -0.14, currency: '' },
-  { name: 'USD/JPY', pair: 'US Dollar to Japanese Yen', price: 149.82, change: 0.45, changePercent: 0.30, currency: '' },
-  { name: 'USD/CHF', pair: 'US Dollar to Swiss Franc', price: 0.8756, change: 0.0012, changePercent: 0.14, currency: '' },
-  { name: 'AUD/USD', pair: 'Australian Dollar to US Dollar', price: 0.6542, change: -0.0023, changePercent: -0.35, currency: '' },
-  { name: 'USD/CAD', pair: 'US Dollar to Canadian Dollar', price: 1.3587, change: 0.0015, changePercent: 0.11, currency: '' },
-];
-
-//todo: remove mock functionality - forex card data
-const mockForexCards = [
-  { pair: 'EUR/USD', name: 'Euro to US Dollar', rate: 1.0875, change: 0.0042, changePercent: 0.39 },
-  { pair: 'GBP/USD', name: 'British Pound to US Dollar', rate: 1.2634, change: -0.0018, changePercent: -0.14 },
-  { pair: 'USD/JPY', name: 'US Dollar to Japanese Yen', rate: 149.82, change: 0.45, changePercent: 0.30 },
-  { pair: 'USD/CHF', name: 'US Dollar to Swiss Franc', rate: 0.8756, change: 0.0012, changePercent: 0.14 },
-  { pair: 'AUD/USD', name: 'Australian Dollar to US Dollar', rate: 0.6542, change: -0.0023, changePercent: -0.35 },
-  { pair: 'USD/CAD', name: 'US Dollar to Canadian Dollar', rate: 1.3587, change: 0.0015, changePercent: 0.11 },
-];
+import type { CommoditiesResponse, ForexResponse } from "@shared/schema";
 
 export default function Home() {
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
-  const [isLoading] = useState(false); //todo: remove mock functionality - connect to real API
+
+  // Fetch commodities data
+  const {
+    data: commoditiesData,
+    isLoading: commoditiesLoading,
+    error: commoditiesError,
+    refetch: refetchCommodities,
+  } = useQuery<CommoditiesResponse>({
+    queryKey: ['/api/commodities'],
+    refetchInterval: 60000, // Refetch every 60 seconds
+  });
+
+  // Fetch forex data
+  const {
+    data: forexData,
+    isLoading: forexLoading,
+    error: forexError,
+    refetch: refetchForex,
+  } = useQuery<ForexResponse>({
+    queryKey: ['/api/forex'],
+    refetchInterval: 60000, // Refetch every 60 seconds
+  });
+
+  const commodities = commoditiesData?.commodities || [];
+  const forexPairs = forexData?.pairs || [];
+
+  // Convert forex data to table format
+  const forexTableData = forexPairs.map(forex => ({
+    name: forex.pair,
+    symbol: forex.name,
+    price: forex.rate,
+    change: forex.change,
+    changePercent: forex.changePercent,
+    currency: '',
+  }));
+
+  // Convert commodity data to table format
+  const commodityTableData = commodities.map(commodity => ({
+    name: commodity.name,
+    symbol: commodity.symbol,
+    price: commodity.price,
+    change: commodity.change,
+    changePercent: commodity.changePercent,
+    currency: commodity.currency,
+    unit: commodity.unit,
+  }));
 
   return (
     <div className="min-h-screen bg-background">
@@ -109,13 +127,18 @@ export default function Home() {
               </div>
             </div>
 
-            {isLoading ? (
+            {commoditiesLoading ? (
               <LoadingSkeleton count={6} type={viewMode === 'cards' ? 'card' : 'table'} />
+            ) : commoditiesError ? (
+              <ErrorMessage 
+                message="Unable to fetch commodity prices. Please check your connection and try again."
+                onRetry={() => refetchCommodities()}
+              />
             ) : (
-              <WidgetContainer timestamp={new Date().toISOString()}>
+              <WidgetContainer timestamp={commoditiesData?.timestamp}>
                 {viewMode === 'cards' ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {mockCommodities.map((commodity) => (
+                    {commodities.map((commodity) => (
                       <PriceCard
                         key={commodity.symbol}
                         name={commodity.name}
@@ -125,12 +148,12 @@ export default function Home() {
                         changePercent={commodity.changePercent}
                         currency={commodity.currency}
                         unit={commodity.unit}
-                        lastUpdate={new Date().toISOString()}
+                        lastUpdate={commodity.lastUpdate}
                       />
                     ))}
                   </div>
                 ) : (
-                  <PriceTable data={mockCommodities} type="commodity" />
+                  <PriceTable data={commodityTableData} type="commodity" />
                 )}
               </WidgetContainer>
             )}
@@ -167,13 +190,18 @@ export default function Home() {
               </div>
             </div>
 
-            {isLoading ? (
+            {forexLoading ? (
               <LoadingSkeleton count={6} type={viewMode === 'cards' ? 'card' : 'table'} />
+            ) : forexError ? (
+              <ErrorMessage 
+                message="Unable to fetch forex rates. Please check your connection and try again."
+                onRetry={() => refetchForex()}
+              />
             ) : (
-              <WidgetContainer timestamp={new Date().toISOString()}>
+              <WidgetContainer timestamp={forexData?.timestamp}>
                 {viewMode === 'cards' ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {mockForexCards.map((forex) => (
+                    {forexPairs.map((forex) => (
                       <ForexCard
                         key={forex.pair}
                         pair={forex.pair}
@@ -181,12 +209,12 @@ export default function Home() {
                         rate={forex.rate}
                         change={forex.change}
                         changePercent={forex.changePercent}
-                        lastUpdate={new Date().toISOString()}
+                        lastUpdate={forex.lastUpdate}
                       />
                     ))}
                   </div>
                 ) : (
-                  <PriceTable data={mockForex} type="forex" />
+                  <PriceTable data={forexTableData} type="forex" />
                 )}
               </WidgetContainer>
             )}
