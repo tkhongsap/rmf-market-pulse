@@ -347,14 +347,14 @@ async function testDataStructure(): Promise<TestResult> {
   try {
     console.log('\n[Test] Testing data structure compatibility...');
 
-    const response = await fetch(`${SEC_API_BASE_URL}/FundFactSheet`, {
+    const amcResponse = await fetch(`${SEC_API_BASE_URL}/FundFactsheet/fund/amc`, {
       headers: {
         'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
         'Content-Type': 'application/json',
       },
     });
 
-    if (!response.ok) {
+    if (!amcResponse.ok) {
       return {
         test: 'Data Structure',
         success: false,
@@ -362,18 +362,47 @@ async function testDataStructure(): Promise<TestResult> {
       };
     }
 
-    const funds = await response.json();
-    const sampleFund = funds[0];
+    const amcs = await amcResponse.json();
+    const sampleAMC = amcs[0];
+
+    // Fetch funds from first AMC
+    const fundsResponse = await fetch(
+      `${SEC_API_BASE_URL}/FundFactsheet/fund/amc/${sampleAMC.unique_id}`,
+      {
+        headers: {
+          'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!fundsResponse.ok) {
+      return {
+        test: 'Data Structure',
+        success: false,
+        message: 'Failed to fetch funds for structure test',
+      };
+    }
+
+    const funds = await fundsResponse.json();
+    const sampleFund = Array.isArray(funds) && funds.length > 0 ? funds[0] : null;
+
+    if (!sampleFund) {
+      return {
+        test: 'Data Structure',
+        success: false,
+        message: 'No fund data available for structure test',
+      };
+    }
 
     // Check for expected fields
-    const expectedFields = [
+    const expectedFundFields = [
       'proj_id',
       'proj_abbr_name',
       'proj_name_th',
-      'management_company',
     ];
 
-    const missingFields = expectedFields.filter(field => !(field in sampleFund));
+    const missingFields = expectedFundFields.filter(field => !(field in sampleFund));
     const hasAllFields = missingFields.length === 0;
 
     return {
@@ -383,7 +412,8 @@ async function testDataStructure(): Promise<TestResult> {
         ? 'Data structure matches expected format'
         : `Missing fields: ${missingFields.join(', ')}`,
       data: {
-        sampleFundFields: Object.keys(sampleFund),
+        amcFields: Object.keys(sampleAMC),
+        fundFields: Object.keys(sampleFund),
         missingFields: missingFields.length > 0 ? missingFields : undefined,
       },
     };
