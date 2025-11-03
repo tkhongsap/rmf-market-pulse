@@ -58,53 +58,11 @@ function testApiKeyConfig(): TestResult {
  * Test 2: Test Basic API Connectivity
  */
 async function testApiConnectivity(): Promise<TestResult> {
-  // Try multiple endpoint variations
-  const endpointVariations = [
-    '/FundFactsheet/all',
-    '/FundFactSheet',
-    '/fund-factsheet',
-    '/api/FundFactsheet',
-    '/v1/FundFactsheet',
-  ];
-
-  for (const endpoint of endpointVariations) {
-    try {
-      console.log(`\n[Test] Trying ${SEC_API_BASE_URL}${endpoint}...`);
-
-      const response = await fetch(`${SEC_API_BASE_URL}${endpoint}`, {
-        headers: {
-          'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      console.log(`[Response] Status: ${response.status} ${response.statusText}`);
-
-      if (response.ok) {
-        // Found a working endpoint!
-        const data = await response.json();
-        const fundCount = Array.isArray(data) ? data.length : 0;
-
-        return {
-          test: 'API Connectivity',
-          success: true,
-          message: `Successfully connected to SEC API. Retrieved ${fundCount} funds.`,
-          data: {
-            workingEndpoint: endpoint,
-            statusCode: response.status,
-            fundCount,
-            sampleFund: Array.isArray(data) && data.length > 0 ? data[0] : null,
-          },
-        };
-      }
-    } catch (error: any) {
-      console.log(`[Error] ${endpoint}: ${error.message}`);
-    }
-  }
-
-  // If we get here, none of the endpoints worked
   try {
-    const response = await fetch(`${SEC_API_BASE_URL}/FundFactSheet`, {
+    // Use the correct endpoint: /FundFactsheet/fund/amc (lists all AMCs)
+    console.log(`\n[Test] Connecting to ${SEC_API_BASE_URL}/FundFactsheet/fund/amc...`);
+
+    const response = await fetch(`${SEC_API_BASE_URL}/FundFactsheet/fund/amc`, {
       headers: {
         'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
         'Content-Type': 'application/json',
@@ -124,16 +82,16 @@ async function testApiConnectivity(): Promise<TestResult> {
     }
 
     const data = await response.json();
-    const fundCount = Array.isArray(data) ? data.length : 0;
+    const amcCount = Array.isArray(data) ? data.length : 0;
 
     return {
       test: 'API Connectivity',
       success: true,
-      message: `Successfully connected to SEC API. Retrieved ${fundCount} funds.`,
+      message: `Successfully connected to SEC API. Retrieved ${amcCount} Asset Management Companies.`,
       data: {
         statusCode: response.status,
-        fundCount,
-        sampleFund: Array.isArray(data) && data.length > 0 ? data[0] : null,
+        amcCount,
+        sampleAMC: Array.isArray(data) && data.length > 0 ? data[0] : null,
       },
     };
   } catch (error: any) {
@@ -147,55 +105,91 @@ async function testApiConnectivity(): Promise<TestResult> {
 }
 
 /**
- * Test 3: Test RMF Fund Filtering
+ * Test 3: Test Fetching Funds from AMC
  */
-async function testRMFFundFiltering(): Promise<TestResult> {
+async function testFetchingFunds(): Promise<TestResult> {
   try {
-    console.log('\n[Test] Testing RMF fund filtering...');
+    console.log('\n[Test] Testing fund data retrieval...');
 
-    const response = await fetch(`${SEC_API_BASE_URL}/FundFactSheet`, {
+    // First get list of AMCs
+    const amcResponse = await fetch(`${SEC_API_BASE_URL}/FundFactsheet/fund/amc`, {
       headers: {
         'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
         'Content-Type': 'application/json',
       },
     });
 
-    if (!response.ok) {
+    if (!amcResponse.ok) {
       return {
-        test: 'RMF Fund Filtering',
+        test: 'Fetching Funds',
         success: false,
-        message: 'Failed to fetch fund list for filtering test',
+        message: 'Failed to fetch AMC list',
       };
     }
 
-    const allFunds = await response.json();
+    const amcs = await amcResponse.json();
 
-    // Filter for RMF funds (same logic as in secApi.ts)
-    const rmfFunds = allFunds.filter((fund: any) =>
+    if (!Array.isArray(amcs) || amcs.length === 0) {
+      return {
+        test: 'Fetching Funds',
+        success: false,
+        message: 'No AMCs found in response',
+      };
+    }
+
+    // Get the first AMC's unique_id
+    const firstAMC = amcs[0];
+    console.log(`[Test] Fetching funds from AMC: ${firstAMC.name_th || firstAMC.unique_id}`);
+
+    // Fetch funds for this AMC
+    const fundsResponse = await fetch(
+      `${SEC_API_BASE_URL}/FundFactsheet/fund/amc/${firstAMC.unique_id}`,
+      {
+        headers: {
+          'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!fundsResponse.ok) {
+      return {
+        test: 'Fetching Funds',
+        success: false,
+        message: `Failed to fetch funds for AMC ${firstAMC.unique_id}`,
+      };
+    }
+
+    const funds = await fundsResponse.json();
+    const fundCount = Array.isArray(funds) ? funds.length : 0;
+
+    // Filter for RMF funds
+    const rmfFunds = Array.isArray(funds) ? funds.filter((fund: any) =>
       fund.proj_id?.includes('RMF') ||
       fund.proj_abbr_name?.includes('RMF') ||
       fund.proj_name_th?.includes('เพื่อการเลี้ยงชีพ')
-    );
+    ) : [];
 
     return {
-      test: 'RMF Fund Filtering',
+      test: 'Fetching Funds',
       success: true,
-      message: `Found ${rmfFunds.length} RMF funds out of ${allFunds.length} total funds`,
+      message: `Successfully fetched ${fundCount} funds from ${firstAMC.name_th || firstAMC.unique_id}. Found ${rmfFunds.length} RMF funds.`,
       data: {
-        totalFunds: allFunds.length,
+        amc: {
+          id: firstAMC.unique_id,
+          name: firstAMC.name_th || firstAMC.name_en,
+        },
+        totalFunds: fundCount,
         rmfFunds: rmfFunds.length,
-        sampleRMFFunds: rmfFunds.slice(0, 3).map((f: any) => ({
-          id: f.proj_id,
-          code: f.proj_abbr_name,
-          name: f.proj_name_th,
-        })),
+        sampleFund: fundCount > 0 ? funds[0] : null,
+        sampleRMFFund: rmfFunds.length > 0 ? rmfFunds[0] : null,
       },
     };
   } catch (error: any) {
     return {
-      test: 'RMF Fund Filtering',
+      test: 'Fetching Funds',
       success: false,
-      message: 'Error during RMF fund filtering',
+      message: 'Error fetching funds',
       error: error.message,
     };
   }
@@ -208,40 +202,76 @@ async function testFundDailyInfo(): Promise<TestResult> {
   try {
     console.log('\n[Test] Testing FundDailyInfo endpoint...');
 
-    // First get a sample fund ID
-    const listResponse = await fetch(`${SEC_API_BASE_URL}/FundFactSheet`, {
+    // First get AMCs, then funds
+    const amcResponse = await fetch(`${SEC_API_BASE_URL}/FundFactsheet/fund/amc`, {
       headers: {
         'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
         'Content-Type': 'application/json',
       },
     });
 
-    if (!listResponse.ok) {
+    if (!amcResponse.ok) {
       return {
         test: 'Fund Daily Info',
         success: false,
-        message: 'Failed to fetch fund list for daily info test',
+        message: 'Failed to fetch AMC list for daily info test',
       };
     }
 
-    const allFunds = await listResponse.json();
-    const rmfFund = allFunds.find((fund: any) =>
-      fund.proj_id?.includes('RMF') || fund.proj_abbr_name?.includes('RMF')
+    const amcs = await amcResponse.json();
+    if (!Array.isArray(amcs) || amcs.length === 0) {
+      return {
+        test: 'Fund Daily Info',
+        success: false,
+        message: 'No AMCs found',
+      };
+    }
+
+    // Get funds from first AMC
+    const fundsResponse = await fetch(
+      `${SEC_API_BASE_URL}/FundFactsheet/fund/amc/${amcs[0].unique_id}`,
+      {
+        headers: {
+          'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
+          'Content-Type': 'application/json',
+        },
+      }
     );
 
-    if (!rmfFund) {
+    if (!fundsResponse.ok) {
       return {
         test: 'Fund Daily Info',
         success: false,
-        message: 'No RMF fund found to test daily info endpoint',
+        message: 'Failed to fetch funds',
       };
     }
 
-    console.log(`[Test] Fetching daily info for fund: ${rmfFund.proj_abbr_name} (${rmfFund.proj_id})`);
+    const funds = await fundsResponse.json();
 
-    // Fetch daily info for this fund
+    // Find an RMF fund
+    const rmfFund = Array.isArray(funds) ? funds.find((fund: any) =>
+      fund.proj_id?.includes('RMF') || fund.proj_abbr_name?.includes('RMF')
+    ) : null;
+
+    const testFund = rmfFund || (Array.isArray(funds) && funds.length > 0 ? funds[0] : null);
+
+    if (!testFund) {
+      return {
+        test: 'Fund Daily Info',
+        success: false,
+        message: 'No fund found to test daily info endpoint',
+      };
+    }
+
+    console.log(`[Test] Fetching daily NAV for fund: ${testFund.proj_abbr_name} (${testFund.proj_id})`);
+
+    // Get today's date in format required by API
+    const today = new Date();
+    const dateStr = today.toISOString().split('T')[0].replace(/-/g, ''); // YYYYMMDD format
+
+    // Fetch daily NAV - using the endpoint pattern from GitHub repo
     const dailyResponse = await fetch(
-      `${SEC_API_BASE_URL}/FundDailyInfo/${rmfFund.proj_id}`,
+      `${SEC_API_BASE_URL}/FundDailyInfo/${testFund.proj_id}/dailynav/${dateStr}`,
       {
         headers: {
           'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
@@ -251,34 +281,53 @@ async function testFundDailyInfo(): Promise<TestResult> {
     );
 
     if (!dailyResponse.ok) {
+      // Try without date to see if that works
+      const alternativeResponse = await fetch(
+        `${SEC_API_BASE_URL}/FundDailyInfo/${testFund.proj_id}`,
+        {
+          headers: {
+            'Ocp-Apim-Subscription-Key': SEC_API_KEY!,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!alternativeResponse.ok) {
+        return {
+          test: 'Fund Daily Info',
+          success: false,
+          message: `Failed to fetch daily info for fund ${testFund.proj_abbr_name}`,
+          error: `Status: ${dailyResponse.status}`,
+        };
+      }
+
+      const dailyInfo = await alternativeResponse.json();
+      const navData = Array.isArray(dailyInfo) && dailyInfo.length > 0 ? dailyInfo[0] : dailyInfo;
+
       return {
         test: 'Fund Daily Info',
-        success: false,
-        message: `Failed to fetch daily info for fund ${rmfFund.proj_abbr_name}`,
-        error: `Status: ${dailyResponse.status}`,
+        success: true,
+        message: `Successfully retrieved NAV data for ${testFund.proj_abbr_name} (using fallback endpoint)`,
+        data: {
+          fundCode: testFund.proj_abbr_name,
+          fundName: testFund.proj_name_th,
+          endpoint: 'fallback',
+          navData,
+        },
       };
     }
 
     const dailyInfo = await dailyResponse.json();
-    const latestNav = Array.isArray(dailyInfo) && dailyInfo.length > 0
-      ? dailyInfo.sort((a: any, b: any) =>
-          new Date(b.nav_date).getTime() - new Date(a.nav_date).getTime()
-        )[0]
-      : null;
 
     return {
       test: 'Fund Daily Info',
       success: true,
-      message: `Successfully retrieved NAV data for ${rmfFund.proj_abbr_name}`,
+      message: `Successfully retrieved NAV data for ${testFund.proj_abbr_name}`,
       data: {
-        fundCode: rmfFund.proj_abbr_name,
-        fundName: rmfFund.proj_name_th,
-        totalRecords: Array.isArray(dailyInfo) ? dailyInfo.length : 0,
-        latestNav: latestNav ? {
-          date: latestNav.nav_date,
-          nav: latestNav.nav,
-          priorNav: latestNav.prior_nav,
-        } : null,
+        fundCode: testFund.proj_abbr_name,
+        fundName: testFund.proj_name_th,
+        date: dateStr,
+        navData: dailyInfo,
       },
     };
   } catch (error: any) {
@@ -378,9 +427,9 @@ async function runTests() {
     return;
   }
 
-  // Test 3: RMF Fund Filtering
-  console.log('\n► Running Test 3: RMF Fund Filtering...');
-  results.push(await testRMFFundFiltering());
+  // Test 3: Fetching Funds
+  console.log('\n► Running Test 3: Fetching Funds from AMC...');
+  results.push(await testFetchingFunds());
 
   // Test 4: Fund Daily Info
   console.log('\n► Running Test 4: Fund Daily Info Endpoint...');
