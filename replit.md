@@ -44,8 +44,10 @@ A real-time financial data application that integrates with ChatGPT using the Mo
   - Real NAV, P/NAV, and performance metrics
   - Fetches latest available data (searches back up to 60 days)
   - Currently showing all Unit Trusts (UT security type)
-  - **Note**: SET SMART API doesn't distinguish RMF specifically from other mutual funds
-  - Users can search for specific funds by symbol
+  - **Limitation**: SET SMART API doesn't distinguish RMF specifically from other mutual funds
+  - **Limitation**: Fund names are synthesized as "[Symbol] Unit Trust" because SET SMART EOD endpoints only provide price data, not fund metadata
+    - To get real fund names, would need: security master endpoint, separate metadata source, or manual mapping table
+  - Users can search/filter by symbol (e.g., "SCBSET", "VAYU1")
 
 ### API Endpoints
 
