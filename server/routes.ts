@@ -19,6 +19,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
   });
 
+  // Debug endpoint to test SEC API key
+  app.get("/api/debug/sec", async (_req, res) => {
+    const SEC_API_KEY = process.env.SEC_API_KEY;
+    
+    if (!SEC_API_KEY) {
+      return res.json({
+        status: "error",
+        message: "SEC_API_KEY environment variable not set",
+        keyLength: 0,
+      });
+    }
+
+    try {
+      // Try a simple API call to test the key
+      const testUrl = 'https://api.sec.or.th/FundFactsheet/fund';
+      const response = await fetch(testUrl, {
+        method: 'POST',
+        headers: {
+          'Ocp-Apim-Subscription-Key': SEC_API_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ keyword: 'RMF' }),
+      });
+
+      const responseText = await response.text();
+      
+      return res.json({
+        status: response.ok ? "success" : "error",
+        statusCode: response.status,
+        statusText: response.statusText,
+        keyLength: SEC_API_KEY.length,
+        keyPrefix: SEC_API_KEY.substring(0, 8) + '...',
+        responsePreview: responseText.substring(0, 500),
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      return res.json({
+        status: "error",
+        message: error instanceof Error ? error.message : "Unknown error",
+        keyLength: SEC_API_KEY.length,
+      });
+    }
+  });
+
   // Get all commodity prices
   app.get("/api/commodities", async (_req, res) => {
     try {
