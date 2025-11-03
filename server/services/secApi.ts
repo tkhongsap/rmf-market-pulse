@@ -84,7 +84,17 @@ function setCache<T>(key: string, data: T, ttl: number): void {
 /**
  * Make authenticated request to SEC API
  */
-async function secApiRequest<T>(endpoint: string, cacheKey?: string, cacheTTL?: number): Promise<T> {
+async function secApiRequest<T>(
+  endpoint: string, 
+  options?: {
+    method?: 'GET' | 'POST';
+    body?: any;
+    cacheKey?: string;
+    cacheTTL?: number;
+  }
+): Promise<T> {
+  const { method = 'GET', body, cacheKey, cacheTTL } = options || {};
+
   // Check cache first
   if (cacheKey && cacheTTL) {
     const cached = getFromCache<T>(cacheKey);
@@ -105,20 +115,31 @@ async function secApiRequest<T>(endpoint: string, cacheKey?: string, cacheTTL?: 
   }
 
   const url = `${SEC_API_BASE_URL}${endpoint}`;
-  console.log(`[SEC API] Fetching: ${endpoint}`);
+  console.log(`[SEC API] ${method} ${endpoint}`);
 
-  const response = await fetch(url, {
+  const fetchOptions: RequestInit = {
+    method,
     headers: {
       'Ocp-Apim-Subscription-Key': SEC_API_KEY,
       'Content-Type': 'application/json',
     },
-  });
+  };
+
+  if (body && method === 'POST') {
+    fetchOptions.body = JSON.stringify(body);
+    console.log(`[SEC API] Request body:`, body);
+  }
+
+  const response = await fetch(url, fetchOptions);
 
   if (!response.ok) {
+    const errorText = await response.text();
+    console.error(`[SEC API] Error ${response.status}: ${errorText}`);
     throw new Error(`SEC API error: ${response.status} ${response.statusText}`);
   }
 
   const data = await response.json() as T;
+  console.log(`[SEC API] Response received, data length:`, Array.isArray(data) ? data.length : 'object');
 
   // Cache the result
   if (cacheKey && cacheTTL) {
@@ -142,10 +163,19 @@ interface SECFundFactSheet {
 }
 
 interface SECFundDailyInfo {
-  proj_id: string;
+  last_upd_date?: string;
   nav_date: string;
-  nav: number;
-  prior_nav?: number;
+  net_asset?: number;
+  last_val: number;           // NAV per unit (current)
+  previous_val?: number;       // Previous NAV per unit
+  sell_price?: number;
+  buy_price?: number;
+  sell_swap_price?: number;
+  buy_swap_price?: number;
+  remark_th?: string;
+  amc_info?: {
+    unique_id: string;
+  };
 }
 
 interface SECFundPortfolio {
@@ -172,23 +202,35 @@ export async function fetchRMFFunds(options?: {
   const { page = 1, pageSize = 20, fundType } = options || {};
 
   try {
-    // Fetch fund factsheets (cached for 24 hours)
+    // Search for RMF funds using POST endpoint (cached for 24 hours)
+    // Using keyword "RMF" to filter retirement mutual funds
     const factSheets = await secApiRequest<SECFundFactSheet[]>(
-      '/FundFactSheet',
-      'fund-factsheets',
-      24 * 60 * 60 * 1000 // 24 hours
+      '/FundFactsheet/fund',
+      {
+        method: 'POST',
+        body: { 
+          keyword: 'RMF',
+        },
+        cacheKey: 'fund-factsheets-rmf',
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
     );
 
-    // Filter for RMF funds only
+    console.log(`[SEC API] Found ${factSheets.length} funds with RMF keyword`);
+
+    // Filter for RMF funds only (additional filtering)
     const rmfFactSheets = factSheets.filter(fund =>
-      fund.proj_id.includes('RMF') ||
-      fund.proj_abbr_name.includes('RMF') ||
-      fund.proj_name_th.includes('เพื่อการเลี้ยงชีพ')
+      fund.proj_id?.includes('RMF') ||
+      fund.proj_abbr_name?.includes('RMF') ||
+      fund.proj_name_th?.includes('เพื่อการเลี้ยงชีพ') ||
+      fund.proj_name_th?.includes('RMF')
     );
+
+    console.log(`[SEC API] Filtered to ${rmfFactSheets.length} RMF funds`);
 
     // Apply fund type filter if provided
     let filteredFunds = rmfFactSheets;
-    if (fundType) {
+    if (fundType && fundType !== 'all') {
       filteredFunds = rmfFactSheets.filter(fund =>
         fund.policy_type?.toLowerCase().includes(fundType.toLowerCase())
       );
@@ -201,25 +243,66 @@ export async function fetchRMFFunds(options?: {
     const endIdx = startIdx + pageSize;
     const paginatedFunds = filteredFunds.slice(startIdx, endIdx);
 
+    // Get today's date in YYYY-MM-DD format for NAV data
+    const today = new Date();
+    const navDate = today.toISOString().split('T')[0];
+
     // Fetch daily NAV data for each fund (cached for 1 hour)
     const funds = await Promise.all(
       paginatedFunds.map(async (factSheet) => {
         try {
-          const dailyInfo = await secApiRequest<SECFundDailyInfo[]>(
-            `/FundDailyInfo/${factSheet.proj_id}`,
-            `fund-daily-${factSheet.proj_id}`,
-            60 * 60 * 1000 // 1 hour
-          );
+          // Try today's NAV first, fall back to yesterday if not available
+          let dailyInfo: SECFundDailyInfo | null = null;
+          
+          try {
+            dailyInfo = await secApiRequest<SECFundDailyInfo>(
+              `/FundDailyInfo/${factSheet.proj_id}/dailynav/${navDate}`,
+              {
+                cacheKey: `fund-daily-${factSheet.proj_id}-${navDate}`,
+                cacheTTL: 60 * 60 * 1000, // 1 hour
+              }
+            );
+          } catch (error) {
+            // Try yesterday's date if today's is not available
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayDate = yesterday.toISOString().split('T')[0];
+            
+            try {
+              dailyInfo = await secApiRequest<SECFundDailyInfo>(
+                `/FundDailyInfo/${factSheet.proj_id}/dailynav/${yesterdayDate}`,
+                {
+                  cacheKey: `fund-daily-${factSheet.proj_id}-${yesterdayDate}`,
+                  cacheTTL: 60 * 60 * 1000,
+                }
+              );
+            } catch (err) {
+              console.log(`No NAV data available for ${factSheet.proj_abbr_name}`);
+            }
+          }
 
-          // Get the most recent NAV data
-          const latestNav = dailyInfo.sort((a, b) =>
-            new Date(b.nav_date).getTime() - new Date(a.nav_date).getTime()
-          )[0];
+          if (dailyInfo && dailyInfo.last_val) {
+            const currentNav = dailyInfo.last_val;
+            const priorNav = dailyInfo.previous_val || currentNav;
+            const navChange = currentNav - priorNav;
+            const navChangePercent = priorNav > 0 ? (navChange / priorNav) * 100 : 0;
 
-          const priorNav = latestNav.prior_nav || latestNav.nav;
-          const navChange = latestNav.nav - priorNav;
-          const navChangePercent = (navChange / priorNav) * 100;
+            return {
+              fundCode: factSheet.proj_abbr_name,
+              fundName: factSheet.proj_name_th,
+              fundNameEn: factSheet.proj_name_en,
+              amcName: factSheet.management_company,
+              fundType: factSheet.policy_type || 'Mixed',
+              riskLevel: factSheet.risk_spectrum || 4,
+              nav: currentNav,
+              navChange: Number(navChange.toFixed(4)),
+              navChangePercent: Number(navChangePercent.toFixed(2)),
+              navDate: dailyInfo.nav_date,
+              lastUpdate: new Date().toISOString(),
+            } as RMFFund;
+          }
 
+          // Return fund with basic info if NAV data is not available
           return {
             fundCode: factSheet.proj_abbr_name,
             fundName: factSheet.proj_name_th,
@@ -227,10 +310,10 @@ export async function fetchRMFFunds(options?: {
             amcName: factSheet.management_company,
             fundType: factSheet.policy_type || 'Mixed',
             riskLevel: factSheet.risk_spectrum || 4,
-            nav: latestNav.nav,
-            navChange: Number(navChange.toFixed(4)),
-            navChangePercent: Number(navChangePercent.toFixed(2)),
-            navDate: latestNav.nav_date,
+            nav: 0,
+            navChange: 0,
+            navChangePercent: 0,
+            navDate: new Date().toISOString(),
             lastUpdate: new Date().toISOString(),
           } as RMFFund;
         } catch (error) {
@@ -265,11 +348,15 @@ export async function fetchRMFFunds(options?: {
  */
 export async function fetchRMFFundDetail(fundCode: string): Promise<RMFFund | null> {
   try {
-    // First, get the proj_id from factsheet
+    // Search for the specific fund using POST endpoint
     const factSheets = await secApiRequest<SECFundFactSheet[]>(
-      '/FundFactSheet',
-      'fund-factsheets',
-      24 * 60 * 60 * 1000
+      '/FundFactsheet/fund',
+      {
+        method: 'POST',
+        body: { keyword: fundCode },
+        cacheKey: `fund-search-${fundCode}`,
+        cacheTTL: 60 * 60 * 1000, // 1 hour
+      }
     );
 
     const factSheet = factSheets.find(fund =>
@@ -280,20 +367,40 @@ export async function fetchRMFFundDetail(fundCode: string): Promise<RMFFund | nu
       return null;
     }
 
+    // Get today's date for NAV
+    const today = new Date();
+    const navDate = today.toISOString().split('T')[0];
+
     // Fetch daily NAV info
-    const dailyInfo = await secApiRequest<SECFundDailyInfo[]>(
-      `/FundDailyInfo/${factSheet.proj_id}`,
-      `fund-daily-${factSheet.proj_id}`,
-      60 * 60 * 1000
-    );
+    let dailyInfo: SECFundDailyInfo | null = null;
+    
+    try {
+      dailyInfo = await secApiRequest<SECFundDailyInfo>(
+        `/FundDailyInfo/${factSheet.proj_id}/dailynav/${navDate}`,
+        {
+          cacheKey: `fund-daily-${factSheet.proj_id}-${navDate}`,
+          cacheTTL: 60 * 60 * 1000,
+        }
+      );
+    } catch (error) {
+      // Try yesterday if today is not available
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayDate = yesterday.toISOString().split('T')[0];
+      
+      dailyInfo = await secApiRequest<SECFundDailyInfo>(
+        `/FundDailyInfo/${factSheet.proj_id}/dailynav/${yesterdayDate}`,
+        {
+          cacheKey: `fund-daily-${factSheet.proj_id}-${yesterdayDate}`,
+          cacheTTL: 60 * 60 * 1000,
+        }
+      );
+    }
 
-    const latestNav = dailyInfo.sort((a, b) =>
-      new Date(b.nav_date).getTime() - new Date(a.nav_date).getTime()
-    )[0];
-
-    const priorNav = latestNav.prior_nav || latestNav.nav;
-    const navChange = latestNav.nav - priorNav;
-    const navChangePercent = (navChange / priorNav) * 100;
+    const currentNav = dailyInfo.last_val;
+    const priorNav = dailyInfo.previous_val || currentNav;
+    const navChange = currentNav - priorNav;
+    const navChangePercent = priorNav > 0 ? (navChange / priorNav) * 100 : 0;
 
     // Try to fetch portfolio holdings
     let assetAllocation: AssetAllocation[] | undefined;
@@ -302,17 +409,16 @@ export async function fetchRMFFundDetail(fundCode: string): Promise<RMFFund | nu
     try {
       const portfolio = await secApiRequest<SECFundPortfolio[]>(
         `/FundDailyInfo/${factSheet.proj_id}/portfolio`,
-        `fund-portfolio-${factSheet.proj_id}`,
-        24 * 60 * 60 * 1000
+        {
+          cacheKey: `fund-portfolio-${factSheet.proj_id}`,
+          cacheTTL: 24 * 60 * 60 * 1000,
+        }
       );
 
       assetAllocation = portfolio.map(item => ({
         assetType: item.asset_type,
         percentage: item.asset_percent,
       }));
-
-      // Note: Top holdings might be in a different endpoint
-      // This is a placeholder - actual implementation depends on SEC API structure
     } catch (error) {
       console.log(`Portfolio data not available for ${fundCode}`);
     }
@@ -324,10 +430,10 @@ export async function fetchRMFFundDetail(fundCode: string): Promise<RMFFund | nu
       amcName: factSheet.management_company,
       fundType: factSheet.policy_type || 'Mixed',
       riskLevel: factSheet.risk_spectrum || 4,
-      nav: latestNav.nav,
+      nav: currentNav,
       navChange: Number(navChange.toFixed(4)),
       navChangePercent: Number(navChangePercent.toFixed(2)),
-      navDate: latestNav.nav_date,
+      navDate: dailyInfo.nav_date,
       assetAllocation,
       topHoldings,
       lastUpdate: new Date().toISOString(),
