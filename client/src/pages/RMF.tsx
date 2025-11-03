@@ -25,7 +25,7 @@ export default function RMF() {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
   const [searchQuery, setSearchQuery] = useState("");
-  const [fundType, setFundType] = useState<string>("");
+  const [fundType, setFundType] = useState<string>("all");
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('table');
 
   // Fetch RMF funds data
@@ -42,7 +42,7 @@ export default function RMF() {
         pageSize: pageSize.toString(),
       });
 
-      if (fundType) params.append('fundType', fundType);
+      if (fundType && fundType !== 'all') params.append('fundType', fundType);
       if (searchQuery) params.append('search', searchQuery);
 
       const response = await fetch(`/api/rmf?${params}`);
@@ -63,7 +63,7 @@ export default function RMF() {
 
   const handleClearFilters = () => {
     setSearchQuery("");
-    setFundType("");
+    setFundType("all");
     setPage(1);
   };
 
@@ -73,7 +73,7 @@ export default function RMF() {
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" data-testid="button-back">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
               </Button>
@@ -108,24 +108,25 @@ export default function RMF() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 className="w-full"
+                data-testid="input-search-funds"
               />
             </div>
             <Select value={fundType} onValueChange={setFundType}>
-              <SelectTrigger className="w-full sm:w-[200px]">
+              <SelectTrigger className="w-full sm:w-[200px]" data-testid="select-fund-type">
                 <SelectValue placeholder="Fund Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Types</SelectItem>
+                <SelectItem value="all">All Types</SelectItem>
                 <SelectItem value="Equity">Equity</SelectItem>
                 <SelectItem value="Fixed Income">Fixed Income</SelectItem>
                 <SelectItem value="Mixed">Mixed</SelectItem>
                 <SelectItem value="Property">Property</SelectItem>
               </SelectContent>
             </Select>
-            <Button onClick={handleSearch} variant="default">
+            <Button onClick={handleSearch} variant="default" data-testid="button-search">
               Search
             </Button>
-            <Button onClick={handleClearFilters} variant="outline">
+            <Button onClick={handleClearFilters} variant="outline" data-testid="button-clear-filters">
               Clear
             </Button>
           </div>
@@ -149,6 +150,7 @@ export default function RMF() {
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
               }`}
+              data-testid="button-view-cards"
             >
               Cards
             </button>
@@ -159,6 +161,7 @@ export default function RMF() {
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
               }`}
+              data-testid="button-view-table"
             >
               Table
             </button>
@@ -176,7 +179,7 @@ export default function RMF() {
         ) : funds.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground">No funds found matching your criteria.</p>
-            <Button onClick={handleClearFilters} variant="outline" className="mt-4">
+            <Button onClick={handleClearFilters} variant="outline" className="mt-4" data-testid="button-clear-filters-empty">
               Clear Filters
             </Button>
           </div>
@@ -202,10 +205,11 @@ export default function RMF() {
               disabled={page === 1}
               variant="outline"
               size="sm"
+              data-testid="button-previous-page"
             >
               Previous
             </Button>
-            <span className="text-sm text-muted-foreground px-4">
+            <span className="text-sm text-muted-foreground px-4" data-testid="text-page-info">
               Page {page} of {totalPages}
             </span>
             <Button
@@ -213,6 +217,7 @@ export default function RMF() {
               disabled={page === totalPages}
               variant="outline"
               size="sm"
+              data-testid="button-next-page"
             >
               Next
             </Button>
