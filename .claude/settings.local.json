@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.setinvestnow.com)",
+      "WebFetch(domain:www.scbam.com)",
+      "WebFetch(domain:www.set.or.th)",
+      "WebFetch(domain:market.sec.or.th)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

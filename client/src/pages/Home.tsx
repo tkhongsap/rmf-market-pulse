@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import PriceCard from "@/components/PriceCard";
 import ForexCard from "@/components/ForexCard";
 import PriceTable from "@/components/PriceTable";
@@ -8,7 +10,7 @@ import WidgetContainer from "@/components/WidgetContainer";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import ErrorMessage from "@/components/ErrorMessage";
 import ThemeToggle from "@/components/ThemeToggle";
-import { TrendingUp, DollarSign } from "lucide-react";
+import { TrendingUp, DollarSign, Building2 } from "lucide-react";
 import type { CommoditiesResponse, ForexResponse } from "@shared/schema";
 
 export default function Home() {
@@ -72,7 +74,15 @@ export default function Home() {
               </h1>
             </div>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-3">
+            <Link href="/rmf">
+              <Button variant="outline" size="sm">
+                <Building2 className="w-4 h-4 mr-2" />
+                Thai RMF
+              </Button>
+            </Link>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
