@@ -1,57 +1,70 @@
-# Commodity & Currency Tracker - ChatGPT App
+# Financial Data Tracker - ChatGPT App
 
-A real-time financial data application that integrates with ChatGPT using the Model Context Protocol (MCP). Users can ask natural language questions to get live commodity prices and currency exchange rates displayed in an interactive widget.
+A real-time financial data application that integrates with ChatGPT using the Model Context Protocol (MCP). Users can access:
+- **Commodities**: Simulated prices for gold, silver, oil, and agricultural products
+- **Forex**: Simulated currency exchange rates  
+- **Thailand RMF/Unit Trusts**: Real data from SET SMART API
 
 ## Project Overview
 
 ### Technology Stack
 - **Frontend**: React, TypeScript, TanStack Query, Tailwind CSS, Shadcn UI
 - **Backend**: Express.js, TypeScript, Node.js 20
-- **Data Source**: Yahoo Finance API (via yahoo-finance2 package)
+- **Data Sources**: 
+  - SET SMART API for Thailand mutual funds (Unit Trusts)
+  - Simulated data for commodities and forex
 - **Integration**: MCP (Model Context Protocol) for ChatGPT embedding
 
 ### Current Implementation Status
 
 #### Completed
-- ✅ Frontend UI with interactive widgets for commodities and forex
+- ✅ Frontend UI with interactive widgets for commodities, forex, and RMF funds
 - ✅ Dark mode support with theme toggle
 - ✅ Card and table view modes for data display
 - ✅ Responsive design following OpenAI Apps SDK guidelines  
-- ✅ RESTful API endpoints structure (/api/commodities, /api/forex)
+- ✅ RESTful API endpoints (/api/commodities, /api/forex, /api/rmf)
 - ✅ MCP protocol endpoint for ChatGPT integration (/mcp)
 - ✅ Health check endpoint (/healthz)
 - ✅ Error handling and loading states
 - ✅ TanStack Query integration with default fetch handler
+- ✅ **SET SMART API Integration** for Thailand Unit Trusts (mutual funds)
+  - Real-time NAV (Net Asset Value) data
+  - P/NAV ratios, dividend yields
+  - Trading volume and value
+  - Intelligent fallback: Searches up to 60 days back for latest available data
+  - Rate limiting: 3000 calls per 5 minutes
+  - Caching: 1-hour TTL for recent data
 
-#### Current Data Source
-- 📊 Simulated Market Data
-  - Backend currently generates realistic simulated commodity and forex prices
-  - Simulates price volatility with random variations (±2% for commodities, ±0.5% for forex)
-  - Provides consistent realistic baseline prices for demonstration
-  - **Ready for Production**: Architecture is designed for easy swap to real Yahoo Finance API
-
-#### Path to Real Yahoo Finance Integration
-To replace simulated data with live Yahoo Finance data:
-1. Investigate yahoo-finance2 library's actual runtime API (types don't match implementation)
-2. Alternative: Use direct HTTP calls to Yahoo Finance public endpoints
-3. Replace `generatePriceChange()` calls in `server/services/yahooFinance.ts` with real API calls
-4. Add response caching (60s TTL recommended)
-5. Implement rate limiting and error retry logic
+#### Data Sources
+- 📊 **Commodities & Forex**: Simulated data
+  - Realistic baseline prices with volatility simulation
+  - Ready for production API integration when needed
+  
+- 📈 **Thailand RMF/Unit Trusts**: Live data from SET SMART API
+  - Real NAV, P/NAV, and performance metrics
+  - Fetches latest available data (searches back up to 60 days)
+  - Currently showing all Unit Trusts (UT security type)
+  - **Note**: SET SMART API doesn't distinguish RMF specifically from other mutual funds
+  - Users can search for specific funds by symbol
 
 ### API Endpoints
 
 #### REST Endpoints
-- `GET /api/commodities` - Fetch all commodity prices
+- `GET /api/commodities` - Fetch all commodity prices (simulated)
 - `GET /api/commodities/:commodity` - Fetch specific commodity (e.g., 'gold', 'oil')
-- `GET /api/forex` - Fetch all forex pairs  
+- `GET /api/forex` - Fetch all forex pairs (simulated)
 - `GET /api/forex/:pair` - Fetch specific pair (e.g., 'EUR/USD')
+- `GET /api/rmf` - Fetch Thailand Unit Trusts (real data from SET SMART API)
+  - Query params: `page`, `pageSize`, `search`, `fundType`
+- `GET /api/rmf/:symbol` - Fetch specific fund by symbol
 - `GET /healthz` - Health check
+- `GET /api/debug/sec` - Debug endpoint to test SET SMART API connection
 
 #### MCP Endpoint
 - `POST /mcp` - ChatGPT integration endpoint
   - Supports `tools/list` method for tool discovery
   - Supports `tools/call` method for executing queries
-  - Tools: `get_commodity_prices`, `get_forex_rates`
+  - Tools: `get_commodity_prices`, `get_forex_rates`, `get_rmf_funds`
 
 ### Design Guidelines
 
@@ -68,6 +81,8 @@ See `design_guidelines.md` for complete design specifications.
 Located in `shared/schema.ts`:
 - `Commodity`: Symbol, name, price, change, changePercent, currency, unit
 - `Forex`: Pair, name, rate, change, changePercent
+- `RMFFund`: Symbol, fundName, securityType, nav, navChange, navChangePercent, navDate, priorNav, pnav, totalVolume, totalValue, dividendYield
+- `SETSMARTUnitTrust`: Raw response from SET SMART API (mapped to RMFFund)
 
 ### Project Structure
 
@@ -78,33 +93,30 @@ client/
       PriceCard.tsx  # Individual commodity/forex card
       ForexCard.tsx  # Forex-specific card
       PriceTable.tsx # Table view for prices
+      RMFFundCard.tsx # RMF fund card
+      RMFFundTable.tsx # RMF fund table
       WidgetContainer.tsx # Widget wrapper
       LoadingSkeleton.tsx # Loading states
       ErrorMessage.tsx    # Error handling
       ThemeToggle.tsx     # Dark mode toggle
     pages/
       Home.tsx        # Main application page
+      RMF.tsx         # RMF funds page
 server/
   services/
-    yahooFinance.ts  # Yahoo Finance API integration (in progress)
+    yahooFinance.ts  # Simulated commodity/forex data
+    secApi.ts        # SET SMART API integration
   routes.ts          # API and MCP endpoints
 shared/
   schema.ts          # Shared type definitions
 ```
 
-### Known Issues
-
-1. **Yahoo Finance API**: The yahoo-finance2 library's TypeScript types don't match the actual runtime API. Need to either:
-   - Find the correct method names through trial/error
-   - Use a different financial data source
-   - Implement direct HTTP calls to Yahoo Finance endpoints
-
 ### Next Steps
 
-1. Complete Yahoo Finance API integration or implement alternative data source
-2. Add caching layer for API responses (60s TTL recommended)
-3. Implement rate limiting protection
-4. Add comprehensive error handling for API failures
+1. Integrate real API for commodities and forex (replace simulated data)
+2. Add more sophisticated fund filtering (by fund type, risk level, etc.)
+3. Implement historical NAV charts for funds
+4. Add portfolio tracking functionality
 5. Create deployment configuration for production use
 
 ### ChatGPT Integration

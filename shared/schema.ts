@@ -68,26 +68,48 @@ export const fundHoldingSchema = z.object({
 
 export type FundHolding = z.infer<typeof fundHoldingSchema>;
 
-// RMF (Retirement Mutual Fund) data
+// SET SMART API raw response for Unit Trust (Mutual Fund)
+export const setSMARTUnitTrustSchema = z.object({
+  date: z.string(), // Trading date in YYYY-MM-DD format
+  symbol: z.string(), // Fund symbol/code
+  securityType: z.string(), // Should be "UT" for Unit Trust
+  adjustedPriceFlag: z.string(), // "Y" or "N"
+  prior: z.number().nullable(), // Prior NAV
+  open: z.number().nullable(),
+  high: z.number().nullable(),
+  low: z.number().nullable(),
+  close: z.number().nullable(), // Current NAV
+  average: z.number().nullable(),
+  aomVolume: z.number().nullable(),
+  aomValue: z.number().nullable(),
+  trVolume: z.number().nullable(),
+  trValue: z.number().nullable(),
+  totalVolume: z.number().nullable(),
+  totalValue: z.number().nullable(),
+  pe: z.number().nullable(), // Usually null for Unit Trusts
+  pbv: z.number().nullable(), // P/NAV for Unit Trusts
+  bvps: z.number().nullable(), // NAV for Unit Trusts (Book Value Per Share)
+  dividendYield: z.number().nullable(),
+  marketCap: z.number().nullable(),
+  volumeTurnover: z.number().nullable(),
+});
+
+export type SETSMARTUnitTrust = z.infer<typeof setSMARTUnitTrustSchema>;
+
+// RMF (Retirement Mutual Fund) data - mapped from SET SMART API
 export const rmfFundSchema = z.object({
-  fundCode: z.string(), // e.g., "SCBRMMONEY"
-  fundName: z.string(),
-  fundNameEn: z.string().optional(),
-  amcName: z.string(), // Asset Management Company
-  fundType: z.string(), // e.g., "Equity", "Fixed Income", "Mixed"
-  riskLevel: z.number().min(1).max(8), // 1 (lowest) to 8 (highest)
-  nav: z.number(), // Net Asset Value
-  navChange: z.number(),
-  navChangePercent: z.number(),
-  navDate: z.string(),
-  // Performance metrics
-  ytdReturn: z.number().optional(),
-  return1Y: z.number().optional(),
-  return3Y: z.number().optional(),
-  return5Y: z.number().optional(),
-  // Holdings data
-  assetAllocation: z.array(assetAllocationSchema).optional(),
-  topHoldings: z.array(fundHoldingSchema).optional(),
+  symbol: z.string(), // Fund symbol/code (e.g., "SCBRMMONEY")
+  fundName: z.string(), // Display name (derived from symbol or separate lookup)
+  securityType: z.string(), // "UT" for Unit Trust
+  nav: z.number(), // Net Asset Value (from bvps field)
+  navChange: z.number(), // Calculated from close - prior
+  navChangePercent: z.number(), // Calculated percentage
+  navDate: z.string(), // Date in YYYY-MM-DD format
+  priorNav: z.number().nullable(), // Prior NAV
+  pnav: z.number().nullable(), // P/NAV ratio (from pbv field)
+  totalVolume: z.number().nullable(), // Trading volume
+  totalValue: z.number().nullable(), // Trading value in Baht
+  dividendYield: z.number().nullable(),
   lastUpdate: z.string(),
 });
 

@@ -1,8 +1,8 @@
-import type { RMFFund, AssetAllocation, FundHolding } from '@shared/schema';
+import type { RMFFund, SETSMARTUnitTrust } from '@shared/schema';
 
-// Thailand SEC API configuration
-const SEC_API_BASE_URL = 'https://api.sec.or.th';
-const SEC_API_KEY = process.env.SEC_API_KEY;
+// SET SMART API configuration
+const SETSMART_API_BASE_URL = 'https://www.setsmart.com/api/listed-company-api';
+const SETSMART_API_KEY = process.env.SEC_API_KEY; // Reusing the same env variable
 
 // Rate limiting: 3000 calls per 5 minutes (300 seconds)
 const RATE_LIMIT_WINDOW = 300000; // 5 minutes in ms
@@ -82,64 +82,55 @@ function setCache<T>(key: string, data: T, ttl: number): void {
 }
 
 /**
- * Make authenticated request to SEC API
+ * Make authenticated request to SET SMART API
  */
-async function secApiRequest<T>(
+async function setSMARTApiRequest<T>(
   endpoint: string, 
   options?: {
-    method?: 'GET' | 'POST';
-    body?: any;
     cacheKey?: string;
     cacheTTL?: number;
   }
 ): Promise<T> {
-  const { method = 'GET', body, cacheKey, cacheTTL } = options || {};
+  const { cacheKey, cacheTTL } = options || {};
 
   // Check cache first
   if (cacheKey && cacheTTL) {
     const cached = getFromCache<T>(cacheKey);
     if (cached) {
-      console.log(`[SEC API] Cache hit for ${cacheKey}`);
+      console.log(`[SET SMART API] Cache hit for ${cacheKey}`);
       return cached;
     }
   }
 
   // Check if API key is configured
-  if (!SEC_API_KEY) {
+  if (!SETSMART_API_KEY) {
     throw new Error('SEC_API_KEY environment variable is not configured');
   }
 
   // Check rate limit
   if (!checkRateLimit()) {
-    throw new Error('SEC API rate limit exceeded (3000 calls per 5 minutes)');
+    throw new Error('SET SMART API rate limit exceeded (3000 calls per 5 minutes)');
   }
 
-  const url = `${SEC_API_BASE_URL}${endpoint}`;
-  console.log(`[SEC API] ${method} ${endpoint}`);
+  const url = `${SETSMART_API_BASE_URL}${endpoint}`;
+  console.log(`[SET SMART API] GET ${endpoint}`);
 
-  const fetchOptions: RequestInit = {
-    method,
+  const response = await fetch(url, {
+    method: 'GET',
     headers: {
-      'Ocp-Apim-Subscription-Key': SEC_API_KEY,
+      'api-key': SETSMART_API_KEY,
       'Content-Type': 'application/json',
     },
-  };
-
-  if (body && method === 'POST') {
-    fetchOptions.body = JSON.stringify(body);
-    console.log(`[SEC API] Request body:`, body);
-  }
-
-  const response = await fetch(url, fetchOptions);
+  });
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error(`[SEC API] Error ${response.status}: ${errorText}`);
-    throw new Error(`SEC API error: ${response.status} ${response.statusText}`);
+    console.error(`[SET SMART API] Error ${response.status}: ${errorText}`);
+    throw new Error(`SET SMART API error: ${response.status} ${response.statusText}`);
   }
 
   const data = await response.json() as T;
-  console.log(`[SEC API] Response received, data length:`, Array.isArray(data) ? data.length : 'object');
+  console.log(`[SET SMART API] Response received, data length:`, Array.isArray(data) ? data.length : 'object');
 
   // Cache the result
   if (cacheKey && cacheTTL) {
@@ -150,49 +141,47 @@ async function secApiRequest<T>(
 }
 
 /**
- * SEC API response types (based on their actual API structure)
+ * Map SET SMART Unit Trust response to RMFFund
  */
-interface SECFundFactSheet {
-  proj_id: string;
-  proj_abbr_name: string;
-  proj_name_th: string;
-  proj_name_en?: string;
-  management_company: string;
-  policy_type?: string;
-  risk_spectrum?: number;
-}
+function mapUnitTrustToRMF(ut: SETSMARTUnitTrust): RMFFund {
+  const nav = ut.bvps || ut.close || 0; // NAV is in bvps for Unit Trusts
+  const priorNav = ut.prior || nav;
+  const navChange = nav - priorNav;
+  const navChangePercent = priorNav > 0 ? (navChange / priorNav) * 100 : 0;
 
-interface SECFundDailyInfo {
-  last_upd_date?: string;
-  nav_date: string;
-  net_asset?: number;
-  last_val: number;           // NAV per unit (current)
-  previous_val?: number;       // Previous NAV per unit
-  sell_price?: number;
-  buy_price?: number;
-  sell_swap_price?: number;
-  buy_swap_price?: number;
-  remark_th?: string;
-  amc_info?: {
-    unique_id: string;
+  // Create a more descriptive fund name from symbol
+  const fundName = `${ut.symbol} Unit Trust`;
+
+  return {
+    symbol: ut.symbol,
+    fundName: fundName,
+    securityType: ut.securityType,
+    nav: Number(nav.toFixed(4)),
+    navChange: Number(navChange.toFixed(4)),
+    navChangePercent: Number(navChangePercent.toFixed(2)),
+    navDate: ut.date,
+    priorNav: priorNav,
+    pnav: ut.pbv, // P/NAV for Unit Trusts
+    totalVolume: ut.totalVolume,
+    totalValue: ut.totalValue,
+    dividendYield: ut.dividendYield,
+    lastUpdate: new Date().toISOString(),
   };
 }
 
-interface SECFundPortfolio {
-  proj_id: string;
-  as_of_date: string;
-  asset_type: string;
-  asset_percent: number;
-}
-
-interface SECFundTopHolding {
-  security_name: string;
-  market_value: number;
-  percent_nav: number;
+/**
+ * Filter for RMF funds from Unit Trust list
+ * Note: SET SMART API doesn't distinguish RMF specifically, so we show all Unit Trusts
+ * Users can filter by searching for specific fund symbols
+ */
+function isRMFFund(symbol: string): boolean {
+  // Show all Unit Trusts since SET SMART API doesn't tag RMF specifically
+  // Users can search for their specific funds using the search functionality
+  return true;
 }
 
 /**
- * Fetch all RMF funds from SEC API
+ * Fetch all RMF funds from SET SMART API
  */
 export async function fetchRMFFunds(options?: {
   page?: number;
@@ -202,38 +191,72 @@ export async function fetchRMFFunds(options?: {
   const { page = 1, pageSize = 20, fundType } = options || {};
 
   try {
-    // Search for RMF funds using POST endpoint (cached for 24 hours)
-    // Using keyword "RMF" to filter retirement mutual funds
-    const factSheets = await secApiRequest<SECFundFactSheet[]>(
-      '/FundFactsheet/fund',
-      {
-        method: 'POST',
-        body: { 
-          keyword: 'RMF',
-        },
-        cacheKey: 'fund-factsheets-rmf',
-        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date();
+    let dateStr = today.toISOString().split('T')[0];
+    
+    // Try to get latest available data - go back up to 60 days to find data
+    let unitTrusts: SETSMARTUnitTrust[] = [];
+    let attempts = 0;
+    const maxAttempts = 60; // Try up to 60 days back
+    
+    while (unitTrusts.length === 0 && attempts < maxAttempts) {
+      const targetDate = new Date(today);
+      targetDate.setDate(targetDate.getDate() - attempts);
+      
+      // Skip weekends
+      const dayOfWeek = targetDate.getDay();
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        attempts++;
+        continue;
       }
-    );
+      
+      dateStr = targetDate.toISOString().split('T')[0];
+      
+      try {
+        // Fetch all Unit Trusts (mutual funds) for the date
+        // Using cache with 1 hour TTL for recent data
+        const response = await setSMARTApiRequest<SETSMARTUnitTrust[]>(
+          `/eod-price-by-security-type?securityType=UT&date=${dateStr}&adjustedPriceFlag=N`,
+          {
+            cacheKey: `unit-trusts-${dateStr}`,
+            cacheTTL: 60 * 60 * 1000, // 1 hour
+          }
+        );
+        
+        console.log(`[SET SMART API] Found ${response.length} Unit Trusts for ${dateStr}`);
+        
+        if (response.length > 0) {
+          unitTrusts = response;
+          break;
+        } else {
+          console.log(`Empty response for ${dateStr}, trying previous day...`);
+          attempts++;
+        }
+      } catch (error) {
+        console.log(`Error fetching data for ${dateStr}, trying previous day...`);
+        attempts++;
+      }
+    }
 
-    console.log(`[SEC API] Found ${factSheets.length} funds with RMF keyword`);
+    if (unitTrusts.length === 0) {
+      console.warn('[SET SMART API] No Unit Trust data available for the past 60 days');
+      return { funds: [], total: 0 };
+    }
 
-    // Filter for RMF funds only (additional filtering)
-    const rmfFactSheets = factSheets.filter(fund =>
-      fund.proj_id?.includes('RMF') ||
-      fund.proj_abbr_name?.includes('RMF') ||
-      fund.proj_name_th?.includes('เพื่อการเลี้ยงชีพ') ||
-      fund.proj_name_th?.includes('RMF')
-    );
+    // Filter for RMF funds only
+    const rmfUnitTrusts = unitTrusts.filter(ut => isRMFFund(ut.symbol));
+    console.log(`[SET SMART API] Filtered to ${rmfUnitTrusts.length} RMF funds`);
 
-    console.log(`[SEC API] Filtered to ${rmfFactSheets.length} RMF funds`);
+    // Map to RMFFund format
+    const allFunds = rmfUnitTrusts.map(mapUnitTrustToRMF);
 
-    // Apply fund type filter if provided
-    let filteredFunds = rmfFactSheets;
+    // Apply filters
+    let filteredFunds = allFunds;
+    
+    // Fund type filter (currently not implemented as SET SMART doesn't provide fund types)
     if (fundType && fundType !== 'all') {
-      filteredFunds = rmfFactSheets.filter(fund =>
-        fund.policy_type?.toLowerCase().includes(fundType.toLowerCase())
-      );
+      // Fund type filtering could be implemented here if we have metadata
     }
 
     const total = filteredFunds.length;
@@ -243,102 +266,9 @@ export async function fetchRMFFunds(options?: {
     const endIdx = startIdx + pageSize;
     const paginatedFunds = filteredFunds.slice(startIdx, endIdx);
 
-    // Get today's date in YYYY-MM-DD format for NAV data
-    const today = new Date();
-    const navDate = today.toISOString().split('T')[0];
-
-    // Fetch daily NAV data for each fund (cached for 1 hour)
-    const funds = await Promise.all(
-      paginatedFunds.map(async (factSheet) => {
-        try {
-          // Try today's NAV first, fall back to yesterday if not available
-          let dailyInfo: SECFundDailyInfo | null = null;
-          
-          try {
-            dailyInfo = await secApiRequest<SECFundDailyInfo>(
-              `/FundDailyInfo/${factSheet.proj_id}/dailynav/${navDate}`,
-              {
-                cacheKey: `fund-daily-${factSheet.proj_id}-${navDate}`,
-                cacheTTL: 60 * 60 * 1000, // 1 hour
-              }
-            );
-          } catch (error) {
-            // Try yesterday's date if today's is not available
-            const yesterday = new Date(today);
-            yesterday.setDate(yesterday.getDate() - 1);
-            const yesterdayDate = yesterday.toISOString().split('T')[0];
-            
-            try {
-              dailyInfo = await secApiRequest<SECFundDailyInfo>(
-                `/FundDailyInfo/${factSheet.proj_id}/dailynav/${yesterdayDate}`,
-                {
-                  cacheKey: `fund-daily-${factSheet.proj_id}-${yesterdayDate}`,
-                  cacheTTL: 60 * 60 * 1000,
-                }
-              );
-            } catch (err) {
-              console.log(`No NAV data available for ${factSheet.proj_abbr_name}`);
-            }
-          }
-
-          if (dailyInfo && dailyInfo.last_val) {
-            const currentNav = dailyInfo.last_val;
-            const priorNav = dailyInfo.previous_val || currentNav;
-            const navChange = currentNav - priorNav;
-            const navChangePercent = priorNav > 0 ? (navChange / priorNav) * 100 : 0;
-
-            return {
-              fundCode: factSheet.proj_abbr_name,
-              fundName: factSheet.proj_name_th,
-              fundNameEn: factSheet.proj_name_en,
-              amcName: factSheet.management_company,
-              fundType: factSheet.policy_type || 'Mixed',
-              riskLevel: factSheet.risk_spectrum || 4,
-              nav: currentNav,
-              navChange: Number(navChange.toFixed(4)),
-              navChangePercent: Number(navChangePercent.toFixed(2)),
-              navDate: dailyInfo.nav_date,
-              lastUpdate: new Date().toISOString(),
-            } as RMFFund;
-          }
-
-          // Return fund with basic info if NAV data is not available
-          return {
-            fundCode: factSheet.proj_abbr_name,
-            fundName: factSheet.proj_name_th,
-            fundNameEn: factSheet.proj_name_en,
-            amcName: factSheet.management_company,
-            fundType: factSheet.policy_type || 'Mixed',
-            riskLevel: factSheet.risk_spectrum || 4,
-            nav: 0,
-            navChange: 0,
-            navChangePercent: 0,
-            navDate: new Date().toISOString(),
-            lastUpdate: new Date().toISOString(),
-          } as RMFFund;
-        } catch (error) {
-          console.error(`Error fetching daily info for ${factSheet.proj_abbr_name}:`, error);
-          // Return fund with basic info if daily data fetch fails
-          return {
-            fundCode: factSheet.proj_abbr_name,
-            fundName: factSheet.proj_name_th,
-            fundNameEn: factSheet.proj_name_en,
-            amcName: factSheet.management_company,
-            fundType: factSheet.policy_type || 'Mixed',
-            riskLevel: factSheet.risk_spectrum || 4,
-            nav: 0,
-            navChange: 0,
-            navChangePercent: 0,
-            navDate: new Date().toISOString(),
-            lastUpdate: new Date().toISOString(),
-          } as RMFFund;
-        }
-      })
-    );
-
-    return { funds, total };
+    return { funds: paginatedFunds, total };
   } catch (error) {
-    console.error('Error fetching RMF funds from SEC API:', error);
+    console.error('Error fetching RMF funds from SET SMART API:', error);
     throw error;
   }
 }
@@ -346,117 +276,79 @@ export async function fetchRMFFunds(options?: {
 /**
  * Fetch detailed information for a specific RMF fund
  */
-export async function fetchRMFFundDetail(fundCode: string): Promise<RMFFund | null> {
+export async function fetchRMFFundDetail(fundSymbol: string): Promise<RMFFund | null> {
   try {
-    // Search for the specific fund using POST endpoint
-    const factSheets = await secApiRequest<SECFundFactSheet[]>(
-      '/FundFactsheet/fund',
-      {
-        method: 'POST',
-        body: { keyword: fundCode },
-        cacheKey: `fund-search-${fundCode}`,
-        cacheTTL: 60 * 60 * 1000, // 1 hour
-      }
-    );
-
-    const factSheet = factSheets.find(fund =>
-      fund.proj_abbr_name === fundCode || fund.proj_id === fundCode
-    );
-
-    if (!factSheet) {
-      return null;
-    }
-
-    // Get today's date for NAV
+    // Get today's date
     const today = new Date();
-    const navDate = today.toISOString().split('T')[0];
-
-    // Fetch daily NAV info
-    let dailyInfo: SECFundDailyInfo | null = null;
+    let dateStr = today.toISOString().split('T')[0];
     
-    try {
-      dailyInfo = await secApiRequest<SECFundDailyInfo>(
-        `/FundDailyInfo/${factSheet.proj_id}/dailynav/${navDate}`,
-        {
-          cacheKey: `fund-daily-${factSheet.proj_id}-${navDate}`,
-          cacheTTL: 60 * 60 * 1000,
-        }
-      );
-    } catch (error) {
-      // Try yesterday if today is not available
-      const yesterday = new Date(today);
-      yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayDate = yesterday.toISOString().split('T')[0];
+    // Try to get data from the last 60 trading days
+    let attempts = 0;
+    const maxAttempts = 60;
+    
+    while (attempts < maxAttempts) {
+      const targetDate = new Date(today);
+      targetDate.setDate(targetDate.getDate() - attempts);
       
-      dailyInfo = await secApiRequest<SECFundDailyInfo>(
-        `/FundDailyInfo/${factSheet.proj_id}/dailynav/${yesterdayDate}`,
-        {
-          cacheKey: `fund-daily-${factSheet.proj_id}-${yesterdayDate}`,
-          cacheTTL: 60 * 60 * 1000,
+      // Skip weekends
+      const dayOfWeek = targetDate.getDay();
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        attempts++;
+        continue;
+      }
+      
+      dateStr = targetDate.toISOString().split('T')[0];
+      
+      try {
+        // Fetch specific fund data by symbol
+        const unitTrusts = await setSMARTApiRequest<SETSMARTUnitTrust[]>(
+          `/eod-price-by-symbol?symbol=${fundSymbol}&startDate=${dateStr}&endDate=${dateStr}&adjustedPriceFlag=N`,
+          {
+            cacheKey: `fund-${fundSymbol}-${dateStr}`,
+            cacheTTL: 60 * 60 * 1000, // 1 hour
+          }
+        );
+
+        if (unitTrusts && unitTrusts.length > 0) {
+          const ut = unitTrusts[0];
+          
+          // Verify it's a Unit Trust
+          if (ut.securityType !== 'UT') {
+            console.warn(`${fundSymbol} is not a Unit Trust (type: ${ut.securityType})`);
+            return null;
+          }
+
+          return mapUnitTrustToRMF(ut);
         }
-      );
+      } catch (error) {
+        console.log(`No data for ${fundSymbol} on ${dateStr}, trying previous day...`);
+      }
+      
+      attempts++;
     }
 
-    const currentNav = dailyInfo.last_val;
-    const priorNav = dailyInfo.previous_val || currentNav;
-    const navChange = currentNav - priorNav;
-    const navChangePercent = priorNav > 0 ? (navChange / priorNav) * 100 : 0;
-
-    // Try to fetch portfolio holdings
-    let assetAllocation: AssetAllocation[] | undefined;
-    let topHoldings: FundHolding[] | undefined;
-
-    try {
-      const portfolio = await secApiRequest<SECFundPortfolio[]>(
-        `/FundDailyInfo/${factSheet.proj_id}/portfolio`,
-        {
-          cacheKey: `fund-portfolio-${factSheet.proj_id}`,
-          cacheTTL: 24 * 60 * 60 * 1000,
-        }
-      );
-
-      assetAllocation = portfolio.map(item => ({
-        assetType: item.asset_type,
-        percentage: item.asset_percent,
-      }));
-    } catch (error) {
-      console.log(`Portfolio data not available for ${fundCode}`);
-    }
-
-    return {
-      fundCode: factSheet.proj_abbr_name,
-      fundName: factSheet.proj_name_th,
-      fundNameEn: factSheet.proj_name_en,
-      amcName: factSheet.management_company,
-      fundType: factSheet.policy_type || 'Mixed',
-      riskLevel: factSheet.risk_spectrum || 4,
-      nav: currentNav,
-      navChange: Number(navChange.toFixed(4)),
-      navChangePercent: Number(navChangePercent.toFixed(2)),
-      navDate: dailyInfo.nav_date,
-      assetAllocation,
-      topHoldings,
-      lastUpdate: new Date().toISOString(),
-    } as RMFFund;
+    console.warn(`[SET SMART API] No data found for ${fundSymbol} in the past 60 days`);
+    return null;
   } catch (error) {
-    console.error(`Error fetching RMF fund detail for ${fundCode}:`, error);
+    console.error(`Error fetching RMF fund detail for ${fundSymbol}:`, error);
     throw error;
   }
 }
 
 /**
- * Search RMF funds by name or code
+ * Search RMF funds by symbol or name
  */
 export async function searchRMFFunds(query: string): Promise<RMFFund[]> {
-  const { funds } = await fetchRMFFunds();
+  const { funds } = await fetchRMFFunds({ pageSize: 1000 }); // Get all funds
 
-  const searchTerm = query.toLowerCase();
-  return funds.filter(fund =>
-    fund.fundCode.toLowerCase().includes(searchTerm) ||
-    fund.fundName.toLowerCase().includes(searchTerm) ||
-    fund.fundNameEn?.toLowerCase().includes(searchTerm) ||
-    fund.amcName.toLowerCase().includes(searchTerm)
+  const searchTerm = query.toUpperCase();
+  const filteredFunds = funds.filter(fund =>
+    fund.symbol.toUpperCase().includes(searchTerm) ||
+    fund.fundName.toUpperCase().includes(searchTerm)
   );
+  
+  console.log(`[SET SMART API] Search for "${query}" found ${filteredFunds.length} results`);
+  return filteredFunds;
 }
 
 /**
@@ -464,5 +356,5 @@ export async function searchRMFFunds(query: string): Promise<RMFFund[]> {
  */
 export function clearCache(): void {
   cache.clear();
-  console.log('[SEC API] Cache cleared');
+  console.log('[SET SMART API] Cache cleared');
 }
