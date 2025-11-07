@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
-import { Building2, ArrowLeft } from "lucide-react";
+import { Building2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -71,19 +70,11 @@ export default function RMF() {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-background sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/">
-              <Button variant="ghost" size="sm" data-testid="button-back">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
-              </Button>
-            </Link>
-            <div className="flex items-center gap-2">
-              <Building2 className="w-6 h-6 text-primary" />
-              <h1 className="text-lg font-semibold text-foreground">
-                Thai RMF Tracker
-              </h1>
-            </div>
+          <div className="flex items-center gap-2">
+            <Building2 className="w-6 h-6 text-primary" />
+            <h1 className="text-lg font-semibold text-foreground">
+              Thai RMF Fund Tracker
+            </h1>
           </div>
           <ThemeToggle />
         </div>
@@ -188,7 +179,7 @@ export default function RMF() {
             {viewMode === 'cards' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {funds.map((fund) => (
-                  <RMFFundCard key={fund.fundCode} fund={fund} />
+                  <RMFFundCard key={fund.symbol} fund={fund} />
                 ))}
               </div>
             ) : (
