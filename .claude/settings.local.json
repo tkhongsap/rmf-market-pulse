@@ -5,7 +5,8 @@
       "WebFetch(domain:www.setinvestnow.com)",
       "WebFetch(domain:www.scbam.com)",
       "WebFetch(domain:www.set.or.th)",
-      "WebFetch(domain:market.sec.or.th)"
+      "WebFetch(domain:market.sec.or.th)",
+      "WebFetch(domain:developers.openai.com)"
     ],
     "deny": [],
     "ask": []
