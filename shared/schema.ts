@@ -142,3 +142,105 @@ export const setsmartFinancialDataSchema = z.object({
 });
 
 export type SETSmartFinancialData = z.infer<typeof setsmartFinancialDataSchema>;
+
+// ====================================================================
+// FUND PERFORMANCE & BENCHMARK DATA (SEC Fund Factsheet API)
+// ====================================================================
+
+/**
+ * Fund Performance Schema
+ * Returns across different time periods
+ */
+export const fundPerformanceSchema = z.object({
+  ytd: z.number().nullable(), // Year-to-date return %
+  threeMonth: z.number().nullable(), // 3-month return %
+  sixMonth: z.number().nullable(), // 6-month return %
+  oneYear: z.number().nullable(), // 1-year return %
+  threeYear: z.number().nullable(), // 3-year annualized return %
+  fiveYear: z.number().nullable(), // 5-year annualized return %
+  tenYear: z.number().nullable(), // 10-year annualized return %
+  sinceInception: z.number().nullable(), // Since inception return %
+});
+
+export type FundPerformance = z.infer<typeof fundPerformanceSchema>;
+
+/**
+ * Benchmark Data Schema
+ * Benchmark information and returns
+ */
+export const benchmarkDataSchema = z.object({
+  name: z.string(), // Benchmark name (e.g., "MSCI AC Asia Pacific ex Japan")
+  indexCode: z.string().nullable(), // Index code
+  returns: fundPerformanceSchema, // Benchmark returns across time periods
+});
+
+export type BenchmarkData = z.infer<typeof benchmarkDataSchema>;
+
+/**
+ * Volatility Metrics Schema
+ * Risk and volatility measurements
+ */
+export const volatilityMetricsSchema = z.object({
+  standardDeviation: z.number().nullable(), // 5-year standard deviation %
+  maxDrawdown: z.number().nullable(), // Maximum loss in 5 years %
+  volatility: z.number().nullable(), // Volatility measure
+});
+
+export type VolatilityMetrics = z.infer<typeof volatilityMetricsSchema>;
+
+/**
+ * Tracking Error Schema
+ * Measures how closely fund follows benchmark
+ */
+export const trackingErrorSchema = z.object({
+  oneYear: z.number().nullable(), // 1-year tracking error %
+  description: z.string().nullable(), // Explanation
+});
+
+export type TrackingError = z.infer<typeof trackingErrorSchema>;
+
+/**
+ * Fund Comparison Data Schema
+ * Category and peer group classification
+ */
+export const fundCompareDataSchema = z.object({
+  category: z.string().nullable(), // Fund category for comparison
+  categoryCode: z.string().nullable(), // Category code
+  peerGroup: z.string().nullable(), // Peer group classification
+});
+
+export type FundCompareData = z.infer<typeof fundCompareDataSchema>;
+
+/**
+ * Extended RMF Fund Detail Schema
+ * Includes performance, benchmark, and volatility data
+ */
+export const rmfFundDetailSchema = rmfFundSchema.extend({
+  // Performance metrics
+  performance: fundPerformanceSchema.nullable().optional(),
+  benchmark: benchmarkDataSchema.nullable().optional(),
+  volatility: volatilityMetricsSchema.nullable().optional(),
+  trackingError: trackingErrorSchema.nullable().optional(),
+  compareData: fundCompareDataSchema.nullable().optional(),
+
+  // Additional fund metadata from SEC API
+  projId: z.string().optional(), // SEC Project ID (e.g., "M0774_2554")
+  amcId: z.string().optional(), // AMC unique ID
+  registrationId: z.string().optional(),
+  registrationDate: z.string().optional(),
+  fundStatus: z.string().optional(), // "RG" (Registered), "CL" (Closed), etc.
+  assetAllocation: z.array(assetAllocationSchema).optional(),
+  topHoldings: z.array(fundHoldingSchema).optional(),
+});
+
+export type RMFFundDetail = z.infer<typeof rmfFundDetailSchema>;
+
+/**
+ * API Response for RMF Fund Detail with Performance Data
+ */
+export const rmfFundDetailWithPerformanceResponseSchema = z.object({
+  fund: rmfFundDetailSchema,
+  timestamp: z.string(),
+});
+
+export type RMFFundDetailWithPerformanceResponse = z.infer<typeof rmfFundDetailWithPerformanceResponseSchema>;
