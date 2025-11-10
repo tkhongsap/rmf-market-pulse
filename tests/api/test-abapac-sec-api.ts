@@ -12,7 +12,7 @@ import {
   testApiConnection,
   clearCache,
   type FundDailyNav,
-} from './server/services/secFundDailyInfoApi';
+} from '../../server/services/secFundDailyInfoApi';
 
 const colors = {
   reset: '\x1b[0m',

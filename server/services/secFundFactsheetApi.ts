@@ -683,6 +683,189 @@ export async function fetchFundCompare(proj_id: string): Promise<FundCompareData
 }
 
 /**
+ * Fetch fee structure for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns Fee structure data
+ */
+export async function fetchFundFees(proj_id: string): Promise<any[] | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/fee`;
+
+    const fees = await secFundFactsheetApiRequest<any[]>(
+      endpoint,
+      {
+        cacheKey: `factsheet-fees-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    console.log(`[SEC Fund Factsheet API] Fetched fee data for ${proj_id}`);
+    return fees;
+  } catch (error) {
+    console.error(`Error fetching fees for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch involved parties for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns Involved parties data (fund managers, custodians, etc.)
+ */
+export async function fetchInvolvedParties(proj_id: string): Promise<any[] | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/InvolveParty`;
+
+    const parties = await secFundFactsheetApiRequest<any[]>(
+      endpoint,
+      {
+        cacheKey: `factsheet-parties-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    console.log(`[SEC Fund Factsheet API] Fetched involved parties for ${proj_id}`);
+    return parties;
+  } catch (error) {
+    console.error(`Error fetching involved parties for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch top 5 holdings for a fund
+ *
+ * @param proj_id Fund project ID
+ * @param period Period in YYYYMMDD format (e.g., "20250930")
+ * @returns Top 5 holdings data
+ */
+export async function fetchFundTop5Holdings(proj_id: string, period: string): Promise<any[] | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/FundTop5/${period}`;
+
+    const holdings = await secFundFactsheetApiRequest<any[]>(
+      endpoint,
+      {
+        cacheKey: `factsheet-top5-${proj_id}-${period}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    console.log(`[SEC Fund Factsheet API] Fetched top 5 holdings for ${proj_id}`);
+    return holdings;
+  } catch (error) {
+    console.error(`Error fetching top 5 holdings for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch risk factors for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns Risk factors data
+ */
+export async function fetchFundRiskFactors(proj_id: string): Promise<any[] | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/risk`;
+
+    const riskFactors = await secFundFactsheetApiRequest<any[]>(
+      endpoint,
+      {
+        cacheKey: `factsheet-risk-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    console.log(`[SEC Fund Factsheet API] Fetched risk factors for ${proj_id}`);
+    return riskFactors;
+  } catch (error) {
+    console.error(`Error fetching risk factors for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch investor suitability for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns Suitability data
+ */
+export async function fetchFundSuitability(proj_id: string): Promise<any | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/suitability`;
+
+    const suitability = await secFundFactsheetApiRequest<any>(
+      endpoint,
+      {
+        cacheKey: `factsheet-suitability-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    console.log(`[SEC Fund Factsheet API] Fetched suitability for ${proj_id}`);
+    return suitability;
+  } catch (error) {
+    console.error(`Error fetching suitability for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch document URLs for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns URLs for factsheet, reports, etc.
+ */
+export async function fetchFundURLs(proj_id: string): Promise<any | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/URLs`;
+
+    const urls = await secFundFactsheetApiRequest<any>(
+      endpoint,
+      {
+        cacheKey: `factsheet-urls-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    console.log(`[SEC Fund Factsheet API] Fetched URLs for ${proj_id}`);
+    return urls;
+  } catch (error) {
+    console.error(`Error fetching URLs for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch investment minimums for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns Investment minimum requirements
+ */
+export async function fetchFundInvestmentMinimums(proj_id: string): Promise<any[] | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/investment`;
+
+    const minimums = await secFundFactsheetApiRequest<any[]>(
+      endpoint,
+      {
+        cacheKey: `factsheet-investment-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    console.log(`[SEC Fund Factsheet API] Fetched investment minimums for ${proj_id}`);
+    return minimums;
+  } catch (error) {
+    console.error(`Error fetching investment minimums for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
  * Test API connectivity
  */
 export async function testApiConnection(): Promise<boolean> {
