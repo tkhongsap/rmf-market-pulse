@@ -6,7 +6,18 @@
       "WebFetch(domain:www.scbam.com)",
       "WebFetch(domain:www.set.or.th)",
       "WebFetch(domain:market.sec.or.th)",
-      "WebFetch(domain:developers.openai.com)"
+      "WebFetch(domain:developers.openai.com)",
+      "Bash(env)",
+      "Bash(cat:*)",
+      "Bash(paste:*)",
+      "Bash(node -e:*)",
+      "Bash(xargs:*)",
+      "Bash(comm -23:*)",
+      "Bash(comm:*)",
+      "Bash(while read symbol)",
+      "Bash(do grep -q \"\"\"$symbol\"\"\" data/progress.json)",
+      "Bash(echo:*)",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []
