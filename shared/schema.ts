@@ -80,3 +80,65 @@ export const rmfFundDetailResponseSchema = z.object({
 
 export type RMFFundsResponse = z.infer<typeof rmfFundsResponseSchema>;
 export type RMFundDetailResponse = z.infer<typeof rmfFundDetailResponseSchema>;
+
+// SETSmart API - Stock Quote Response (EOD Price endpoints)
+export const setsmartStockQuoteSchema = z.object({
+  date: z.string(), // Trading date in YYYY-MM-DD format
+  symbol: z.string(), // Stock symbol (e.g., "PTT", "AOT")
+  securityType: z.string(), // CS, PS, W, ETF, etc.
+  adjustedPriceFlag: z.string(), // "Y" or "N"
+  prior: z.number().nullable(), // Previous closing price
+  open: z.number().nullable(), // Opening price
+  high: z.number().nullable(), // Highest price
+  low: z.number().nullable(), // Lowest price
+  close: z.number().nullable(), // Closing price
+  average: z.number().nullable(), // Average price
+  aomVolume: z.number().nullable(), // AOM trading volume
+  aomValue: z.number().nullable(), // AOM trading value
+  trVolume: z.number().nullable(), // Through trade volume
+  trValue: z.number().nullable(), // Through trade value
+  totalVolume: z.number().nullable(), // Total trading volume
+  totalValue: z.number().nullable(), // Total trading value
+  pe: z.number().nullable(), // Price-to-Earnings ratio
+  pbv: z.number().nullable(), // Price-to-Book Value ratio
+  bvps: z.number().nullable(), // Book Value Per Share
+  dividendYield: z.number().nullable(), // Dividend yield percentage
+  marketCap: z.number().nullable(), // Market capitalization
+  volumeTurnover: z.number().nullable(), // Volume turnover ratio
+});
+
+export type SETSmartStockQuote = z.infer<typeof setsmartStockQuoteSchema>;
+
+// SETSmart API - Financial Data Response
+export const setsmartFinancialDataSchema = z.object({
+  symbol: z.string(), // Company symbol
+  year: z.string(), // Fiscal year (YYYY)
+  quarter: z.string(), // Quarter (1-4)
+  financialStatementType: z.string(), // C=Consolidated, S=Separate
+  dateAsof: z.string(), // Date in YYYY-MM-DD format
+  accountPeriod: z.string(), // F=Fiscal Year, C=Calendar Year
+  // Balance Sheet (in Thousand Baht)
+  totalAssets: z.number().nullable(),
+  totalLiabilities: z.number().nullable(),
+  paidupShareCapital: z.number().nullable(),
+  shareholderEquity: z.number().nullable(),
+  totalEquity: z.number().nullable(),
+  // Income Statement (in Thousand Baht)
+  totalRevenueQuarter: z.number().nullable(), // Revenue for the quarter
+  totalRevenueAccum: z.number().nullable(), // Accumulated revenue (YTD)
+  ebitQuarter: z.number().nullable(), // EBIT for the quarter
+  ebitAccum: z.number().nullable(), // Accumulated EBIT (YTD)
+  netProfitQuarter: z.number().nullable(), // Net profit for the quarter
+  netProfitAccum: z.number().nullable(), // Accumulated net profit (YTD)
+  // Per Share Metrics
+  epsQuarter: z.number().nullable(), // Earnings Per Share (quarter)
+  epsAccum: z.number().nullable(), // Earnings Per Share (accumulated)
+  // Financial Ratios
+  roe: z.number().nullable(), // Return on Equity (%)
+  roa: z.number().nullable(), // Return on Assets (%)
+  de: z.number().nullable(), // Debt to Equity ratio
+  fixedAssetTurnover: z.number().nullable(), // Fixed asset turnover
+  totalAssetTurnover: z.number().nullable(), // Total asset turnover
+});
+
+export type SETSmartFinancialData = z.infer<typeof setsmartFinancialDataSchema>;
