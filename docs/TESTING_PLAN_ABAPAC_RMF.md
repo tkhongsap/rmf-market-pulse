@@ -2,14 +2,33 @@
 
 **Project**: Thai RMF Market Pulse  
 **Reference Fund**: ABAPAC-RMF (abrdn Asia Pacific Equity Retirement Mutual Fund)  
+**Branch**: feature/abapac-rmf-testing  
 **Date**: November 10, 2025  
-**Status**: In Progress  
+**Status**: 🚧 Blocked - Requires SEC API Subscription  
 
 ---
 
 ## Executive Summary
 
-This testing plan validates what data we can actually retrieve from our API endpoints using ABAPAC-RMF as the reference case. This will inform which features from the target screenshots we can implement.
+This document tracks all testing activities for implementing the enhanced fund detail page using ABAPAC-RMF as the reference case.
+
+### 🚨 Critical Findings
+
+1. ❌ **SETSMART API does NOT contain RMF fund data**
+   - SETSMART only covers securities traded on Stock Exchange of Thailand (SET)
+   - RMF funds are off-exchange securities, not listed on SET
+   - All 410 symbols in CSV (e.g., "ABAPAC-RMF") are SEC fund codes, not SET symbols
+
+2. ✅ **Thailand SEC Fund APIs are the correct data source**
+   - SEC Fund Daily Info API - for NAV data
+   - SEC Fund Factsheet API - for fund metadata, fees, benchmark, etc.
+
+3. 🚧 **API Subscription Required**
+   - Current SEC_API_KEY does not work for SEC Fund APIs (401 error)
+   - Need to subscribe at https://api-portal.sec.or.th/
+   - Requires separate subscription keys for:
+     - Fund Daily Info API
+     - Fund Factsheet API
 
 ---
 
@@ -64,108 +83,190 @@ Fund for tax allowance: RMF
 GET /eod-price-by-symbol?symbol=ABAPAC-RMF&startDate={today}&endDate={today}&adjustedPriceFlag=N
 ```
 
-**Status:** ⏳ Testing...
+**Status:** ❌ FAILED
+
+**Result:**
+```
+404 "Invalid Stock Name"
+```
+
+**Details:**
+- Tested for 30 consecutive trading days
+- All queries returned 404 "Invalid Stock Name"
+- Confirmed ABAPAC-RMF not in SETSMART database
+- SETSMART only has SET-listed securities (stocks, ETFs)
+- RMF funds are off-exchange, not available through SETSMART
+
+**Conclusion:** SETSMART API is the wrong data source for RMF funds
 
 ---
 
-## 4. Data Availability Matrix
+## 4. SEC Fund API Test Results
 
-| Data Field | CSV | SETSMART | SEC Factsheet | Calculated | Status |
-|------------|-----|----------|---------------|------------|--------|
+### 4.1 Test: Authentication
+
+**Status:** ❌ FAILED - 401 Unauthorized
+
+**Details:**
+```
+POST https://api.sec.or.th/FundFactsheet/fund
+Response: {
+  "statusCode": 401,
+  "message": "Access denied due to invalid subscription key. 
+              Make sure to provide a valid key for an active subscription."
+}
+```
+
+**Current SEC_API_KEY is not subscribed to SEC Fund APIs**
+
+### 4.2 Required Actions
+
+**To Unblock Testing:**
+1. Visit https://api-portal.sec.or.th/
+2. Create account / Sign in  
+3. Navigate to Products
+4. Subscribe to:
+   - Fund Daily Info API
+   - Fund Factsheet API
+5. Get subscription keys from profile
+6. Update environment variables:
+   - `SEC_FUND_DAILY_INFO_KEY`
+   - `SEC_FUND_FACTSHEET_KEY`
+
+**Contact:** repcenter@sec.or.th
+
+---
+
+## 5. Data Availability Matrix (Updated)
+
+| Data Field | CSV | SETSMART | SEC Daily Info | SEC Factsheet | Calculated |
+|------------|-----|----------|----------------|---------------|------------|
 | **Basic Information** |
-| Fund Symbol | ✅ | ✅ | - | - | Available |
-| Fund Name | ✅ | - | ⚠️ | - | CSV only |
-| AMC Name | ✅ | - | ⚠️ | - | CSV only |
-| Classification (AIMC) | ✅ | - | ⚠️ | - | CSV only |
-| Management Style | ✅ | - | ⚠️ | - | CSV only |
-| Dividend Policy | ✅ | - | ⚠️ | - | CSV only |
-| Risk Level (1-8) | ✅ | - | ⚠️ | - | CSV only |
-| Tax Allowance Type | ✅ | - | - | - | Available |
-| Benchmark Name | ❌ | ❌ | ⚠️ | - | **TEST NEEDED** |
-| Currency | ❌ | - | ⚠️ | - | Assume THB |
+| Fund Symbol | ✅ | ❌ | 🚧 | 🚧 | - |
+| Fund Name | ✅ | ❌ | 🚧 | 🚧 | - |
+| AMC Name | ✅ | ❌ | 🚧 | 🚧 | - |
+| Classification (AIMC) | ✅ | ❌ | ❌ | 🚧 | - |
+| Management Style | ✅ | ❌ | ❌ | 🚧 | - |
+| Dividend Policy | ✅ | ❌ | ❌ | 🚧 | - |
+| Risk Level (1-8) | ✅ | ❌ | ❌ | 🚧 | - |
+| Tax Allowance Type | ✅ | ❌ | ❌ | 🚧 | - |
+| Benchmark Name | ❌ | ❌ | ❌ | 🚧 | - |
 | **Current NAV** |
-| Current NAV | - | ⏳ | ⚠️ | - | **TESTING** |
-| NAV Date | - | ⏳ | ⚠️ | - | **TESTING** |
-| Prior NAV | - | ⏳ | - | - | **TESTING** |
-| NAV Change (Baht) | - | - | - | ✅ | Can Calculate |
-| NAV Change (%) | - | - | - | ✅ | Can Calculate |
+| Current NAV | - | ❌ | 🚧 | - | - |
+| NAV Date | - | ❌ | 🚧 | - | - |
+| Prior NAV | - | ❌ | 🚧 | - | - |
+| NAV Change (Baht) | - | ❌ | - | - | 🚧 |
+| NAV Change (%) | - | ❌ | - | - | 🚧 |
 | **Trading Data** |
-| Volume | - | ⏳ | - | - | **TESTING** |
-| Value | - | ⏳ | - | - | **TESTING** |
-| P/NAV Ratio | - | ⏳ | - | - | **TESTING** |
+| Volume | - | ❌ | 🚧 | - | - |
+| Value | - | ❌ | 🚧 | - | - |
 | **Performance** |
-| YTD Return | - | - | ⚠️ | ⏳ | **TESTING** |
-| 1 Week Return | - | - | ⚠️ | ⏳ | **TESTING** |
-| 1 Month Return | - | - | ⚠️ | ⏳ | **TESTING** |
-| 3 Months Return | - | - | ⚠️ | ⏳ | **TESTING** |
-| 6 Months Return | - | - | ⚠️ | ⏳ | **TESTING** |
-| 1 Year Return | - | - | ⚠️ | ⏳ | **TESTING** |
-| 3 Year Return | - | - | ⚠️ | ⏳ | **TESTING** |
-| 5 Year Return | - | - | ⚠️ | ⏳ | **TESTING** |
-| 10 Year Return | - | - | ⚠️ | ⏳ | **TESTING** |
-| Standard Deviation | - | - | ⚠️ | ⏳ | **TESTING** |
+| Historical NAV | - | ❌ | 🚧 | 🚧 | - |
+| YTD Return | - | ❌ | - | - | 🚧 |
+| 1W, 1M, 3M Returns | - | ❌ | - | - | 🚧 |
+| 6M, 1Y Returns | - | ❌ | - | - | 🚧 |
+| 3Y, 5Y, 10Y Returns | - | ❌ | - | - | 🚧 |
+| Since Inception | - | ❌ | - | - | 🚧 |
+| Standard Deviation (σ) | - | ❌ | - | - | 🚧 |
 | **Rankings** |
-| Rank in RMF | - | - | ❌ | ⚠️ | **Expensive** |
-| Rank in Category | - | - | ❌ | ⚠️ | **Expensive** |
-| Total Funds in Category | ✅ | - | ❌ | ✅ | Can count from CSV |
+| Rank in RMF | - | ❌ | ❌ | ❌ | 🚧 |
+| Rank in Category | - | ❌ | ❌ | ❌ | 🚧 |
+| Total Funds in Category | ✅ | ❌ | ❌ | ❌ | ✅ |
 | **Portfolio Details** |
-| Asset Allocation | - | - | ⚠️ | - | **TEST NEEDED** |
-| Top Holdings | - | - | ⚠️ | - | **TEST NEEDED** |
+| Asset Allocation | - | ❌ | ❌ | 🚧 | - |
+| Top Holdings | - | ❌ | ❌ | 🚧 | - |
 | **Other** |
-| Fees | - | - | ⚠️ | - | **TEST NEEDED** |
-| Min Subscription | - | - | ⚠️ | - | **TEST NEEDED** |
-| Inception Date | - | - | ⚠️ | - | **TEST NEEDED** |
-| Factsheet PDF | - | - | ⚠️ | - | **TEST NEEDED** |
+| Fees | - | ❌ | ❌ | 🚧 | - |
+| Fund Manager | - | ❌ | ❌ | 🚧 | - |
+| Min Subscription | - | ❌ | ❌ | 🚧 | - |
+| Inception Date | - | ❌ | ❌ | 🚧 | - |
 
 **Legend:**
 - ✅ Confirmed available
-- ⏳ Currently testing
-- ⚠️ Needs testing to confirm
-- ❌ Not available
-- **TESTING** - Test in progress
-- **TEST NEEDED** - Requires SEC API access
-- **Expensive** - Requires many API calls (defer to Phase 4)
+- 🚧 Blocked - awaiting SEC API subscription
+- ❌ Not available in this source
 
 ---
 
-## 5. Test Execution Log
+## 6. Code Assets Created
 
-### Test 1: Current NAV Data
-**Time:** ⏳ Starting...  
-**Command:** Query ABAPAC-RMF current data  
-**Result:** Pending...
+### Service Layer
+- ✅ `server/services/secFundApi.ts` - Complete SEC Fund API service
+  - Fund search and proj_id lookup
+  - Daily NAV retrieval (current and historical)
+  - Fund policy, fees, manager history
+  - Comprehensive data aggregation
+  - Rate limiting consideration
+  - Error handling
 
-### Test 2: Historical NAV Data (10 years)
-**Time:** Pending  
-**Command:** Query ABAPAC-RMF from 2015-11-10 to 2025-11-10  
-**Result:** Pending...
+### Test Scripts
+- ✅ `test-sec-fund-api.ts` - Comprehensive test suite
+  - Tests all 7 key endpoints
+  - Data validation
+  - Comparison with screenshot targets
+  - Results summary
 
-### Test 3: CSV Metadata Verification
-**Time:** ✅ Completed  
-**Result:** Found ABAPAC-RMF with complete metadata  
-**Data:**
-- Symbol: ABAPAC-RMF
-- Fund Name: abrdn Asia Pacific Equity Retirement Mutual Fund
-- AMC: ABERDEEN ASSET MANAGEMENT (THAILAND) LIMITED
-- Classification: EQASxJP (Asia Pacific Ex Japan)
-- Management Style: AM (Active Management)
-- Dividend Policy: No
-- Risk: 6 (High)
-- Tax Allowance: RMF
+### Documentation
+- ✅ `docs/PHASE1_REVISED_STRATEGY.md` - Strategic pivot documentation
+- ✅ `docs/TESTING_PLAN_ABAPAC_RMF.md` - This file
 
 ---
 
-## 6. Next Steps
+## 7. Current Blockers
 
-After completing tests:
+### BLOCKER #1: API Subscription Required
+**Priority**: 🔴 CRITICAL  
+**Impact**: Cannot test or implement any SEC Fund API features
 
-1. ✅ Document actual API responses
-2. ✅ Update data availability matrix
-3. ✅ Calculate what performance metrics are possible
-4. ⚠️ Investigate SEC Fund Factsheet API access
-5. ✅ Create Phase 2 recommendations
+**Resolution Steps**:
+1. Visit https://api-portal.sec.or.th/
+2. Subscribe to Fund Daily Info API
+3. Subscribe to Fund Factsheet API
+4. Update environment variables with new keys
+5. Re-run tests
+
+**Timeline**: User action required
 
 ---
 
-**Document Status:** In Progress  
-**Last Updated:** November 10, 2025
+## 8. Next Steps
+
+### Immediate (User Action Required)
+1. ⚠️ Subscribe to SEC Fund APIs at api-portal.sec.or.th
+2. ⚠️ Get subscription keys for Fund Daily Info and Fund Factsheet APIs
+3. ⚠️ Update environment variables:
+   - `SEC_FUND_DAILY_INFO_KEY`
+   - `SEC_FUND_FACTSHEET_KEY`
+
+### After Authentication
+1. Run full test suite: `npx tsx test-sec-fund-api.ts`
+2. Document actual API responses
+3. Update type definitions based on real data
+4. Research remaining endpoints (asset allocation, holdings)
+5. Calculate performance metrics from historical NAV
+6. Implement API routes
+7. Build enhanced fund detail page UI
+
+---
+
+## 9. References
+
+### Official Documentation
+- **SEC API Portal**: https://api-portal.sec.or.th/
+- **API Documentation**: https://api-portal.sec.or.th/apis
+- **Changelog**: https://api-portal.sec.or.th/changes
+
+### Community Resources
+- **GitHub Example**: https://github.com/Zummation/SEC-API
+
+### Contact
+- **Email**: repcenter@sec.or.th
+- **Rate Limit**: 3,000 calls per 300 seconds
+- **For higher limits**: Contact repcenter@sec.or.th
+
+---
+
+**Document Version**: 2.0  
+**Last Updated**: November 10, 2025  
+**Status**: Blocked - Awaiting SEC API Subscription  
+**Next Review**: After SEC API access obtained
