@@ -1,72 +1,66 @@
-# Financial Data Tracker - ChatGPT App
+# Thai RMF Market Pulse - ChatGPT App
 
-A real-time financial data application that integrates with ChatGPT using the Model Context Protocol (MCP). Users can access:
-- **Commodities**: Simulated prices for gold, silver, oil, and agricultural products
-- **Forex**: Simulated currency exchange rates  
-- **Thailand RMF/Unit Trusts**: Real data from SET SMART API
+A real-time financial data application for tracking Thai Retirement Mutual Funds (RMF) that integrates with ChatGPT using the Model Context Protocol (MCP). Users can access:
+- **Thailand RMF**: 410+ Thai Retirement Mutual Funds with real data from Thailand SEC API
 
 ## Project Overview
 
 ### Technology Stack
-- **Frontend**: React, TypeScript, TanStack Query, Tailwind CSS, Shadcn UI
+- **Frontend**: React, TypeScript, TanStack Query, Tailwind CSS, Radix UI
 - **Backend**: Express.js, TypeScript, Node.js 20
-- **Data Sources**: 
-  - SET SMART API for Thailand mutual funds (Unit Trusts)
-  - Simulated data for commodities and forex
+- **Data Sources**:
+  - Thailand SEC API for Retirement Mutual Funds (RMF)
+  - Pre-extracted fund database (410 funds in CSV/Markdown)
 - **Integration**: MCP (Model Context Protocol) for ChatGPT embedding
 
 ### Current Implementation Status
 
 #### Completed
-- ✅ Frontend UI with interactive widgets for commodities, forex, and RMF funds
+- ✅ Frontend UI with interactive widgets for RMF funds
 - ✅ Dark mode support with theme toggle
-- ✅ Card and table view modes for data display
-- ✅ Responsive design following OpenAI Apps SDK guidelines  
-- ✅ RESTful API endpoints (/api/commodities, /api/forex, /api/rmf)
+- ✅ Card and table view modes for fund display
+- ✅ Responsive design following OpenAI Apps SDK guidelines
+- ✅ RESTful API endpoint (/api/rmf)
 - ✅ MCP protocol endpoint for ChatGPT integration (/mcp)
 - ✅ Health check endpoint (/healthz)
 - ✅ Error handling and loading states
 - ✅ TanStack Query integration with default fetch handler
-- ✅ **SET SMART API Integration** for Thailand Unit Trusts (mutual funds)
+- ✅ **Thailand SEC API Integration** for RMF (Retirement Mutual Funds)
   - Real-time NAV (Net Asset Value) data
-  - P/NAV ratios, dividend yields
-  - Trading volume and value
-  - Intelligent fallback: Searches up to 60 days back for latest available data
+  - Fund details (AMC, classification, risk level)
+  - Asset allocation and holdings
   - Rate limiting: 3000 calls per 5 minutes
-  - Caching: 1-hour TTL for recent data
+  - Caching: Fund lists (24h TTL), NAV data (1h TTL)
+- ✅ **Structured Fund Database**
+  - 410 funds extracted to CSV and Markdown formats
+  - 8 data fields per fund (Symbol, Fund Name, AMC, Classification, Management Style, Dividend Policy, Risk, Tax Allowance)
+  - Extraction scripts for reproducibility (Node.js and Python)
 
 #### Data Sources
-- 📊 **Commodities & Forex**: Simulated data
-  - Realistic baseline prices with volatility simulation
-  - Ready for production API integration when needed
-  
-- 📈 **Thailand RMF/Unit Trusts**: Live data from SET SMART API
-  - Real NAV, P/NAV, and performance metrics
-  - Fetches latest available data (searches back up to 60 days)
-  - Currently showing all Unit Trusts (UT security type)
-  - **Limitation**: SET SMART API doesn't distinguish RMF specifically from other mutual funds
-  - **Limitation**: Fund names are synthesized as "[Symbol] Unit Trust" because SET SMART EOD endpoints only provide price data, not fund metadata
-    - To get real fund names, would need: security master endpoint, separate metadata source, or manual mapping table
-  - Users can search/filter by symbol (e.g., "SCBSET", "VAYU1")
+- 📈 **Thailand RMF**: Live data from Thailand SEC API
+  - Real NAV and performance metrics
+  - Fund details including AMC, classification, risk level
+  - Asset allocation and top holdings
+  - Dividend policy and tax allowance information
+  - Users can search/filter by fund name, symbol, type, or AMC
+- 📊 **Fund Database**: Pre-extracted structured data
+  - CSV format: `docs/rmf-funds.csv`
+  - Markdown format: `docs/rmf-funds.md`
+  - Extraction scripts: `parse_rmf_funds.js` (Node.js), `parse_rmf_funds.py` (Python)
 
 ### API Endpoints
 
 #### REST Endpoints
-- `GET /api/commodities` - Fetch all commodity prices (simulated)
-- `GET /api/commodities/:commodity` - Fetch specific commodity (e.g., 'gold', 'oil')
-- `GET /api/forex` - Fetch all forex pairs (simulated)
-- `GET /api/forex/:pair` - Fetch specific pair (e.g., 'EUR/USD')
-- `GET /api/rmf` - Fetch Thailand Unit Trusts (real data from SET SMART API)
+- `GET /api/rmf` - Fetch Thai RMF funds (real data from Thailand SEC API)
   - Query params: `page`, `pageSize`, `search`, `fundType`
-- `GET /api/rmf/:symbol` - Fetch specific fund by symbol
+- `GET /api/rmf/:fundCode` - Fetch specific fund details by fund code
 - `GET /healthz` - Health check
-- `GET /api/debug/sec` - Debug endpoint to test SET SMART API connection
 
 #### MCP Endpoint
 - `POST /mcp` - ChatGPT integration endpoint
   - Supports `tools/list` method for tool discovery
   - Supports `tools/call` method for executing queries
-  - Tools: `get_commodity_prices`, `get_forex_rates`, `get_rmf_funds`
+  - Tools: `get_rmf_funds`, `get_rmf_fund_detail`
 
 ### Design Guidelines
 
@@ -81,10 +75,10 @@ See `design_guidelines.md` for complete design specifications.
 ### Data Models
 
 Located in `shared/schema.ts`:
-- `Commodity`: Symbol, name, price, change, changePercent, currency, unit
-- `Forex`: Pair, name, rate, change, changePercent
-- `RMFFund`: Symbol, fundName, securityType, nav, navChange, navChangePercent, navDate, priorNav, pnav, totalVolume, totalValue, dividendYield
-- `SETSMARTUnitTrust`: Raw response from SET SMART API (mapped to RMFFund)
+- `RMFFund`: Symbol, fundName, amc, fundType, riskLevel, nav, navChange, navChangePercent, navDate
+- `RMFFundDetail`: Extended fund information including asset allocation, top holdings, dividend policy
+- `AssetAllocation`: Asset type, percentage allocation
+- `FundHolding`: Security symbol, name, percentage of portfolio
 
 ### Project Structure
 
@@ -92,45 +86,46 @@ Located in `shared/schema.ts`:
 client/
   src/
     components/      # Reusable UI components
-      PriceCard.tsx  # Individual commodity/forex card
-      ForexCard.tsx  # Forex-specific card
-      PriceTable.tsx # Table view for prices
-      RMFFundCard.tsx # RMF fund card
-      RMFFundTable.tsx # RMF fund table
-      WidgetContainer.tsx # Widget wrapper
+      RMFFundCard.tsx    # RMF fund card
+      RMFFundTable.tsx   # RMF fund table
       LoadingSkeleton.tsx # Loading states
       ErrorMessage.tsx    # Error handling
       ThemeToggle.tsx     # Dark mode toggle
+      ui/                 # Radix UI primitives
     pages/
-      Home.tsx        # Main application page
-      RMF.tsx         # RMF funds page
+      RMF.tsx         # Main RMF application page
 server/
   services/
-    yahooFinance.ts  # Simulated commodity/forex data
-    secApi.ts        # SET SMART API integration
+    secApi.ts        # Thailand SEC API integration
   routes.ts          # API and MCP endpoints
 shared/
   schema.ts          # Shared type definitions
+docs/
+  rmf-funds.csv      # 410 funds database (CSV)
+  rmf-funds.md       # 410 funds database (Markdown)
+parse_rmf_funds.js   # Node.js extraction script
+parse_rmf_funds.py   # Python extraction script
 ```
 
 ### Next Steps
 
-1. Integrate real API for commodities and forex (replace simulated data)
-2. Add more sophisticated fund filtering (by fund type, risk level, etc.)
-3. Implement historical NAV charts for funds
-4. Add portfolio tracking functionality
+1. Add more sophisticated fund filtering (by risk level, dividend policy, etc.)
+2. Implement historical NAV charts for funds
+3. Add portfolio tracking functionality
+4. Implement fund comparison features
 5. Create deployment configuration for production use
 
 ### ChatGPT Integration
 
-The MCP endpoint at `/mcp` enables ChatGPT to call two tools:
-- `get_commodity_prices`: Returns real-time commodity prices
-- `get_forex_rates`: Returns real-time currency exchange rates
+The MCP endpoint at `/mcp` enables ChatGPT to call RMF-related tools:
+- `get_rmf_funds`: Returns paginated list of Thai RMF funds with filtering
+- `get_rmf_fund_detail`: Returns detailed information about a specific fund
 
 Users can ask questions like:
-- "What's the current price of gold?"
-- "Show me major currency pairs"
-- "How is crude oil performing today?"
+- "Show me Thai retirement mutual funds"
+- "What are the top equity RMF funds?"
+- "Tell me about SCBRMGIF fund"
+- "Which RMF funds have low risk?"
 
 ### Development
 
