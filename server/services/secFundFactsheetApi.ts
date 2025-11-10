@@ -368,6 +368,320 @@ export async function searchFundsByAMC(
   }
 }
 
+// ====================================================================
+// PERFORMANCE & BENCHMARK DATA
+// ====================================================================
+
+/**
+ * Fund Performance Data Type
+ */
+export interface FundPerformance {
+  ytd: number | null;           // Year-to-date return %
+  threeMonth: number | null;    // 3-month return %
+  sixMonth: number | null;      // 6-month return %
+  oneYear: number | null;       // 1-year return %
+  threeYear: number | null;     // 3-year annualized return %
+  fiveYear: number | null;      // 5-year annualized return %
+  tenYear: number | null;       // 10-year annualized return %
+  sinceInception: number | null; // Since inception return %
+}
+
+/**
+ * Benchmark Data Type
+ */
+export interface BenchmarkData {
+  name: string;                 // Benchmark name
+  indexCode: string | null;     // Index code
+  returns: FundPerformance;     // Benchmark returns
+}
+
+/**
+ * Volatility Metrics Type
+ */
+export interface VolatilityMetrics {
+  standardDeviation: number | null;  // 5-year standard deviation %
+  maxDrawdown: number | null;        // Maximum loss in 5 years %
+  volatility: number | null;         // Volatility measure
+}
+
+/**
+ * Tracking Error Type
+ */
+export interface TrackingError {
+  oneYear: number | null;       // 1-year tracking error %
+  description: string | null;   // Explanation
+}
+
+/**
+ * Fund Comparison Data Type
+ */
+export interface FundCompareData {
+  category: string | null;      // Fund category for comparison
+  categoryCode: string | null;  // Category code
+  peerGroup: string | null;     // Peer group classification
+}
+
+/**
+ * Fetch historical performance data for a fund
+ *
+ * @param proj_id Fund project ID (e.g., "M0774_2554")
+ * @returns Performance metrics across different time periods
+ */
+export async function fetchFundPerformance(proj_id: string): Promise<FundPerformance | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/performance`;
+
+    const rawData = await secFundFactsheetApiRequest<any[]>(
+      endpoint,
+      {
+        cacheKey: `factsheet-performance-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    if (!Array.isArray(rawData) || rawData.length === 0) {
+      console.log(`[SEC Fund Factsheet API] No performance data for ${proj_id}`);
+      return null;
+    }
+
+    // Filter for fund returns (ผลตอบแทนกองทุนรวม)
+    const fundReturns = rawData.filter(item =>
+      item.performance_type_desc === 'ผลตอบแทนกองทุนรวม'
+    );
+
+    // Helper function to find value by reference period
+    const findValue = (period: string): number | null => {
+      const item = fundReturns.find(r => r.reference_period === period);
+      return item?.performance_val ? parseFloat(item.performance_val) : null;
+    };
+
+    const performance: FundPerformance = {
+      ytd: findValue('year to date'),
+      threeMonth: findValue('3 months'),
+      sixMonth: findValue('6 months'),
+      oneYear: findValue('1 year'),
+      threeYear: findValue('3 years'),
+      fiveYear: findValue('5 years'),
+      tenYear: findValue('10 years'),
+      sinceInception: findValue('inception date'),
+    };
+
+    console.log(`[SEC Fund Factsheet API] Fetched performance data for ${proj_id}`);
+    return performance;
+  } catch (error) {
+    console.error(`Error fetching performance for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch benchmark data for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns Benchmark information and returns
+ */
+export async function fetchFundBenchmark(proj_id: string): Promise<BenchmarkData | null> {
+  try {
+    // Fetch benchmark name
+    const benchmarkEndpoint = `/fund/${proj_id}/benchmark`;
+    const benchmarkData = await secFundFactsheetApiRequest<any[]>(
+      benchmarkEndpoint,
+      {
+        cacheKey: `factsheet-benchmark-name-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    if (!Array.isArray(benchmarkData) || benchmarkData.length === 0) {
+      console.log(`[SEC Fund Factsheet API] No benchmark assigned for ${proj_id}`);
+      return null;
+    }
+
+    const benchmarkName = benchmarkData[0]?.benchmark || 'Unknown';
+
+    // Fetch performance data to get benchmark returns
+    const performanceEndpoint = `/fund/${proj_id}/performance`;
+    const performanceData = await secFundFactsheetApiRequest<any[]>(
+      performanceEndpoint,
+      {
+        cacheKey: `factsheet-performance-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    // Filter for benchmark returns (ผลตอบแทนตัวชี้วัด)
+    const benchmarkReturns = performanceData.filter(item =>
+      item.performance_type_desc === 'ผลตอบแทนตัวชี้วัด'
+    );
+
+    // Helper function to find value by reference period
+    const findValue = (period: string): number | null => {
+      const item = benchmarkReturns.find(r => r.reference_period === period);
+      return item?.performance_val ? parseFloat(item.performance_val) : null;
+    };
+
+    const benchmark: BenchmarkData = {
+      name: benchmarkName,
+      indexCode: null, // Not provided in API response
+      returns: {
+        ytd: findValue('year to date'),
+        threeMonth: findValue('3 months'),
+        sixMonth: findValue('6 months'),
+        oneYear: findValue('1 year'),
+        threeYear: findValue('3 years'),
+        fiveYear: findValue('5 years'),
+        tenYear: findValue('10 years'),
+        sinceInception: findValue('inception date'),
+      },
+    };
+
+    console.log(`[SEC Fund Factsheet API] Fetched benchmark data for ${proj_id}`);
+    return benchmark;
+  } catch (error) {
+    console.error(`Error fetching benchmark for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch volatility and risk metrics for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns Standard deviation, max drawdown, and volatility metrics
+ */
+export async function fetchFund5YearLost(proj_id: string): Promise<VolatilityMetrics | null> {
+  try {
+    // Get standard deviation from performance endpoint
+    const performanceEndpoint = `/fund/${proj_id}/performance`;
+    const performanceData = await secFundFactsheetApiRequest<any[]>(
+      performanceEndpoint,
+      {
+        cacheKey: `factsheet-performance-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    if (!Array.isArray(performanceData) || performanceData.length === 0) {
+      console.log(`[SEC Fund Factsheet API] No volatility data available for ${proj_id}`);
+      return null;
+    }
+
+    // Filter for fund volatility (ความผันผวนของกองทุนรวม = Standard Deviation)
+    const fundVolatility = performanceData.filter(item =>
+      item.performance_type_desc === 'ความผันผวนของกองทุนรวม'
+    );
+
+    // Helper function to find value by reference period
+    const findValue = (period: string): number | null => {
+      const item = fundVolatility.find(r => r.reference_period === period);
+      return item?.performance_val ? parseFloat(item.performance_val) : null;
+    };
+
+    // Use 1-year standard deviation as the primary metric
+    // (5-year, 3-year, and 10-year are also available if needed)
+    const oneYearSD = findValue('1 year');
+    const threeYearSD = findValue('3 years');
+    const fiveYearSD = findValue('5 years');
+
+    // Use whichever is available, preferring 5-year, then 3-year, then 1-year
+    const standardDeviation = fiveYearSD ?? threeYearSD ?? oneYearSD;
+
+    if (standardDeviation === null) {
+      console.log(`[SEC Fund Factsheet API] No standard deviation data for ${proj_id}`);
+      return null;
+    }
+
+    const volatility: VolatilityMetrics = {
+      standardDeviation,
+      maxDrawdown: null, // Not available in API
+      volatility: standardDeviation, // Using SD as volatility measure
+    };
+
+    console.log(`[SEC Fund Factsheet API] Fetched volatility data for ${proj_id}`);
+    return volatility;
+  } catch (error) {
+    console.error(`Error fetching volatility for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch tracking error for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns Tracking error vs benchmark (1 year)
+ */
+export async function fetchFundTrackingError(proj_id: string): Promise<TrackingError | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/FundTrackingError`;
+
+    const rawData = await secFundFactsheetApiRequest<any[]>(
+      endpoint,
+      {
+        cacheKey: `factsheet-tracking-error-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    if (!Array.isArray(rawData) || rawData.length === 0) {
+      console.log(`[SEC Fund Factsheet API] No tracking error data for ${proj_id}`);
+      return null;
+    }
+
+    const trackingErrorPercent = rawData[0]?.tracking_error_percent;
+
+    // Parse tracking error
+    const trackingError: TrackingError = {
+      oneYear: trackingErrorPercent ? parseFloat(trackingErrorPercent) : null,
+      description: null, // Not provided in API response
+    };
+
+    console.log(`[SEC Fund Factsheet API] Fetched tracking error for ${proj_id}`);
+    return trackingError;
+  } catch (error) {
+    console.error(`Error fetching tracking error for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch fund comparison/category data
+ *
+ * @param proj_id Fund project ID
+ * @returns Fund category and peer group information
+ */
+export async function fetchFundCompare(proj_id: string): Promise<FundCompareData | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/fund_compare`;
+
+    const rawData = await secFundFactsheetApiRequest<any>(
+      endpoint,
+      {
+        cacheKey: `factsheet-compare-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    if (!rawData || Object.keys(rawData).length === 0) {
+      console.log(`[SEC Fund Factsheet API] No comparison data for ${proj_id}`);
+      return null;
+    }
+
+    // Parse comparison data
+    const compareData: FundCompareData = {
+      category: rawData?.fund_compare || null, // e.g., "AEJ" (Asia ex-Japan Equity)
+      categoryCode: rawData?.fund_compare || null,
+      peerGroup: rawData?.fund_compare || null,
+    };
+
+    console.log(`[SEC Fund Factsheet API] Fetched comparison data for ${proj_id}`);
+    return compareData;
+  } catch (error) {
+    console.error(`Error fetching comparison data for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
 /**
  * Test API connectivity
  */

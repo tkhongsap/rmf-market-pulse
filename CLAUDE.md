@@ -58,14 +58,28 @@ The project uses TypeScript path aliases configured in both `tsconfig.json` and 
 - Health check at `/healthz`
 
 **Data Layer:**
-- `server/services/secApi.ts` - Thai RMF Funds (ONLY data service in use)
-  - Integrates with Thailand SEC API for real-time fund data
+- `server/services/secFundDailyInfoApi.ts` - SEC Fund Daily Info API
+  - Daily NAV data and historical NAV
+  - Dividend history
   - Rate limiting: 3,000 calls per 5 minutes
   - Caching: Fund lists (24h), NAV data (1h)
-  - Functions: `fetchRMFFunds()`, `fetchRMFFundDetail()`, `searchRMFFunds()`
-  - API endpoints used:
-    - Fund Factsheet API: Basic fund information
-    - Fund Daily Info API: NAV updates and performance metrics
+  - Functions: `fetchFundDailyNav()`, `fetchFundNavHistory()`, `fetchFundDividend()`
+
+- `server/services/secFundFactsheetApi.ts` - SEC Fund Factsheet API ⭐ **NEW**
+  - **Basic Fund Info:**
+    - `fetchAMCList()` - Get all Asset Management Companies
+    - `fetchFundsByAMC()` - Get funds under specific AMC
+    - `fetchFundAssets()` - Asset allocation data
+    - `searchFunds()` - Search funds by name
+  - **Performance Metrics:** ✅ **NEWLY IMPLEMENTED**
+    - `fetchFundPerformance(proj_id)` - Historical returns (YTD, 3M, 6M, 1Y, 3Y, 5Y, 10Y, Since Inception)
+    - `fetchFundBenchmark(proj_id)` - Benchmark name and returns across all time periods
+    - `fetchFund5YearLost(proj_id)` - Standard deviation/volatility (risk metrics)
+    - `fetchFundTrackingError(proj_id)` - 1-year tracking error vs benchmark
+    - `fetchFundCompare(proj_id)` - Fund category/peer group classification
+  - Rate limiting: 3,000 calls per 5 minutes
+  - Caching: 24 hours for all endpoints
+  - **Note:** Performance endpoint returns array with Thai language descriptors
 
 ### Frontend Architecture (`client/`)
 
@@ -101,7 +115,14 @@ The project uses TypeScript path aliases configured in both `tsconfig.json` and 
 
 **File:** `shared/schema.ts`
 - Zod schemas for type-safe API contracts
-- Data types: `RMFFund`, `RMFFundDetail`, `RMFFundsResponse`, `AssetAllocation`, `FundHolding`
+- **Basic Fund Data:** `RMFFund`, `RMFFundsResponse`, `AssetAllocation`, `FundHolding`
+- **Performance Data:** ✅ **NEW**
+  - `FundPerformance` - Returns across all time periods (YTD to 10Y)
+  - `BenchmarkData` - Benchmark name and returns
+  - `VolatilityMetrics` - Standard deviation and risk measures
+  - `TrackingError` - Tracking error vs benchmark
+  - `FundCompareData` - Category/peer group classification
+  - `RMFFundDetail` - Extended fund schema with performance data
 - Used on both client and server for validation
 - Note: No commodity or forex types - application is RMF-only
 
