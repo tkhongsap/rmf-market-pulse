@@ -9,7 +9,8 @@
       "WebFetch(domain:developers.openai.com)",
       "Bash(env)",
       "Bash(cat:*)",
-      "Bash(paste:*)"
+      "Bash(paste:*)",
+      "Bash(node -e:*)"
     ],
     "deny": [],
     "ask": []

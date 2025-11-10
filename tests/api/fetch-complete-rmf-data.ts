@@ -13,6 +13,8 @@
  * Designed to work for single fund testing, scalable to all 410 RMF funds.
  */
 
+import 'dotenv/config';
+
 import {
   fetchFundDailyNav,
   fetchFundNavHistory,
