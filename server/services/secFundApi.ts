@@ -17,18 +17,23 @@ const FUND_DAILY_INFO_BASE_URL = 'https://api.sec.or.th/FundDailyInfo';
 const FUND_FACTSHEET_BASE_URL = 'https://api.sec.or.th/FundFactsheet';
 
 // Separate API Keys for each service (required by SEC API portal)
-const FUND_DAILY_INFO_KEY = process.env.SEC_FUND_DAILY_INFO_KEY;
-const FUND_FACTSHEET_KEY = process.env.SEC_FUND_FACTSHEET_KEY;
+// Try dedicated keys first, fallback to generic SEC_API_KEY for testing
+const FUND_DAILY_INFO_KEY = process.env.SEC_FUND_DAILY_INFO_KEY || process.env.SEC_API_KEY;
+const FUND_FACTSHEET_KEY = process.env.SEC_FUND_FACTSHEET_KEY || process.env.SEC_API_KEY;
 
 // Validate API keys on module load
 if (!FUND_DAILY_INFO_KEY) {
-  console.warn('[SEC Fund API] WARNING: SEC_FUND_DAILY_INFO_KEY not found in environment variables');
+  console.warn('[SEC Fund API] WARNING: SEC_FUND_DAILY_INFO_KEY and SEC_API_KEY not found in environment variables');
   console.warn('[SEC Fund API] Daily NAV data will not be available');
+} else if (process.env.SEC_API_KEY && !process.env.SEC_FUND_DAILY_INFO_KEY) {
+  console.log('[SEC Fund API] Using SEC_API_KEY as fallback for Daily Info API (testing mode)');
 }
 
 if (!FUND_FACTSHEET_KEY) {
-  console.warn('[SEC Fund API] WARNING: SEC_FUND_FACTSHEET_KEY not found in environment variables');
+  console.warn('[SEC Fund API] WARNING: SEC_FUND_FACTSHEET_KEY and SEC_API_KEY not found in environment variables');
   console.warn('[SEC Fund API] Fund factsheet data (benchmark, fees, etc.) will not be available');
+} else if (process.env.SEC_API_KEY && !process.env.SEC_FUND_FACTSHEET_KEY) {
+  console.log('[SEC Fund API] Using SEC_API_KEY as fallback for Factsheet API (testing mode)');
 }
 
 /**
