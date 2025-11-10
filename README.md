@@ -1,14 +1,14 @@
-# Real-Time Financial Data Tracker
+# Thai RMF Market Pulse
 
-A full-stack TypeScript application for tracking real-time commodity prices and forex exchange rates. Built with Express and React, designed to integrate with ChatGPT as an MCP (Model Context Protocol) widget.
+A full-stack TypeScript application for tracking Thai Retirement Mutual Funds (RMF) with real-time NAV data. Built with Express and React, designed to integrate with ChatGPT as an MCP (Model Context Protocol) widget.
 
 ## Features
 
-- **Real-time Market Data**: Live tracking of commodity prices (Gold, Silver, Crude Oil, Natural Gas)
-- **Forex Exchange Rates**: Current exchange rates for major currency pairs (EUR/USD, GBP/USD, USD/JPY, AUD/USD)
-- **Thai RMF Tracker**: Track 200+ Thai Retirement Mutual Funds with real-time NAV data from Thailand SEC
-- **Auto-refresh**: Automatic data updates (60 seconds for commodities/forex, 5 minutes for RMF funds)
-- **Search & Filter**: Advanced filtering for RMF funds by type, AMC, and search queries
+- **Thai RMF Tracker**: Track 410+ Thai Retirement Mutual Funds with real-time NAV data from Thailand SEC
+- **Auto-refresh**: Automatic data updates every 5 minutes
+- **Search & Filter**: Advanced filtering by fund type, AMC, and search queries
+- **Multiple Views**: Toggle between card and table views for optimal data visualization
+- **Pagination**: Efficient browsing with 20 funds per page
 - **Dark/Light Theme**: System-aware theme switching
 - **ChatGPT Integration**: MCP protocol support for AI assistant interactions
 - **Responsive Design**: Clean, minimal UI optimized for data presentation
@@ -106,12 +106,6 @@ This will start both the frontend and backend on port 5000. The app will be avai
 
 ## API Endpoints
 
-### Market Data
-- `GET /api/commodities` - Get all commodity prices
-- `GET /api/commodities/:symbol` - Get specific commodity
-- `GET /api/forex` - Get all forex rates
-- `GET /api/forex/:pair` - Get specific forex pair
-
 ### Thai RMF (Retirement Mutual Fund)
 - `GET /api/rmf` - Get all RMF funds (with pagination, search, and filtering)
   - Query params: `page`, `pageSize`, `search`, `fundType`
@@ -119,7 +113,7 @@ This will start both the frontend and backend on port 5000. The app will be avai
 
 ### MCP Protocol (ChatGPT Integration)
 - `POST /mcp` - MCP protocol endpoint for tool discovery and execution
-  - Tools: `get_commodity_prices`, `get_forex_rates`, `get_rmf_funds`, `get_rmf_fund_detail`
+  - Tools: `get_rmf_funds`, `get_rmf_fund_detail`
 
 ### Health Check
 - `GET /healthz` - Server health check
@@ -129,7 +123,7 @@ This will start both the frontend and backend on port 5000. The app will be avai
 This app implements the Model Context Protocol (MCP) for seamless ChatGPT integration:
 
 1. **Tool Discovery**: ChatGPT can discover available tools via `tools/list`
-2. **Tool Execution**: Execute tools like `get_commodity_prices` and `get_forex_rates`
+2. **Tool Execution**: Execute tools like `get_rmf_funds` and `get_rmf_fund_detail`
 3. **Formatted Responses**: Returns structured data optimized for AI consumption
 
 ## Environment Variables
@@ -158,15 +152,18 @@ This app follows the OpenAI Apps SDK Design System:
 
 ## Data Sources
 
-### Commodities & Forex
-Currently uses simulated market data with realistic price movements. Future versions will integrate with Yahoo Finance API for real-time data.
-
 ### Thai RMF Funds
 Real-time data from Thailand Securities and Exchange Commission (SEC) API:
 - **Fund Factsheet API**: Basic fund information (name, AMC, type, risk level)
 - **Fund Daily Info API**: Daily NAV updates and performance metrics
 - **Rate Limiting**: 3,000 API calls per 5 minutes
 - **Caching**: Fund lists cached for 24 hours, NAV data cached for 1 hour
+
+### Fund Database
+Pre-extracted structured data available in:
+- `docs/rmf-funds.csv` - 410 funds with 8 data fields (Symbol, Fund Name, AMC, Classification, Management Style, Dividend Policy, Risk, Tax Allowance)
+- `docs/rmf-funds.md` - Same data in markdown table format
+- Extraction scripts available: `parse_rmf_funds.js` (Node.js) and `parse_rmf_funds.py` (Python)
 
 ## License
 
