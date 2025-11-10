@@ -1,0 +1,374 @@
+{
+  "Fund Specification": [
+    {
+      "last_upd_date": "2025-11-10T16:10:25",
+      "spec_code": "FED",
+      "spec_desc": "กองทุนรวมฟีดเดอร์"
+    },
+    {
+      "last_upd_date": "2025-11-10T16:10:25",
+      "spec_code": "RMF",
+      "spec_desc": "กองทุนรวมเพื่อการเลี้ยงชีพ"
+    }
+  ],
+  "Asset Allocation": [
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "asset_seq": 1,
+      "asset_name": "Unit Trust",
+      "asset_ratio": "97.54"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "asset_seq": 2,
+      "asset_name": "Cash and Others",
+      "asset_ratio": "2.46"
+    }
+  ],
+  "Investment Policy": {
+    "last_upd_date": "2025-11-10T16:07:47.827",
+    "policy_desc": "ตราสารทุน",
+    "management_style": "AN",
+    "investment_policy_desc": null
+  },
+  "Fee Structure": [
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "fee_type_desc": "ค่าธรรมเนียมการขายหน่วยลงทุน (Front-end Fee)",
+      "rate": "3",
+      "rate_unit": null,
+      "actual_value": "0",
+      "actual_value_unit": null,
+      "fee_other_desc": "- การสับเปลี่ยนหน่วยลงทุนไปยังกองทุนรวมทั่วไปที่อยู่ภายใต้การจัดการของบริษัทจัดการ ยกเว้นไม่เรียกเก็บค่าธรรมเนียมn- การสับเปลี่ยนหน่วยลงทุนไปยัง RMF อื่นภายใต้การจัดการของบริษัทจัดการอื่น จะไม่มีการเรียกเก็บค่าธรรมเนียมการสับเปลี่ยนออก แต่จะมีการเรียกเก็บค่าธรรมเนียมรับซื้อคืนหน่วยลงทุนไม่เกินร้อยละ 1 ของมูลค่าหน่วยลงทุน"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "fee_type_desc": "ค่าธรรมเนียมการจัดการ",
+      "rate": "1.87",
+      "rate_unit": null,
+      "actual_value": "1.87",
+      "actual_value_unit": null,
+      "fee_other_desc": "* ค่าธรรมเนียมที่เรียกเก็บจากกองทุนรวมตั้งแต่วันที่ 01 ต.ค. 66 - 30 ก.ย. 67"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "fee_type_desc": "ค่าธรรมเนียมการรับซื้อคืนหน่วยลงทุน (Back-end Fee)",
+      "rate": "1",
+      "rate_unit": null,
+      "actual_value": "0",
+      "actual_value_unit": null,
+      "fee_other_desc": "- การสับเปลี่ยนหน่วยลงทุนไปยังกองทุนรวมทั่วไปที่อยู่ภายใต้การจัดการของบริษัทจัดการ ยกเว้นไม่เรียกเก็บค่าธรรมเนียมn- การสับเปลี่ยนหน่วยลงทุนไปยัง RMF อื่นภายใต้การจัดการของบริษัทจัดการอื่น จะไม่มีการเรียกเก็บค่าธรรมเนียมการสับเปลี่ยนออก แต่จะมีการเรียกเก็บค่าธรรมเนียมรับซื้อคืนหน่วยลงทุนไม่เกินร้อยละ 1 ของมูลค่าหน่วยลงทุน"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "fee_type_desc": "ค่าธรรมเนียมการสับเปลี่ยนหน่วยลงทุนเข้า (SWITCHING IN)",
+      "rate": "0",
+      "rate_unit": null,
+      "actual_value": "0",
+      "actual_value_unit": null,
+      "fee_other_desc": "- การสับเปลี่ยนหน่วยลงทุนไปยังกองทุนรวมทั่วไปที่อยู่ภายใต้การจัดการของบริษัทจัดการ ยกเว้นไม่เรียกเก็บค่าธรรมเนียมn- การสับเปลี่ยนหน่วยลงทุนไปยัง RMF อื่นภายใต้การจัดการของบริษัทจัดการอื่น จะไม่มีการเรียกเก็บค่าธรรมเนียมการสับเปลี่ยนออก แต่จะมีการเรียกเก็บค่าธรรมเนียมรับซื้อคืนหน่วยลงทุนไม่เกินร้อยละ 1 ของมูลค่าหน่วยลงทุน"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "fee_type_desc": "ค่าธรรมเนียมการสับเปลี่ยนหน่วยลงทุนออก (SWITCHING OUT)",
+      "rate": "0",
+      "rate_unit": null,
+      "actual_value": "0",
+      "actual_value_unit": null,
+      "fee_other_desc": "- การสับเปลี่ยนหน่วยลงทุนไปยังกองทุนรวมทั่วไปที่อยู่ภายใต้การจัดการของบริษัทจัดการ ยกเว้นไม่เรียกเก็บค่าธรรมเนียมn- การสับเปลี่ยนหน่วยลงทุนไปยัง RMF อื่นภายใต้การจัดการของบริษัทจัดการอื่น จะไม่มีการเรียกเก็บค่าธรรมเนียมการสับเปลี่ยนออก แต่จะมีการเรียกเก็บค่าธรรมเนียมรับซื้อคืนหน่วยลงทุนไม่เกินร้อยละ 1 ของมูลค่าหน่วยลงทุน"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "fee_type_desc": "ค่าธรรมเนียมและค่าใช้จ่ายรวมทั้งหมด",
+      "rate": "2.67",
+      "rate_unit": null,
+      "actual_value": "2.03",
+      "actual_value_unit": null,
+      "fee_other_desc": "* ค่าธรรมเนียมที่เรียกเก็บจากกองทุนรวมตั้งแต่วันที่ 01 ต.ค. 66 - 30 ก.ย. 67"
+    }
+  ],
+  "Fund Performance": [
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "1 year",
+      "performance_type_desc": "ความผันผวนของกองทุนรวม",
+      "performance_val": "13.25",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "3 months",
+      "performance_type_desc": "ความผันผวนของกองทุนรวม",
+      "performance_val": "8.14",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "6 months",
+      "performance_type_desc": "ความผันผวนของกองทุนรวม",
+      "performance_val": "15.66",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "inception date",
+      "performance_type_desc": "ความผันผวนของกองทุนรวม",
+      "performance_val": "11.46",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "year to date",
+      "performance_type_desc": "ความผันผวนของกองทุนรวม",
+      "performance_val": "14.27",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "1 year",
+      "performance_type_desc": "ความผันผวนของตัวชี้วัด",
+      "performance_val": "14.19",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "3 months",
+      "performance_type_desc": "ความผันผวนของตัวชี้วัด",
+      "performance_val": "7.71",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "6 months",
+      "performance_type_desc": "ความผันผวนของตัวชี้วัด",
+      "performance_val": "16.69",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "inception date",
+      "performance_type_desc": "ความผันผวนของตัวชี้วัด",
+      "performance_val": "12.4",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "year to date",
+      "performance_type_desc": "ความผันผวนของตัวชี้วัด",
+      "performance_val": "15.5",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "1 year",
+      "performance_type_desc": "ค่าเฉลี่ยในกลุ่มเดียวกัน",
+      "performance_val": "11.23",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "3 months",
+      "performance_type_desc": "ค่าเฉลี่ยในกลุ่มเดียวกัน",
+      "performance_val": "4.41",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "6 months",
+      "performance_type_desc": "ค่าเฉลี่ยในกลุ่มเดียวกัน",
+      "performance_val": "14.53",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "inception date",
+      "performance_type_desc": "ค่าเฉลี่ยในกลุ่มเดียวกัน",
+      "performance_val": null,
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "year to date",
+      "performance_type_desc": "ค่าเฉลี่ยในกลุ่มเดียวกัน",
+      "performance_val": "9.29",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "1 year",
+      "performance_type_desc": "ผลตอบแทนกองทุนรวม",
+      "performance_val": "6.42",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "3 months",
+      "performance_type_desc": "ผลตอบแทนกองทุนรวม",
+      "performance_val": "5.5",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "6 months",
+      "performance_type_desc": "ผลตอบแทนกองทุนรวม",
+      "performance_val": "11.82",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "inception date",
+      "performance_type_desc": "ผลตอบแทนกองทุนรวม",
+      "performance_val": "7.63",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "year to date",
+      "performance_type_desc": "ผลตอบแทนกองทุนรวม",
+      "performance_val": "10.39",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "1 year",
+      "performance_type_desc": "ผลตอบแทนตัวชี้วัด",
+      "performance_val": "17.27",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "3 months",
+      "performance_type_desc": "ผลตอบแทนตัวชี้วัด",
+      "performance_val": "7.62",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "6 months",
+      "performance_type_desc": "ผลตอบแทนตัวชี้วัด",
+      "performance_val": "20.03",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "inception date",
+      "performance_type_desc": "ผลตอบแทนตัวชี้วัด",
+      "performance_val": "19.78",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    },
+    {
+      "last_upd_date": "2025-10-20T11:34:02.91",
+      "class_abbr_name": "ABGDD-RMF",
+      "reference_period": "year to date",
+      "performance_type_desc": "ผลตอบแทนตัวชี้วัด",
+      "performance_val": "18.44",
+      "as_of_date": "2025-09-30 00:00:00.0000000"
+    }
+  ],
+  "Dividend History": [
+    {
+      "class_abbr_name": "-",
+      "dividend_policy": "N",
+      "dividend_policy_remark": null,
+      "last_upd_date": "2025-11-10T16:05:17.837",
+      "dividend_details": []
+    }
+  ],
+  "Fund Suitability": {
+    "last_upd_date": "2025-10-20T11:34:02.91",
+    "risk_spectrum_desc": "4LmA4Liq4Li14LmI4Lii4LiH4Liq4Li54LiHbuC4peC4h+C4l+C4uOC4meC5g+C4meC4leC4o+C4suC4quC4suC4o+C4l+C4uOC4meC5gOC4m+C5h+C4meC4q+C4peC4seC4geC5guC4lOC4ouC5gOC4ieC4peC4teC5iOC4ouC5g+C4meC4o+C4reC4muC4m+C4teC5hOC4oeC5iOC4meC5ieC4reC4ouC4geC4p+C5iOC4suC4o+C5ieC4reC4ouC4peC4sCA4MCDguILguK3guIcgTkFW",
+    "risk_spectrum": "RS6"
+  },
+  "Redemption Information": {
+    "last_upd_date": "2023-11-21T05:20:20",
+    "redemp_period": "1",
+    "redemp_period_oth": "-",
+    "settlement_period": "-",
+    "buying_cut_off_time": "-",
+    "selling_cut_off_time": "-"
+  },
+  "Involved Parties": [
+    {
+      "last_upd_date": "2023-11-21T05:07:20",
+      "entity_type": "R",
+      "seq": 1,
+      "entity_name": "บริษัท หลักทรัพย์จัดการกองทุนอเบอร์ดีน (ประเทศไทย) จำกัด",
+      "addr": "179 อาคารบางกอกซิตี้ ทาวเวอร์ ชั้น 28 ถนนสาทรใต้ แขวงทุ่งมหาเมฆ เขตสาทร กรุงเทพมหานคร 10120\nโทรศัพท์ 0-2352-3333 โทรสาร 0-23523379\n\nหรือบุคคลอื่นที่ได้รับอนุญาตให้บริการเป็นนายทะเบียนหลักทรัพย์จากสำนักงานคณะกรรมการ ก.ล.ต. โดยบริษัทจัดการจะแจ้งให้สำนักงานคณะกรรมการ ก.ล.ต. ทราบ",
+      "position": "-",
+      "effective_date": "-"
+    },
+    {
+      "last_upd_date": "2023-11-21T05:07:20",
+      "entity_type": "V",
+      "seq": 1,
+      "entity_name": "ธนาคารซิตี้แบงก์ เอ็น. เอ.",
+      "addr": "อาคารอินเตอร์เชนจ์ 21 เลขที่ 399 ถนนสุขุมวิท แขวงคลองเตยเหนือ เขตวัฒนา กรุงเทพมหานคร 10110",
+      "position": "-",
+      "effective_date": "-"
+    }
+  ],
+  "Investment Information": [
+    {
+      "class_id": "-",
+      "minimum_sub_ipo": "1000",
+      "minimum_sub_ipo_cur": "0102500166",
+      "minimum_sub_ipo_addi_desc": null,
+      "minimum_sub": "1000",
+      "minimum_sub_cur": "0102500166",
+      "minimum_sub_addi_desc": null,
+      "minimum_redempt": null,
+      "minimum_redempt_cur": null,
+      "minimum_redempt_addi_desc": null,
+      "minimum_redempt_unit": null,
+      "minimum_redempt_unit_addi_desc": null,
+      "lowbal_val": null,
+      "lowbal_val_cur": null,
+      "lowbal_unit": null,
+      "last_upd_date": "2025-11-10T16:06:37.73"
+    }
+  ],
+  "Project Type": {
+    "last_upd_date": "2025-11-10T16:08:40.187",
+    "proj_retail_type": "R",
+    "proj_term_flag": "N",
+    "proj_term_dd": null,
+    "proj_term_mm": null,
+    "proj_term_yy": null
+  },
+  "Turnover Ratio": {
+    "last_upd_date": "2025-11-10T16:26:19.853",
+    "class_abbr_name": "ABGDD-RMF",
+    "portfolio_turnover_ratio": "0",
+    "as_of_date": "2025-09-30T00:00:00"
+  }
+}
