@@ -75,20 +75,26 @@ Successfully queried the Thailand SEC Fund Factsheet API to find SCB Asset Manag
 
 ---
 
-## About "SCBM3"
+## ✅ SCBRM3 Found! (Not "SCBM3")
 
-**Search Results:** No fund with the abbreviation "SCBM3" was found in the SEC database.
+**Important:** The correct fund code is **"SCBRM3"** (not "SCBM3")
 
-**Possible Explanations:**
-1. The fund may have been renamed or merged
-2. "SCBM3" might be an informal name or trading symbol
-3. It could be a fund class identifier rather than the main fund code
-4. The fund may have been delisted/liquidated and removed from active databases
+### Fund Details:
 
-**Suggestion:** If you're looking for a specific SCB fund, please provide:
-- The full fund name in English or Thai
-- The registration ID or project ID if known
-- Any other identifying information
+**SCBRM3** - SCB FLEXIBLE FUND RMF
+- **Project ID:** M0080_2544
+- **Full Name (EN):** SCB FLEXIBLE FUND RMF
+- **Full Name (TH):** กองทุนเปิดไทยพาณิชย์เฟล็กซิเบิ้ล ฟันด์เพื่อการเลี้ยงชีพ
+- **Status:** RG (Active) ✅
+- **Cancelled:** No (-)
+- **Registered:** 2002-02-14
+- **AMC:** SCB ASSET MANAGEMENT COMPANY LIMITED (C0000000239)
+
+### Related Funds:
+- **SCBRM1** - SCB SHORT TERM FIXED INCOME RMF (M0079_2544)
+- **SCBRM2** - SCB GOVERNMENT BOND RMF (M0074_2544)
+- **SCBRM3** - SCB FLEXIBLE FUND RMF (M0080_2544) ← **This one!**
+- **SCBRM4** - SCB EQUITY RMF (M0081_2544)
 
 ---
 
@@ -154,9 +160,10 @@ Example for SCBGOLDHRMF:
 ## Key Takeaways
 
 1. ✅ **SEC API is working** - We successfully connected and queried the Fund Factsheet API
-2. ✅ **Found SCB RMF funds** - Multiple active retirement funds available
-3. ❌ **SCBM3 not found** - This specific fund code doesn't exist in the database
-4. ⚠️  **NAV data requires different key** - To get real-time NAV data, you need `SEC_FUND_DAILY_INFO_KEY`
+2. ✅ **Found 32 active SCB RMF funds** - Multiple retirement funds available
+3. ✅ **SCBRM3 found!** - The correct code is "SCBRM3" (not "SCBM3") - Project ID: M0080_2544
+4. ✅ **Python scripts working** - Both TypeScript and Python implementations available
+5. ⚠️  **NAV data requires different key** - To get real-time NAV data, you need `SEC_FUND_DAILY_INFO_KEY`
 
 ---
 
