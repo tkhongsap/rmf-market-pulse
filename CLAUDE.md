@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A real-time financial data tracking application that displays commodity prices, forex exchange rates, and Thai Retirement Mutual Funds (RMF). Built as a full-stack TypeScript application with Express backend and React frontend, designed to integrate with ChatGPT as an MCP (Model Context Protocol) widget.
+Thai RMF Market Pulse - A full-stack TypeScript application for tracking 410+ Thai Retirement Mutual Funds (RMF) with real-time NAV data from Thailand SEC API. Built with Express backend and React frontend, designed to integrate with ChatGPT as an MCP (Model Context Protocol) widget.
 
 ## Commands
 
@@ -50,56 +50,60 @@ The project uses TypeScript path aliases configured in both `tsconfig.json` and 
 - Request logging middleware for API routes
 
 **API Routes:** `server/routes.ts`
-- RESTful endpoints for commodities, forex, and RMF data
+- RESTful endpoints for RMF data only
+  - `GET /api/rmf` - Get paginated RMF funds (supports `page`, `pageSize`, `fundType`, `search` params)
+  - `GET /api/rmf/:fundCode` - Get detailed fund information
+  - `GET /api/debug/sec` - Debug endpoint to test SEC API key
 - MCP Protocol endpoint at `/mcp` for ChatGPT integration
 - Health check at `/healthz`
 
 **Data Layer:**
-- `server/services/yahooFinance.ts` - Commodities & Forex
-  - Currently uses simulated market data with realistic price movements
-  - TODO: Replace with actual Yahoo Finance API integration (yahoo-finance2 library has type issues)
-  - Functions: `fetchCommodities()`, `fetchForex()`, `fetchSpecificCommodity()`, `fetchSpecificForexPair()`
-
-- `server/services/secApi.ts` - Thai RMF Funds
+- `server/services/secApi.ts` - Thai RMF Funds (ONLY data service in use)
   - Integrates with Thailand SEC API for real-time fund data
   - Rate limiting: 3,000 calls per 5 minutes
   - Caching: Fund lists (24h), NAV data (1h)
   - Functions: `fetchRMFFunds()`, `fetchRMFFundDetail()`, `searchRMFFunds()`
+  - API endpoints used:
+    - Fund Factsheet API: Basic fund information
+    - Fund Daily Info API: NAV updates and performance metrics
 
 ### Frontend Architecture (`client/`)
 
 **Routing:** Uses Wouter (lightweight router), not React Router
-- Main route: `/` → `Home.tsx` (Commodities & Forex)
-- RMF route: `/rmf` → `RMF.tsx` (Thai Retirement Mutual Funds)
+- Main route: `/` → `RMF.tsx` (Thai Retirement Mutual Funds - primary and only page)
 - 404 handling via `NotFound.tsx`
 
 **State Management:**
 - TanStack Query (React Query) for server state
 - Query client configured in `client/src/lib/queryClient.ts`
-- Auto-refetch intervals:
-  - 60 seconds for commodities/forex
-  - 5 minutes for RMF funds (less volatile data)
+- Auto-refetch interval: 5 minutes for RMF funds (funds change less frequently than stocks)
 
 **UI Components:**
 - Radix UI primitives for accessible components (`components/ui/`)
 - Tailwind CSS for styling
 - Theme switching (light/dark mode) via `next-themes`
-- Custom components in `client/src/components/` for financial widgets
+- Custom RMF components:
+  - `RMFFundCard.tsx` - Card view for individual funds
+  - `RMFFundTable.tsx` - Table view for fund lists
+  - `LoadingSkeleton.tsx` - Loading states
+  - `ErrorMessage.tsx` - Error handling
+  - `ThemeToggle.tsx` - Dark/light mode toggle
+  - `WidgetContainer.tsx` - Wrapper for fund data widgets
 
 **Design System:**
-Follow the design guidelines in `design_guidelines.md`:
-- OpenAI Apps SDK Design System approach
-- Minimal, data-first presentation
+- Minimal, data-first presentation optimized for ChatGPT integration
 - Semantic color usage (green for gains, red for losses)
-- System fonts for ChatGPT integration
+- System fonts
 - No decorative elements or branding
+- Focus on accessibility with Radix UI primitives
 
 ### Shared Schemas (`shared/`)
 
 **File:** `shared/schema.ts`
 - Zod schemas for type-safe API contracts
-- Data types: `Commodity`, `Forex`, `RMFFund`, `AssetAllocation`, `FundHolding`
+- Data types: `RMFFund`, `RMFFundDetail`, `RMFFundsResponse`, `AssetAllocation`, `FundHolding`
 - Used on both client and server for validation
+- Note: No commodity or forex types - application is RMF-only
 
 ### Database
 
@@ -115,27 +119,25 @@ Follow the design guidelines in `design_guidelines.md`:
 
 The `/mcp` endpoint implements the Model Context Protocol for ChatGPT apps:
 - `tools/list` - Returns available tools:
-  - `get_commodity_prices` - Fetch commodity prices
-  - `get_forex_rates` - Fetch forex exchange rates
   - `get_rmf_funds` - Fetch Thai RMF funds (with pagination/search)
   - `get_rmf_fund_detail` - Get detailed RMF fund information
 - `tools/call` - Executes tool calls and returns formatted data
+- Note: Only RMF tools are available; no commodity or forex tools
 
 ### Real-time Data Flow
 
-**Commodities & Forex:**
-1. Client fetches data via TanStack Query
-2. API routes (`/api/commodities`, `/api/forex`) call service functions
-3. Service layer returns simulated data matching Zod schemas
-4. Client components render with type-safe data
-5. Auto-refetch every 60 seconds maintains freshness
-
-**RMF Funds:**
-1. Client fetches data via TanStack Query with pagination params
-2. API route (`/api/rmf`) calls SEC API service
-3. Service layer fetches from Thailand SEC API (with caching & rate limiting)
-4. Client components (RMFFundCard, RMFFundTable) render fund data
-5. Auto-refetch every 5 minutes (funds change less frequently)
+**RMF Funds (Only Data Flow):**
+1. Client (`RMF.tsx`) fetches data via TanStack Query with pagination params
+2. API route (`GET /api/rmf`) calls SEC API service
+3. Service layer (`secApi.ts`) fetches from Thailand SEC API:
+   - Checks cache first (fund lists: 24h, NAV data: 1h)
+   - Makes API call if cache miss or expired
+   - Respects rate limiting (3,000 calls per 5 minutes)
+4. Data validated against Zod schemas in `shared/schema.ts`
+5. Client components render:
+   - `RMFFundTable` for table view
+   - `RMFFundCard` for card view (grid layout)
+6. Auto-refetch every 5 minutes maintains freshness
 
 ## Development Notes
 
@@ -159,10 +161,29 @@ The `/mcp` endpoint implements the Model Context Protocol for ChatGPT apps:
 
 ## Environment Variables
 
-- `DATABASE_URL` - PostgreSQL connection string (required for database operations)
-- `PORT` - Server port (defaults to 5000)
-- `NODE_ENV` - Environment mode (development/production)
-- `SEC_API_KEY` - Thailand SEC API key (required for RMF fund data)
+- `SEC_API_KEY` - **REQUIRED** Thailand SEC API key for RMF fund data
   - Get API key from: https://api-portal.sec.or.th/
   - Subscribe to: Fund Factsheet API and Fund Daily Info API
   - Rate limit: 3,000 calls per 5 minutes
+  - Test with: `GET /api/debug/sec` endpoint
+- `PORT` - Server port (defaults to 5000)
+- `NODE_ENV` - Environment mode (development/production)
+- `DATABASE_URL` - PostgreSQL connection string (currently unused but configured)
+
+## Data Files
+
+### Pre-extracted Fund Database
+The repository includes pre-extracted structured data for all RMF funds:
+
+- `docs/rmf-funds.csv` - 410 funds in CSV format
+  - Columns: Symbol, Fund Name, AMC, Fund Classification (AIMC), Management Style, Dividend Policy, Risk, Fund for tax allowance
+- `docs/rmf-funds.md` - Same data in markdown table format
+- `docs/RMF-Fund-Comparison.md` - Source HTML table (6,766 lines) scraped from SET website
+
+### Data Extraction Scripts
+If you need to regenerate the structured data:
+
+- `parse_rmf_funds.js` - Node.js script to parse `RMF-Fund-Comparison.md`
+- `parse_rmf_funds.py` - Python alternative (same functionality)
+- Run: `node parse_rmf_funds.js` to regenerate CSV/MD files
+- Note: Extracts ~410 of 417 funds (some HTML formatting inconsistencies)
