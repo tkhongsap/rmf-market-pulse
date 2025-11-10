@@ -6,7 +6,10 @@
       "WebFetch(domain:www.scbam.com)",
       "WebFetch(domain:www.set.or.th)",
       "WebFetch(domain:market.sec.or.th)",
-      "WebFetch(domain:developers.openai.com)"
+      "WebFetch(domain:developers.openai.com)",
+      "Bash(env)",
+      "Bash(cat:*)",
+      "Bash(paste:*)"
     ],
     "deny": [],
     "ask": []
