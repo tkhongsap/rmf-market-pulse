@@ -202,9 +202,25 @@ The repository includes pre-extracted structured data for all RMF funds:
 - `docs/RMF-Fund-Comparison.md` - Source HTML table (6,766 lines) scraped from SET website
 
 ### Data Extraction Scripts
-If you need to regenerate the structured data:
 
+**Parsing Scripts** (in project root):
 - `parse_rmf_funds.js` - Node.js script to parse `RMF-Fund-Comparison.md`
 - `parse_rmf_funds.py` - Python alternative (same functionality)
-- Run: `node parse_rmf_funds.js` to regenerate CSV/MD files
+- Run: `npm run data:rmf:parse` to regenerate CSV/MD files
 - Note: Extracts ~410 of 417 funds (some HTML formatting inconsistencies)
+
+**RMF Data Extraction Pipeline** (in `scripts/data-extraction/rmf/`):
+- `phase-0-build-mapping.ts` - Build fund symbol → proj_id mapping
+- `phase-1-fetch-all-funds.ts` - Batch fetch all RMF funds with complete data
+- `fetch-complete-fund-data.ts` - Core data fetcher module
+- `identify-incomplete-funds.ts` - Identify funds with incomplete data
+- `reprocess-incomplete-funds.ts` - Re-process incomplete funds
+
+**NPM Scripts:**
+- `npm run data:rmf:build-mapping` - Run Phase 0 (build mapping)
+- `npm run data:rmf:fetch-all` - Run Phase 1 (fetch all funds)
+- `npm run data:rmf:identify-incomplete` - Identify incomplete funds
+- `npm run data:rmf:reprocess` - Re-process incomplete funds
+- `npm run data:rmf:parse` - Parse HTML to CSV/MD
+
+See `scripts/data-extraction/rmf/README.md` for detailed workflow documentation.
