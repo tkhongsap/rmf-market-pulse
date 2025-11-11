@@ -152,10 +152,11 @@ function writeMarkdown(funds, outputPath) {
 }
 
 function main() {
-  // Paths
-  const inputFile = path.join(__dirname, 'docs', 'RMF-Fund-Comparison.md');
-  const csvOutput = path.join(__dirname, 'docs', 'rmf-funds.csv');
-  const mdOutput = path.join(__dirname, 'docs', 'rmf-funds.md');
+  // Paths (navigate up to project root from scripts/data-parsing/rmf/)
+  const projectRoot = path.join(__dirname, '..', '..', '..');
+  const inputFile = path.join(projectRoot, 'docs', 'RMF-Fund-Comparison.md');
+  const csvOutput = path.join(projectRoot, 'docs', 'rmf-funds.csv');
+  const mdOutput = path.join(projectRoot, 'docs', 'rmf-funds.md');
 
   console.log(`Parsing RMF funds from: ${inputFile}`);
   const funds = parseRMFFunds(inputFile);

@@ -102,7 +102,7 @@ This module is used by Phase 1 and the re-processing script.
 
 ## Data Parsing
 
-**Script:** `parse_rmf_funds.js` (in project root)
+**Script:** `scripts/data-parsing/rmf/parse-rmf-funds.js`
 
 Parses HTML table from `docs/RMF-Fund-Comparison.md` and outputs structured data to:
 - `docs/rmf-funds.csv`
