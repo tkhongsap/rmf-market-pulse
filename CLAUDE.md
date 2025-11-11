@@ -25,6 +25,18 @@ npm start            # Run production build
 npm run db:push      # Push database schema changes using Drizzle Kit
 ```
 
+### Data Extraction
+```bash
+# HTML Parsing
+npm run data:rmf:parse                # Parse HTML table to CSV/MD
+
+# RMF Data Pipeline
+npm run data:rmf:build-mapping        # Phase 0: Build fund symbol → proj_id mapping
+npm run data:rmf:fetch-all            # Phase 1: Fetch all RMF funds with complete data
+npm run data:rmf:identify-incomplete  # Identify funds with incomplete data
+npm run data:rmf:reprocess            # Re-process incomplete funds
+```
+
 ## Architecture
 
 ### Monorepo Structure
@@ -58,28 +70,43 @@ The project uses TypeScript path aliases configured in both `tsconfig.json` and 
 - Health check at `/healthz`
 
 **Data Layer:**
-- `server/services/secFundDailyInfoApi.ts` - SEC Fund Daily Info API
+
+The backend has multiple SEC API service modules in `server/services/`:
+
+- `secFundDailyInfoApi.ts` - SEC Fund Daily Info API
   - Daily NAV data and historical NAV
   - Dividend history
   - Rate limiting: 3,000 calls per 5 minutes
   - Caching: Fund lists (24h), NAV data (1h)
   - Functions: `fetchFundDailyNav()`, `fetchFundNavHistory()`, `fetchFundDividend()`
 
-- `server/services/secFundFactsheetApi.ts` - SEC Fund Factsheet API ⭐ **NEW**
+- `secFundFactsheetApi.ts` - SEC Fund Factsheet API
   - **Basic Fund Info:**
     - `fetchAMCList()` - Get all Asset Management Companies
     - `fetchFundsByAMC()` - Get funds under specific AMC
     - `fetchFundAssets()` - Asset allocation data
     - `searchFunds()` - Search funds by name
-  - **Performance Metrics:** ✅ **NEWLY IMPLEMENTED**
+  - **Performance Metrics:**
     - `fetchFundPerformance(proj_id)` - Historical returns (YTD, 3M, 6M, 1Y, 3Y, 5Y, 10Y, Since Inception)
     - `fetchFundBenchmark(proj_id)` - Benchmark name and returns across all time periods
     - `fetchFund5YearLost(proj_id)` - Standard deviation/volatility (risk metrics)
     - `fetchFundTrackingError(proj_id)` - 1-year tracking error vs benchmark
     - `fetchFundCompare(proj_id)` - Fund category/peer group classification
+  - **Fee & Compliance:**
+    - `fetchFundFee()` - Fee structure information
+    - `fetchFundInvolvedParty()` - Fund managers and involved parties
+    - `fetchFundTop5Hold()` - Top 5 fund holdings
+    - `fetchFundRiskFactor()` - Risk factors
+    - `fetchFundSuitable()` - Suitability information
+    - `fetchFundDoc()` - Document URLs
+    - `fetchFundMinimumInvestment()` - Investment minimums
   - Rate limiting: 3,000 calls per 5 minutes
   - Caching: 24 hours for all endpoints
-  - **Note:** Performance endpoint returns array with Thai language descriptors
+  - Note: Performance endpoint returns array with Thai language descriptors
+
+- `secFundApi.ts` - Unified SEC Fund API wrapper (legacy, combines above services)
+- `secApi.ts` - General SEC API utilities
+- `setsmartApi.ts` - SET Smart API integration (if applicable)
 
 ### Frontend Architecture (`client/`)
 
@@ -114,17 +141,24 @@ The project uses TypeScript path aliases configured in both `tsconfig.json` and 
 ### Shared Schemas (`shared/`)
 
 **File:** `shared/schema.ts`
-- Zod schemas for type-safe API contracts
-- **Basic Fund Data:** `RMFFund`, `RMFFundsResponse`, `AssetAllocation`, `FundHolding`
-- **Performance Data:** ✅ **NEW**
-  - `FundPerformance` - Returns across all time periods (YTD to 10Y)
-  - `BenchmarkData` - Benchmark name and returns
-  - `VolatilityMetrics` - Standard deviation and risk measures
-  - `TrackingError` - Tracking error vs benchmark
-  - `FundCompareData` - Category/peer group classification
-  - `RMFFundDetail` - Extended fund schema with performance data
-- Used on both client and server for validation
-- Note: No commodity or forex types - application is RMF-only
+
+Zod schemas for type-safe API contracts, used on both client and server for validation.
+
+**Basic Fund Data:**
+- `RMFFund` - Core fund information
+- `RMFFundsResponse` - Paginated fund list response
+- `AssetAllocation` - Fund asset breakdown
+- `FundHolding` - Individual holdings data
+
+**Performance Data:**
+- `FundPerformance` - Returns across all time periods (YTD to 10Y)
+- `BenchmarkData` - Benchmark name and returns
+- `VolatilityMetrics` - Standard deviation and risk measures
+- `TrackingError` - Tracking error vs benchmark
+- `FundCompareData` - Category/peer group classification
+- `RMFFundDetail` - Extended fund schema with performance data
+
+Note: Application is RMF-only (no commodity or forex types)
 
 ### Database
 
@@ -147,17 +181,19 @@ The `/mcp` endpoint implements the Model Context Protocol for ChatGPT apps:
 
 ### Real-time Data Flow
 
-**RMF Funds (Only Data Flow):**
-1. Client (`RMF.tsx`) fetches data via TanStack Query with pagination params
-2. API route (`GET /api/rmf`) calls SEC API service
-3. Service layer (`secApi.ts`) fetches from Thailand SEC API:
+**RMF Funds:**
+1. Client (`pages/RMF.tsx`) fetches data via TanStack Query with pagination params
+2. API route (`GET /api/rmf`) in `server/routes.ts` calls appropriate SEC API service
+3. Service layer fetches from Thailand SEC API:
+   - `secFundDailyInfoApi.ts` - Daily NAV and historical data
+   - `secFundFactsheetApi.ts` - Fund details, performance, fees
    - Checks cache first (fund lists: 24h, NAV data: 1h)
    - Makes API call if cache miss or expired
    - Respects rate limiting (3,000 calls per 5 minutes)
 4. Data validated against Zod schemas in `shared/schema.ts`
 5. Client components render:
-   - `RMFFundTable` for table view
-   - `RMFFundCard` for card view (grid layout)
+   - `RMFFundTable.tsx` for table view
+   - `RMFFundCard.tsx` for card view (grid layout)
 6. Auto-refetch every 5 minutes maintains freshness
 
 ## Development Notes
@@ -202,9 +238,48 @@ The repository includes pre-extracted structured data for all RMF funds:
 - `docs/RMF-Fund-Comparison.md` - Source HTML table (6,766 lines) scraped from SET website
 
 ### Data Extraction Scripts
-If you need to regenerate the structured data:
 
-- `parse_rmf_funds.js` - Node.js script to parse `RMF-Fund-Comparison.md`
-- `parse_rmf_funds.py` - Python alternative (same functionality)
-- Run: `node parse_rmf_funds.js` to regenerate CSV/MD files
-- Note: Extracts ~410 of 417 funds (some HTML formatting inconsistencies)
+**HTML Parsing** (in `scripts/data-parsing/rmf/`):
+- `parse-rmf-funds.js` - Node.js script to parse `docs/RMF-Fund-Comparison.md` HTML table
+- `parse-rmf-funds.py` - Python alternative (same functionality)
+- Outputs: `docs/rmf-funds.csv` and `docs/rmf-funds.md`
+- Extracts ~410 of 417 funds (some HTML formatting inconsistencies)
+- Run: `npm run data:rmf:parse`
+
+**RMF Data Extraction Pipeline** (in `scripts/data-extraction/rmf/`):
+
+Two-phase extraction process for fetching complete fund data from SEC APIs:
+
+**Phase 0: Build Mapping**
+- Script: `phase-0-build-mapping.ts`
+- Builds mapping of fund symbols → `proj_id` by fetching all funds from all AMCs
+- Output: `data/fund-mapping.json`
+- Run once to generate mapping, then reuse for batch processing
+- Command: `npm run data:rmf:build-mapping`
+
+**Phase 1: Fetch All Funds**
+- Script: `phase-1-fetch-all-funds.ts`
+- Processes all RMF funds from CSV, fetching complete data for each
+- Features: Concurrent batch processing (4 funds at a time), progress tracking with resume capability
+- Output: Individual JSON files at `data/rmf-funds/{SYMBOL}.json` + `data/progress.json`
+- Rate limiting: 4 funds/batch × 14 endpoints = 56 API calls/batch with 15-second delays
+- Throughput: ~3.7 API calls/second (well under 3,000/5min limit)
+- Estimated time: ~86 minutes for all 410 funds
+- Command: `npm run data:rmf:fetch-all`
+
+**Utility Scripts:**
+- `fetch-complete-fund-data.ts` - Core module that fetches all 14 data points per fund (NAV, performance, risk, fees, holdings, etc.)
+- `identify-incomplete-funds.ts` - Scans JSON files to find funds with incomplete data (all NULL due to rate limiting)
+  - Output: `data/incomplete-funds-report.json` and `data/incomplete-funds-symbols.txt`
+  - Command: `npm run data:rmf:identify-incomplete`
+- `reprocess-incomplete-funds.ts` - Re-processes only incomplete funds with same rate limiting
+  - Command: `npm run data:rmf:reprocess`
+
+**Workflow:**
+1. Parse fund list: `npm run data:rmf:parse`
+2. Build mapping: `npm run data:rmf:build-mapping`
+3. Fetch all funds: `npm run data:rmf:fetch-all`
+4. Identify incomplete: `npm run data:rmf:identify-incomplete` (if needed)
+5. Re-process: `npm run data:rmf:reprocess` (if needed)
+
+See `scripts/data-extraction/rmf/README.md` for detailed documentation.

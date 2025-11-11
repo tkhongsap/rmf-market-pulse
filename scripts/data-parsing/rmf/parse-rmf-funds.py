@@ -125,10 +125,12 @@ def write_markdown(funds, output_path):
 
 def main():
     """Main execution function."""
-    # Paths
-    input_file = Path('/home/runner/workspace/docs/RMF-Fund-Comparison.md')
-    csv_output = Path('/home/runner/workspace/docs/rmf-funds.csv')
-    md_output = Path('/home/runner/workspace/docs/rmf-funds.md')
+    # Paths (navigate up to project root from scripts/data-parsing/rmf/)
+    script_dir = Path(__file__).parent
+    project_root = script_dir.parent.parent.parent
+    input_file = project_root / 'docs' / 'RMF-Fund-Comparison.md'
+    csv_output = project_root / 'docs' / 'rmf-funds.csv'
+    md_output = project_root / 'docs' / 'rmf-funds.md'
 
     print(f"Parsing RMF funds from: {input_file}")
     funds = parse_rmf_funds(input_file)

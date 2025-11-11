@@ -10,7 +10,7 @@ import { join } from 'path';
 import {
   fetchCompleteFundData,
   FundMetadata,
-} from './fetch-complete-rmf-data';
+} from './fetch-complete-fund-data';
 
 // ============================================================================
 // Configuration

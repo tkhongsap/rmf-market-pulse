@@ -22,7 +22,7 @@ import {
   clearCache,
   type FundDailyNav,
   type FundDividend,
-} from '../../server/services/secFundDailyInfoApi';
+} from '../../../server/services/secFundDailyInfoApi';
 
 import {
   fetchFundPerformance,
@@ -44,7 +44,7 @@ import {
   type TrackingError,
   type FundCompareData,
   type FundAssets,
-} from '../../server/services/secFundFactsheetApi';
+} from '../../../server/services/secFundFactsheetApi';
 
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
@@ -53,7 +53,7 @@ import { join } from 'path';
 // Type Definitions
 // ============================================================================
 
-interface FundMetadata {
+export interface FundMetadata {
   symbol: string;
   fund_name: string;
   amc: string;

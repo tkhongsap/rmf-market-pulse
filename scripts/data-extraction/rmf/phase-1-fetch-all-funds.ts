@@ -20,7 +20,7 @@ import 'dotenv/config';
 import {
   fetchCompleteFundData,
   type FundMetadata,
-} from './fetch-complete-rmf-data';
+} from './fetch-complete-fund-data';
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
