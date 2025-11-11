@@ -1,0 +1,34 @@
+{
+  "fund_id": null,
+  "symbol": "M-CR",
+  "fund_name": "MFC Capital Protection Retirement Mutual Fund",
+  "amc": "MFC ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
+  "metadata": {
+    "fund_classification": "MIXCONS",
+    "management_style": "AM",
+    "dividend_policy": "No",
+    "risk_level": 3,
+    "fund_type": "RMF"
+  },
+  "latest_nav": null,
+  "nav_history_30d": [],
+  "dividends": [],
+  "performance": null,
+  "benchmark": null,
+  "risk_metrics": null,
+  "asset_allocation": null,
+  "category": null,
+  "fees": null,
+  "involved_parties": null,
+  "top_holdings": null,
+  "risk_factors": null,
+  "suitability": null,
+  "document_urls": null,
+  "investment_minimums": null,
+  "mapping_snapshot": null,
+  "data_fetched_at": "2025-11-10T23:45:29.777Z",
+  "errors": [
+    "Fund mapping entry not found for this symbol.",
+    "SEC APIs were unreachable in this environment; generated offline metadata only."
+  ]
+}

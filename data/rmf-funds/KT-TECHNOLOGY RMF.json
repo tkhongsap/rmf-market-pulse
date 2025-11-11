@@ -1,5 +1,8 @@
 {
   "fund_id": "M0966_2568",
+  "symbol": "KT-TECHNOLOGY RMF",
+  "fund_name": "KTAM World Technology RMF",
+  "amc": "KRUNG THAI ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "-",
@@ -7,125 +10,32 @@
     "risk_level": 7,
     "fund_type": "RMF"
   },
-  "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 10,
-    "previous_val": 0,
-    "net_asset": 16606825,
-    "buy_price": 10,
-    "sell_price": 10,
-    "change": 10,
-    "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
-  },
-  "nav_history_30d": [
-    {
-      "nav_date": "2025-11-06",
-      "last_val": 10,
-      "previous_val": 0,
-      "net_asset": 16606825,
-      "buy_price": 10,
-      "sell_price": 10
-    }
-  ],
+  "latest_nav": null,
+  "nav_history_30d": [],
   "dividends": [],
   "performance": null,
   "benchmark": null,
   "risk_metrics": null,
-  "asset_allocation": [
-    {
-      "asset_class": "หน่วยลงทุน ตราสารทุน",
-      "percentage": 80
-    },
-    {
-      "asset_class": "อื่นๆ",
-      "percentage": 20
-    }
-  ],
+  "asset_allocation": null,
   "category": null,
-  "fees": [
-    {
-      "fee_type": "Unknown",
-      "fee_desc": "ค่าใช้จ่ายอื่นๆ",
-      "fee_value": null,
-      "fee_remark": null
-    },
-    {
-      "fee_type": "Unknown",
-      "fee_desc": "ค่าธรรมเนียมการขายหน่วยลงทุน (Front-end Fee)",
-      "fee_value": null,
-      "fee_remark": null
-    },
-    {
-      "fee_type": "Unknown",
-      "fee_desc": "ค่าธรรมเนียมการจัดการ",
-      "fee_value": null,
-      "fee_remark": null
-    },
-    {
-      "fee_type": "Unknown",
-      "fee_desc": "ค่าธรรมเนียมการรับซื้อคืนหน่วยลงทุน (Back-end Fee)",
-      "fee_value": null,
-      "fee_remark": null
-    },
-    {
-      "fee_type": "Unknown",
-      "fee_desc": "ค่าธรรมเนียมการสับเปลี่ยนหน่วยลงทุนเข้า (SWITCHING IN)",
-      "fee_value": null,
-      "fee_remark": null
-    },
-    {
-      "fee_type": "Unknown",
-      "fee_desc": "ค่าธรรมเนียมการสับเปลี่ยนหน่วยลงทุนออก (SWITCHING OUT)",
-      "fee_value": null,
-      "fee_remark": null
-    },
-    {
-      "fee_type": "Unknown",
-      "fee_desc": "ค่าธรรมเนียมนายทะเบียนหน่วย",
-      "fee_value": null,
-      "fee_remark": null
-    },
-    {
-      "fee_type": "Unknown",
-      "fee_desc": "ค่าธรรมเนียมผู้ดูแลผลประโยชน์",
-      "fee_value": null,
-      "fee_remark": null
-    },
-    {
-      "fee_type": "Unknown",
-      "fee_desc": "ค่าธรรมเนียมและค่าใช้จ่ายรวมทั้งหมด",
-      "fee_value": null,
-      "fee_remark": null
-    }
-  ],
+  "fees": null,
   "involved_parties": null,
   "top_holdings": null,
   "risk_factors": null,
-  "suitability": {
-    "investment_horizon": null,
-    "risk_level": "KuC4hOC4p+C4suC4oeC5gOC4quC4teC5iOC4ouC4h+C4guC4reC4h+C4geC4reC4h+C4l+C4uOC4mSDguKPguLDguJTguLHguJogNyDguIHguK3guIfguJfguLjguJnguKPguKfguKHguKvguKHguKfguJTguK3guLjguJXguKrguLLguKvguIHguKPguKPguKEg4Lih4Li1IG5ldCBleHBvc3VyZSDguKHguLjguYjguIfguKXguIfguJfguLjguJnguYLguJTguKLguYDguInguJ7guLLguLDguYDguIjguLLguLDguIjguIfguYPguJnguKvguKHguKfguJTguK3guLjguJXguKrguLLguKvguIHguKPguKPguKHguYDguJfguITguYLguJnguYLguKXguKLguLUg4LmC4LiU4Lii4LmA4LiJ4Lil4Li14LmI4Lii4Lij4Lit4Lia4Lij4Liw4Lii4Liw4LmA4Lin4Lil4Liy4Lia4Lix4LiN4LiK4Li14LmE4Lih4LmI4LiZ4LmJ4Lit4Lii4LiB4Lin4LmI4Liy4Lij4LmJ4Lit4Lii4Lil4LiwIDgwIOC4guC4reC4hyBOQVY=",
-    "target_investor": null
+  "suitability": null,
+  "document_urls": null,
+  "investment_minimums": null,
+  "mapping_snapshot": {
+    "fund_name_th": "กองทุนเปิดเคแทม World Technology เพื่อการเลี้ยงชีพ",
+    "fund_name_en": "KTAM World Technology RMF",
+    "amc_id": "C0000000460",
+    "amc_name": "KRUNG THAI ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
+    "fund_status": "RG",
+    "regis_date": "2025-11-07",
+    "cancel_date": "-"
   },
-  "document_urls": {
-    "factsheet_url": "https://secdocumentstorage.blob.core.windows.net/fundfactsheet/M0966_2568.pdf",
-    "annual_report_url": "-",
-    "halfyear_report_url": "-"
-  },
-  "investment_minimums": {
-    "minimum_initial": "500",
-    "minimum_additional": "500",
-    "minimum_redemption": null,
-    "minimum_balance": null
-  },
-  "data_fetched_at": "2025-11-10T15:28:48.109Z",
+  "data_fetched_at": "2025-11-10T23:45:29.776Z",
   "errors": [
-    "No performance data available",
-    "No benchmark data available",
-    "No risk metrics available",
-    "No category data available",
-    "No involved parties data available",
-    "No top holdings data available",
-    "No risk factors data available"
+    "SEC APIs were unreachable in this environment; generated offline metadata only."
   ]
 }

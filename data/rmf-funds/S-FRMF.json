@@ -1,0 +1,41 @@
+{
+  "fund_id": "M0438_2551",
+  "symbol": "S-FRMF",
+  "fund_name": "SOLARIS FIXED INCOME RMF",
+  "amc": "XSPRING ASSET MANAGEMENT COMPANY LIMITED",
+  "metadata": {
+    "fund_classification": "FIXGOV",
+    "management_style": "AM",
+    "dividend_policy": "-",
+    "risk_level": 0,
+    "fund_type": "RMF"
+  },
+  "latest_nav": null,
+  "nav_history_30d": [],
+  "dividends": [],
+  "performance": null,
+  "benchmark": null,
+  "risk_metrics": null,
+  "asset_allocation": null,
+  "category": null,
+  "fees": null,
+  "involved_parties": null,
+  "top_holdings": null,
+  "risk_factors": null,
+  "suitability": null,
+  "document_urls": null,
+  "investment_minimums": null,
+  "mapping_snapshot": {
+    "fund_name_th": "กองทุนเปิดโซลาริสตราสารหนี้เพื่อการเลี้ยงชีพ",
+    "fund_name_en": "SOLARIS FIXED INCOME RMF",
+    "amc_id": "C0000006099",
+    "amc_name": "XSPRING ASSET MANAGEMENT COMPANY LIMITED",
+    "fund_status": "LI",
+    "regis_date": "2008-07-18",
+    "cancel_date": "2018-11-30"
+  },
+  "data_fetched_at": "2025-11-10T23:45:29.779Z",
+  "errors": [
+    "SEC APIs were unreachable in this environment; generated offline metadata only."
+  ]
+}

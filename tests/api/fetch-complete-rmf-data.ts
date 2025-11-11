@@ -46,7 +46,7 @@ import {
   type FundAssets,
 } from '../../server/services/secFundFactsheetApi';
 
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 // ============================================================================
@@ -262,6 +262,14 @@ async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const API_CALL_DELAY_MS = parseInt(process.env.SEC_API_CALL_DELAY_MS || '250', 10);
+
+async function enforceRateLimitDelay() {
+  if (API_CALL_DELAY_MS > 0) {
+    await sleep(API_CALL_DELAY_MS);
+  }
+}
+
 // ============================================================================
 // Data Fetching Functions
 // ============================================================================
@@ -291,6 +299,7 @@ async function fetchLatestNav(proj_id: string): Promise<LatestNavData | null> {
     const dateStr = targetDate.toISOString().split('T')[0];
 
     try {
+      await enforceRateLimitDelay();
       latestNav = await fetchFundDailyNav(proj_id, dateStr);
       if (latestNav) {
         log(`  ✓ Found latest NAV for ${dateStr}`, 'green');
@@ -338,6 +347,7 @@ async function fetchNavHistory30d(proj_id: string, latestDate: string): Promise<
   startDate.setDate(startDate.getDate() - 42); // Go back ~42 days to get ~30 trading days
 
   try {
+    await enforceRateLimitDelay();
     const navHistory = await fetchFundNavHistory(proj_id, startDate, endDate);
     log(`  ✓ Found ${navHistory.length} NAV records`, 'green');
 
@@ -362,6 +372,7 @@ async function fetchDividendHistory(proj_id: string): Promise<DividendItem[]> {
   log('Fetching dividend history...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const dividends = await fetchFundDividend(proj_id);
     log(`  ✓ Found ${dividends.length} dividend records`, 'green');
 
@@ -385,6 +396,7 @@ async function fetchPerformanceMetrics(proj_id: string): Promise<PerformanceData
   log('Fetching performance metrics...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const performance = await fetchFundPerformance(proj_id);
 
     if (!performance) {
@@ -417,6 +429,7 @@ async function fetchBenchmarkData(proj_id: string): Promise<BenchmarkInfo | null
   log('Fetching benchmark data...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const benchmark = await fetchFundBenchmark(proj_id);
 
     if (!benchmark) {
@@ -451,10 +464,11 @@ async function fetchRiskMetrics(proj_id: string): Promise<RiskMetrics | null> {
   log('Fetching risk metrics...', 'blue');
 
   try {
-    const [volatility, trackingError] = await Promise.all([
-      fetchFund5YearLost(proj_id).catch(() => null),
-      fetchFundTrackingError(proj_id).catch(() => null),
-    ]);
+    await enforceRateLimitDelay();
+    const volatility = await fetchFund5YearLost(proj_id).catch(() => null);
+
+    await enforceRateLimitDelay();
+    const trackingError = await fetchFundTrackingError(proj_id).catch(() => null);
 
     const stdDev5y = volatility && volatility.length > 0 ? parseFloat(volatility[0]?.[1]) : null;
     const te1y = trackingError && trackingError.length > 0 ? parseFloat(trackingError[0]?.[1]) : null;
@@ -482,6 +496,7 @@ async function fetchAssetAllocation(proj_id: string): Promise<AssetAllocationIte
   log('Fetching asset allocation...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const assets = await fetchFundAssets(proj_id);
 
     if (!assets || assets.length === 0) {
@@ -509,6 +524,7 @@ async function fetchFundCategory(proj_id: string): Promise<string | null> {
   log('Fetching fund category...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const compareData = await fetchFundCompare(proj_id);
 
     if (!compareData || compareData.length === 0) {
@@ -532,6 +548,7 @@ async function fetchFeeStructure(proj_id: string): Promise<FeeStructure[] | null
   log('Fetching fee structure...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const fees = await fetchFundFees(proj_id);
 
     if (!fees || fees.length === 0) {
@@ -561,6 +578,7 @@ async function fetchParties(proj_id: string): Promise<InvolvedParty[] | null> {
   log('Fetching involved parties...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const parties = await fetchInvolvedParties(proj_id);
 
     if (!parties || parties.length === 0) {
@@ -601,6 +619,7 @@ async function fetchTopHoldings(proj_id: string): Promise<HoldingItem[] | null> 
 
     const period = targetDate.toISOString().slice(0, 10).replace(/-/g, '');
 
+    await enforceRateLimitDelay();
     const holdings = await fetchFundTop5Holdings(proj_id, period);
 
     if (!holdings || holdings.length === 0) {
@@ -628,6 +647,7 @@ async function fetchRiskInfo(proj_id: string): Promise<RiskFactor[] | null> {
   log('Fetching risk factors...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const riskData = await fetchFundRiskFactors(proj_id);
 
     if (!riskData || riskData.length === 0) {
@@ -655,6 +675,7 @@ async function fetchSuitabilityInfo(proj_id: string): Promise<SuitabilityInfo | 
   log('Fetching suitability info...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const suitability = await fetchFundSuitability(proj_id);
 
     if (!suitability) {
@@ -683,6 +704,7 @@ async function fetchDocumentURLs(proj_id: string): Promise<DocumentURLs | null> 
   log('Fetching document URLs...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const urls = await fetchFundURLs(proj_id);
 
     if (!urls) {
@@ -711,6 +733,7 @@ async function fetchMinimums(proj_id: string): Promise<InvestmentMinimums | null
   log('Fetching investment minimums...', 'blue');
 
   try {
+    await enforceRateLimitDelay();
     const minimums = await fetchFundInvestmentMinimums(proj_id);
 
     if (!minimums || minimums.length === 0) {
@@ -753,12 +776,13 @@ export async function fetchCompleteFundData(
   log(`Fund ID: ${proj_id}`, 'cyan');
   log(`Fund Name: ${metadata.fund_name}`, 'cyan');
   log(`AMC: ${metadata.amc}`, 'cyan');
+  log(`API call delay: ${API_CALL_DELAY_MS}ms`, 'cyan');
 
   // 1. Fetch Latest NAV
   const latestNav = await fetchLatestNav(proj_id);
   if (!latestNav) errors.push('Failed to fetch latest NAV');
 
-  await sleep(100); // Small delay between calls
+  await enforceRateLimitDelay();
 
   // 2. Fetch NAV History (30 days)
   const navHistory = latestNav
@@ -766,78 +790,78 @@ export async function fetchCompleteFundData(
     : [];
   if (navHistory.length === 0) errors.push('No NAV history available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 3. Fetch Dividend History
   const dividends = await fetchDividendHistory(proj_id);
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 4. Fetch Performance Metrics
   const performance = await fetchPerformanceMetrics(proj_id);
   if (!performance) errors.push('No performance data available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 5. Fetch Benchmark Data
   const benchmark = await fetchBenchmarkData(proj_id);
   if (!benchmark) errors.push('No benchmark data available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 6. Fetch Risk Metrics
   const riskMetrics = await fetchRiskMetrics(proj_id);
   if (!riskMetrics) errors.push('No risk metrics available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 7. Fetch Asset Allocation
   const assetAllocation = await fetchAssetAllocation(proj_id);
   if (!assetAllocation) errors.push('No asset allocation data available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 8. Fetch Fund Category
   const category = await fetchFundCategory(proj_id);
   if (!category) errors.push('No category data available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 9. Fetch Fee Structure
   const fees = await fetchFeeStructure(proj_id);
   if (!fees) errors.push('No fee data available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 10. Fetch Involved Parties
   const involvedParties = await fetchParties(proj_id);
   if (!involvedParties) errors.push('No involved parties data available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 11. Fetch Top 5 Holdings
   const topHoldings = await fetchTopHoldings(proj_id);
   if (!topHoldings) errors.push('No top holdings data available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 12. Fetch Risk Factors
   const riskFactors = await fetchRiskInfo(proj_id);
   if (!riskFactors) errors.push('No risk factors data available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 13. Fetch Suitability
   const suitability = await fetchSuitabilityInfo(proj_id);
   if (!suitability) errors.push('No suitability data available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 14. Fetch Document URLs
   const documentURLs = await fetchDocumentURLs(proj_id);
   if (!documentURLs) errors.push('No document URLs available');
 
-  await sleep(100);
+  await enforceRateLimitDelay();
 
   // 15. Fetch Investment Minimums
   const investmentMinimums = await fetchMinimums(proj_id);
@@ -957,5 +981,7 @@ async function main() {
   }
 }
 
-// Run main function
-main();
+// Run main function only when executed directly
+if (process.argv[1]?.includes('fetch-complete-rmf-data')) {
+  main();
+}

@@ -229,6 +229,9 @@ async function processFund(
 
     // Build metadata from CSV
     const metadata: FundMetadata = {
+      symbol: csvFund.symbol,
+      fund_name: csvFund.fund_name,
+      amc: csvFund.amc,
       fund_classification: csvFund.fund_classification,
       management_style: csvFund.management_style,
       dividend_policy: csvFund.dividend_policy,
