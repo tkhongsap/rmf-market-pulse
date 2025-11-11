@@ -1,5 +1,8 @@
 {
   "fund_id": "M0704_2547",
+  "symbol": "CPRMF3",
+  "fund_name": "Capital Protected Retirement Mutual Fund 3",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MISC",
     "management_style": "PM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 16.5938,
+    "nav_date": "2025-11-10",
+    "last_val": 16.5929,
     "previous_val": 0,
-    "net_asset": 45433212,
-    "buy_price": 15.7641,
-    "sell_price": 17.4236,
-    "change": 16.5938,
+    "net_asset": 45430664,
+    "buy_price": 15.7633,
+    "sell_price": 17.4227,
+    "change": 16.5929,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 16.6694,
-      "previous_val": 0,
-      "net_asset": 45640128,
-      "buy_price": 15.8359,
-      "sell_price": 17.503
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 16.6847,
@@ -250,6 +245,14 @@
       "net_asset": 45433212,
       "buy_price": 15.7641,
       "sell_price": 17.4236
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 16.5929,
+      "previous_val": 0,
+      "net_asset": 45430664,
+      "buy_price": 15.7633,
+      "sell_price": 17.4227
     }
   ],
   "dividends": [],
@@ -430,7 +433,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:03.723Z",
+  "data_fetched_at": "2025-11-11T06:15:27.625Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

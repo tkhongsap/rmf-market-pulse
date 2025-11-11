@@ -1,5 +1,8 @@
 {
   "fund_id": "M0359_2552",
+  "symbol": "X-EQRMF",
+  "fund_name": "XSpringam Equity RMF",
+  "amc": "XSPRING ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -440,7 +443,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:44:23.146Z",
+  "data_fetched_at": "2025-11-11T06:45:41.290Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

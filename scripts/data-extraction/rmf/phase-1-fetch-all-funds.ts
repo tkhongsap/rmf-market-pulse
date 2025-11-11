@@ -309,8 +309,11 @@ async function processFund(
     log(`  AMC: ${mappingEntry.amc_name}`, 'dim');
     log(`  proj_id: ${mappingEntry.proj_id}`, 'dim');
 
-    // Build metadata from CSV
+    // Build metadata from CSV (must include symbol, fund_name, amc for consistent output structure)
     const metadata: FundMetadata = {
+      symbol: csvFund.symbol,
+      fund_name: csvFund.fund_name,
+      amc: csvFund.amc,
       fund_classification: csvFund.fund_classification,
       management_style: csvFund.management_style,
       dividend_policy: csvFund.dividend_policy,

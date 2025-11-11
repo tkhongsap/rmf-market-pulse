@@ -1,5 +1,8 @@
 {
   "fund_id": "M0041_2563",
+  "symbol": "BCAP-2040 RMF",
+  "fund_name": "BCAP Global Target Date 2040 Retirement Mutual Fund",
+  "amc": "BANGKOK CAPITAL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXMOD",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-05",
-    "last_val": 11.7213,
+    "nav_date": "2025-11-06",
+    "last_val": 11.6848,
     "previous_val": 0,
-    "net_asset": 94285016,
-    "buy_price": 11.7213,
-    "sell_price": 11.7214,
-    "change": 11.7213,
+    "net_asset": 94562360,
+    "buy_price": 11.6848,
+    "sell_price": 11.6849,
+    "change": 11.6848,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-24",
-      "last_val": 11.5935,
-      "previous_val": 0,
-      "net_asset": 99617840,
-      "buy_price": 11.5935,
-      "sell_price": 11.5936
-    },
     {
       "nav_date": "2025-09-25",
       "last_val": 11.5784,
@@ -250,6 +245,14 @@
       "net_asset": 94285016,
       "buy_price": 11.7213,
       "sell_price": 11.7214
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 11.6848,
+      "previous_val": 0,
+      "net_asset": 94562360,
+      "buy_price": 11.6848,
+      "sell_price": 11.6849
     }
   ],
   "dividends": [],
@@ -414,7 +417,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:58.443Z",
+  "data_fetched_at": "2025-11-11T06:14:07.918Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

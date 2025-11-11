@@ -38,12 +38,17 @@ import {
   fetchFundSuitability,
   fetchFundURLs,
   fetchFundInvestmentMinimums,
+  fetchFundPolicy,
+  fetchFundDividendPolicy,
   type FundPerformance,
   type BenchmarkData,
   type VolatilityMetrics,
   type TrackingError,
   type FundCompareData,
   type FundAssets,
+  type FundPolicyData,
+  type DividendPolicyData,
+  type SuitabilityData,
 } from '../../../server/services/secFundFactsheetApi';
 
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
@@ -735,32 +740,128 @@ async function fetchMinimums(proj_id: string): Promise<InvestmentMinimums | null
   }
 }
 
+/**
+ * Fetch fund policy (classification + management style) from API
+ */
+async function fetchPolicyMetadata(proj_id: string): Promise<{ classification: string; management_style: string } | null> {
+  log('Fetching fund policy metadata...', 'blue');
+
+  try {
+    const policyData = await fetchFundPolicy(proj_id);
+
+    if (!policyData) {
+      log('  ✗ No policy data available', 'yellow');
+      return null;
+    }
+
+    log(`  ✓ Classification: ${policyData.policy_desc}, Style: ${policyData.management_style}`, 'green');
+
+    return {
+      classification: policyData.policy_desc || 'Unknown',
+      management_style: policyData.management_style || 'Unknown',
+    };
+  } catch (error: any) {
+    log(`  ✗ Error fetching policy: ${error.message}`, 'red');
+    return null;
+  }
+}
+
+/**
+ * Fetch dividend policy from API
+ */
+async function fetchDividendPolicyMetadata(proj_id: string): Promise<string> {
+  log('Fetching dividend policy metadata...', 'blue');
+
+  try {
+    const dividendData = await fetchFundDividendPolicy(proj_id);
+
+    if (!dividendData || !dividendData.dividend_policy) {
+      log('  ✗ No dividend policy available', 'yellow');
+      return 'Unknown';
+    }
+
+    log(`  ✓ Dividend Policy: ${dividendData.dividend_policy}`, 'green');
+    return dividendData.dividend_policy;
+  } catch (error: any) {
+    log(`  ✗ Error fetching dividend policy: ${error.message}`, 'red');
+    return 'Unknown';
+  }
+}
+
+/**
+ * Fetch risk level from API
+ */
+async function fetchRiskLevelMetadata(proj_id: string): Promise<number> {
+  log('Fetching risk level metadata...', 'blue');
+
+  try {
+    const suitabilityData = await fetchFundSuitability(proj_id);
+
+    if (!suitabilityData || !suitabilityData.risk_level) {
+      log('  ✗ No risk level available', 'yellow');
+      return 0;
+    }
+
+    log(`  ✓ Risk Level: ${suitabilityData.risk_level}`, 'green');
+    return suitabilityData.risk_level;
+  } catch (error: any) {
+    log(`  ✗ Error fetching risk level: ${error.message}`, 'red');
+    return 0;
+  }
+}
+
 // ============================================================================
 // Main Function
 // ============================================================================
 
 /**
  * Fetch complete data for a single RMF fund
+ *
+ * @param proj_id Fund project ID
+ * @param basicInfo Basic fund information (symbol, fund_name, amc)
+ * @returns Complete fund data including metadata fetched from API
  */
 export async function fetchCompleteFundData(
   proj_id: string,
-  metadata: FundMetadata
+  basicInfo: { symbol: string; fund_name: string; amc: string }
 ): Promise<CompleteFundData> {
   const errors: string[] = [];
 
-  logSection(`Fetching Complete Data for ${metadata.symbol}`);
+  logSection(`Fetching Complete Data for ${basicInfo.symbol}`);
 
   log(`Fund ID: ${proj_id}`, 'cyan');
-  log(`Fund Name: ${metadata.fund_name}`, 'cyan');
-  log(`AMC: ${metadata.amc}`, 'cyan');
+  log(`Fund Name: ${basicInfo.fund_name}`, 'cyan');
+  log(`AMC: ${basicInfo.amc}`, 'cyan');
 
-  // 1. Fetch Latest NAV
+  // METADATA FETCH (NEW): Fetch metadata from API instead of CSV
+  logSection('Fetching Metadata from API');
+
+  // 1. Fetch Fund Policy (classification + management style)
+  const policyMetadata = await fetchPolicyMetadata(proj_id);
+  if (!policyMetadata) errors.push('No policy metadata available');
+
+  await sleep(100);
+
+  // 2. Fetch Dividend Policy
+  const dividendPolicy = await fetchDividendPolicyMetadata(proj_id);
+
+  await sleep(100);
+
+  // 3. Fetch Risk Level
+  const riskLevel = await fetchRiskLevelMetadata(proj_id);
+
+  await sleep(100);
+
+  // DAILY DATA FETCH
+  logSection('Fetching Daily Data');
+
+  // 4. Fetch Latest NAV
   const latestNav = await fetchLatestNav(proj_id);
   if (!latestNav) errors.push('Failed to fetch latest NAV');
 
-  await sleep(100); // Small delay between calls
+  await sleep(100);
 
-  // 2. Fetch NAV History (30 days)
+  // 5. Fetch NAV History (30 days)
   const navHistory = latestNav
     ? await fetchNavHistory30d(proj_id, latestNav.nav_date)
     : [];
@@ -768,93 +869,99 @@ export async function fetchCompleteFundData(
 
   await sleep(100);
 
-  // 3. Fetch Dividend History
+  // 6. Fetch Dividend History
   const dividends = await fetchDividendHistory(proj_id);
 
   await sleep(100);
 
-  // 4. Fetch Performance Metrics
+  // PERFORMANCE DATA FETCH
+  logSection('Fetching Performance Data');
+
+  // 7. Fetch Performance Metrics
   const performance = await fetchPerformanceMetrics(proj_id);
   if (!performance) errors.push('No performance data available');
 
   await sleep(100);
 
-  // 5. Fetch Benchmark Data
+  // 8. Fetch Benchmark Data
   const benchmark = await fetchBenchmarkData(proj_id);
   if (!benchmark) errors.push('No benchmark data available');
 
   await sleep(100);
 
-  // 6. Fetch Risk Metrics
+  // 9. Fetch Risk Metrics
   const riskMetrics = await fetchRiskMetrics(proj_id);
   if (!riskMetrics) errors.push('No risk metrics available');
 
   await sleep(100);
 
-  // 7. Fetch Asset Allocation
+  // PORTFOLIO DATA FETCH
+  logSection('Fetching Portfolio Data');
+
+  // 10. Fetch Asset Allocation
   const assetAllocation = await fetchAssetAllocation(proj_id);
   if (!assetAllocation) errors.push('No asset allocation data available');
 
   await sleep(100);
 
-  // 8. Fetch Fund Category
+  // 11. Fetch Fund Category
   const category = await fetchFundCategory(proj_id);
   if (!category) errors.push('No category data available');
 
   await sleep(100);
 
-  // 9. Fetch Fee Structure
+  // 12. Fetch Fee Structure
   const fees = await fetchFeeStructure(proj_id);
   if (!fees) errors.push('No fee data available');
 
   await sleep(100);
 
-  // 10. Fetch Involved Parties
+  // 13. Fetch Involved Parties
   const involvedParties = await fetchParties(proj_id);
   if (!involvedParties) errors.push('No involved parties data available');
 
   await sleep(100);
 
-  // 11. Fetch Top 5 Holdings
+  // 14. Fetch Top 5 Holdings
   const topHoldings = await fetchTopHoldings(proj_id);
   if (!topHoldings) errors.push('No top holdings data available');
 
   await sleep(100);
 
-  // 12. Fetch Risk Factors
+  // 15. Fetch Risk Factors
   const riskFactors = await fetchRiskInfo(proj_id);
   if (!riskFactors) errors.push('No risk factors data available');
 
   await sleep(100);
 
-  // 13. Fetch Suitability
+  // 16. Fetch Suitability
   const suitability = await fetchSuitabilityInfo(proj_id);
   if (!suitability) errors.push('No suitability data available');
 
   await sleep(100);
 
-  // 14. Fetch Document URLs
+  // 17. Fetch Document URLs
   const documentURLs = await fetchDocumentURLs(proj_id);
   if (!documentURLs) errors.push('No document URLs available');
 
   await sleep(100);
 
-  // 15. Fetch Investment Minimums
+  // 18. Fetch Investment Minimums
   const investmentMinimums = await fetchMinimums(proj_id);
   if (!investmentMinimums) errors.push('No investment minimums data available');
 
-  // Assemble complete data
+  // Assemble complete data with API-sourced metadata
   const completeData: CompleteFundData = {
     fund_id: proj_id,
-    symbol: metadata.symbol,
-    fund_name: metadata.fund_name,
-    amc: metadata.amc,
+    symbol: basicInfo.symbol,
+    fund_name: basicInfo.fund_name,
+    amc: basicInfo.amc,
     metadata: {
-      fund_classification: metadata.fund_classification,
-      management_style: metadata.management_style,
-      dividend_policy: metadata.dividend_policy,
-      risk_level: metadata.risk_level,
-      fund_type: metadata.fund_type,
+      fund_classification: policyMetadata?.classification || 'Unknown',
+      management_style: policyMetadata?.management_style || 'Unknown',
+      dividend_policy: dividendPolicy,
+      risk_level: riskLevel,
+      fund_type: 'RMF',
     },
     latest_nav: latestNav,
     nav_history_30d: navHistory,
@@ -876,21 +983,40 @@ export async function fetchCompleteFundData(
   };
 
   logSection('Data Fetch Complete');
-  log(`✓ Latest NAV: ${latestNav ? 'Yes' : 'No'}`, latestNav ? 'green' : 'red');
-  log(`✓ NAV History: ${navHistory.length} records`, navHistory.length > 0 ? 'green' : 'red');
-  log(`✓ Dividends: ${dividends.length} records`, 'green');
-  log(`✓ Performance: ${performance ? 'Yes' : 'No'}`, performance ? 'green' : 'red');
-  log(`✓ Benchmark: ${benchmark ? 'Yes' : 'No'}`, benchmark ? 'green' : 'red');
-  log(`✓ Risk Metrics: ${riskMetrics ? 'Yes' : 'No'}`, riskMetrics ? 'green' : 'red');
-  log(`✓ Asset Allocation: ${assetAllocation ? 'Yes' : 'No'}`, assetAllocation ? 'green' : 'red');
-  log(`✓ Category: ${category ? 'Yes' : 'No'}`, category ? 'green' : 'red');
-  log(`✓ Fees: ${fees ? 'Yes' : 'No'}`, fees ? 'green' : 'red');
-  log(`✓ Involved Parties: ${involvedParties ? 'Yes' : 'No'}`, involvedParties ? 'green' : 'red');
-  log(`✓ Top Holdings: ${topHoldings ? 'Yes' : 'No'}`, topHoldings ? 'green' : 'red');
-  log(`✓ Risk Factors: ${riskFactors ? 'Yes' : 'No'}`, riskFactors ? 'green' : 'red');
-  log(`✓ Suitability: ${suitability ? 'Yes' : 'No'}`, suitability ? 'green' : 'red');
-  log(`✓ Document URLs: ${documentURLs ? 'Yes' : 'No'}`, documentURLs ? 'green' : 'red');
-  log(`✓ Investment Minimums: ${investmentMinimums ? 'Yes' : 'No'}`, investmentMinimums ? 'green' : 'red');
+
+  // Metadata
+  log('\nMetadata (from API):', 'cyan');
+  log(`  ✓ Fund Classification: ${policyMetadata?.classification || 'Unknown'}`, policyMetadata ? 'green' : 'red');
+  log(`  ✓ Management Style: ${policyMetadata?.management_style || 'Unknown'}`, policyMetadata ? 'green' : 'red');
+  log(`  ✓ Dividend Policy: ${dividendPolicy}`, 'green');
+  log(`  ✓ Risk Level: ${riskLevel}`, riskLevel > 0 ? 'green' : 'red');
+
+  // Daily Data
+  log('\nDaily Data:', 'cyan');
+  log(`  ✓ Latest NAV: ${latestNav ? 'Yes' : 'No'}`, latestNav ? 'green' : 'red');
+  log(`  ✓ NAV History: ${navHistory.length} records`, navHistory.length > 0 ? 'green' : 'red');
+  log(`  ✓ Dividends: ${dividends.length} records`, 'green');
+
+  // Performance Data
+  log('\nPerformance Data:', 'cyan');
+  log(`  ✓ Performance: ${performance ? 'Yes' : 'No'}`, performance ? 'green' : 'red');
+  log(`  ✓ Benchmark: ${benchmark ? 'Yes' : 'No'}`, benchmark ? 'green' : 'red');
+  log(`  ✓ Risk Metrics: ${riskMetrics ? 'Yes' : 'No'}`, riskMetrics ? 'green' : 'red');
+
+  // Portfolio Data
+  log('\nPortfolio Data:', 'cyan');
+  log(`  ✓ Asset Allocation: ${assetAllocation ? 'Yes' : 'No'}`, assetAllocation ? 'green' : 'red');
+  log(`  ✓ Category: ${category ? 'Yes' : 'No'}`, category ? 'green' : 'red');
+  log(`  ✓ Top Holdings: ${topHoldings ? 'Yes' : 'No'}`, topHoldings ? 'green' : 'red');
+
+  // Fund Details
+  log('\nFund Details:', 'cyan');
+  log(`  ✓ Fees: ${fees ? 'Yes' : 'No'}`, fees ? 'green' : 'red');
+  log(`  ✓ Involved Parties: ${involvedParties ? 'Yes' : 'No'}`, involvedParties ? 'green' : 'red');
+  log(`  ✓ Risk Factors: ${riskFactors ? 'Yes' : 'No'}`, riskFactors ? 'green' : 'red');
+  log(`  ✓ Suitability: ${suitability ? 'Yes' : 'No'}`, suitability ? 'green' : 'red');
+  log(`  ✓ Document URLs: ${documentURLs ? 'Yes' : 'No'}`, documentURLs ? 'green' : 'red');
+  log(`  ✓ Investment Minimums: ${investmentMinimums ? 'Yes' : 'No'}`, investmentMinimums ? 'green' : 'red');
 
   if (errors.length > 0) {
     log(`\nWarnings: ${errors.length}`, 'yellow');
@@ -906,29 +1032,24 @@ export async function fetchCompleteFundData(
 
 async function main() {
   log('\n╔════════════════════════════════════════════════════════════════════════════╗', 'yellow');
-  log('║           Comprehensive RMF Fund Data Fetcher - ABAPAC-RMF Test          ║', 'yellow');
+  log('║        Comprehensive RMF Fund Data Fetcher - 100% API-Based Test         ║', 'yellow');
   log('╚════════════════════════════════════════════════════════════════════════════╝\n', 'yellow');
 
   // Clear cache for fresh test
   clearCache();
 
-  // ABAPAC-RMF metadata
-  const metadata: FundMetadata = {
+  // ABAPAC-RMF basic info (metadata will be fetched from API)
+  const basicInfo = {
     symbol: 'ABAPAC-RMF',
     fund_name: 'abrdn Asia Pacific Equity Retirement Mutual Fund',
     amc: 'ABERDEEN ASSET MANAGEMENT (THAILAND) LIMITED',
-    fund_classification: 'EQASxJP',
-    management_style: 'AM',
-    dividend_policy: 'No',
-    risk_level: 6,
-    fund_type: 'RMF',
   };
 
   const proj_id = 'M0774_2554'; // ABAPAC-RMF project ID
 
   try {
-    // Fetch complete data
-    const completeData = await fetchCompleteFundData(proj_id, metadata);
+    // Fetch complete data (including metadata from API)
+    const completeData = await fetchCompleteFundData(proj_id, basicInfo);
 
     // Create output directory
     const outputDir = join(process.cwd(), 'data', 'rmf-funds');

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0696_2556",
+  "symbol": "TUSRMF-P",
+  "fund_name": "TISCO US Equity RMF",
+  "amc": "EQUS",
   "metadata": {
     "fund_classification": "PN",
     "management_style": "No",
@@ -618,7 +621,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:42:22.751Z",
+  "data_fetched_at": "2025-11-11T06:43:57.092Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

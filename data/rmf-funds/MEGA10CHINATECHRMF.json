@@ -1,5 +1,8 @@
 {
   "fund_id": "M0936_2568",
+  "symbol": "MEGA10CHINATECHRMF",
+  "fund_name": "MEGA 10 CHINA TECHNOLOGY RETIREMENT MUTUAL FUND",
+  "amc": "TALIS ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "-",
@@ -221,7 +224,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:31:38.115Z",
+  "data_fetched_at": "2025-11-11T06:32:41.080Z",
   "errors": [
     "No performance data available",
     "No benchmark data available",

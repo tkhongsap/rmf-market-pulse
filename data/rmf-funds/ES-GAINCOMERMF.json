@@ -1,5 +1,8 @@
 {
   "fund_id": "M0669_2567",
+  "symbol": "ES-GAINCOMERMF",
+  "fund_name": "EASTSPRING Global Multi Asset Income RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXFI",
     "management_style": "-",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 11.0207,
+    "nav_date": "2025-11-07",
+    "last_val": 11.0313,
     "previous_val": 0,
-    "net_asset": 136921488,
-    "buy_price": 11.0207,
-    "sell_price": 11.0208,
-    "change": 11.0207,
+    "net_asset": 137682720,
+    "buy_price": 11.0313,
+    "sell_price": 11.0314,
+    "change": 11.0313,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 11.0143,
-      "previous_val": 0,
-      "net_asset": 93193744,
-      "buy_price": 11.0143,
-      "sell_price": 11.0144
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 11.0425,
@@ -250,6 +245,14 @@
       "net_asset": 136921488,
       "buy_price": 11.0207,
       "sell_price": 11.0208
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 11.0313,
+      "previous_val": 0,
+      "net_asset": 137682720,
+      "buy_price": 11.0313,
+      "sell_price": 11.0314
     }
   ],
   "dividends": [],
@@ -338,7 +341,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:14.648Z",
+  "data_fetched_at": "2025-11-11T06:16:48.173Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

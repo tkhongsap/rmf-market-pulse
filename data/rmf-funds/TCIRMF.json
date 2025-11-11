@@ -1,5 +1,8 @@
 {
   "fund_id": "M0512_2550",
+  "symbol": "TCIRMF",
+  "fund_name": "TISCO China India Retirement Fund",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQASxJP",
     "management_style": "PN",
@@ -434,7 +437,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:38:01.205Z",
+  "data_fetched_at": "2025-11-11T06:39:34.901Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

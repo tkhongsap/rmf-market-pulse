@@ -1,5 +1,8 @@
 {
   "fund_id": "M0526_2568",
+  "symbol": "MEGA10HEALTHRMF",
+  "fund_name": "MEGA 10 HEALTHCARE RETIREMENT MUTUAL FUND",
+  "amc": "TALIS ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQHEALTH",
     "management_style": "-",
@@ -366,7 +369,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:31:38.433Z",
+  "data_fetched_at": "2025-11-11T06:33:01.462Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

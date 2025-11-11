@@ -1,5 +1,8 @@
 {
   "fund_id": "M0059_2544",
+  "symbol": "TSFIRMF",
+  "fund_name": "TISCO Secured Fixed Income Retirement Fund",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMIDGEN",
     "management_style": "SM",
@@ -530,7 +533,7 @@
     "minimum_redemption": "0",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:41:43.075Z",
+  "data_fetched_at": "2025-11-11T06:43:19.395Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

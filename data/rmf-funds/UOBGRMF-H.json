@@ -1,5 +1,8 @@
 {
   "fund_id": "M0815_2554",
+  "symbol": "UOBGRMF-H",
+  "fund_name": "UOB Gold RMF - Currency Hedged",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "COMPM",
     "management_style": "OT",
@@ -414,7 +417,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:43:42.735Z",
+  "data_fetched_at": "2025-11-11T06:45:20.938Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

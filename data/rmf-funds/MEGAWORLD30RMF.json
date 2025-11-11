@@ -1,5 +1,8 @@
 {
   "fund_id": "M0074_2568",
+  "symbol": "MEGAWORLD30RMF",
+  "fund_name": "MEGA WORLD 30 RETIREMENT MUTUAL FUND",
+  "amc": "TALIS ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "-",
@@ -366,7 +369,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:31:58.690Z",
+  "data_fetched_at": "2025-11-11T06:33:01.482Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

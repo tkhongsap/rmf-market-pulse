@@ -1,5 +1,8 @@
 {
   "fund_id": "M0420_2548",
+  "symbol": "PRINCIPAL FIRMF",
+  "fund_name": "Principal Fixed Income Retirement Mutual Fund",
+  "amc": "PRINCIPAL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMIDGEN",
     "management_style": "AM",
@@ -426,7 +429,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:33:18.211Z",
+  "data_fetched_at": "2025-11-11T06:34:42.766Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

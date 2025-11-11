@@ -1,5 +1,8 @@
 {
   "fund_id": "M0830_2547",
+  "symbol": "PRINCIPAL AARMF",
+  "fund_name": "Principal Aggressive allocation Retirement Mutual Fund",
+  "amc": "PRINCIPAL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXAGG",
     "management_style": "AM",
@@ -354,7 +357,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:32:58.327Z",
+  "data_fetched_at": "2025-11-11T06:34:22.111Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

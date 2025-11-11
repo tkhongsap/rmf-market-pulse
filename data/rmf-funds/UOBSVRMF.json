@@ -1,5 +1,8 @@
 {
   "fund_id": "M0088_2545",
+  "symbol": "UOBSVRMF",
+  "fund_name": "UOB Smart Value RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXGEN",
     "management_style": "AM",
@@ -434,7 +437,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:44:02.996Z",
+  "data_fetched_at": "2025-11-11T06:45:21.229Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

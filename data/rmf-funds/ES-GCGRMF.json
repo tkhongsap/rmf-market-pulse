@@ -1,5 +1,8 @@
 {
   "fund_id": "M0551_2563",
+  "symbol": "ES-GCGRMF",
+  "fund_name": "Eastspring Global Capital Growth RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 9.9879,
+    "nav_date": "2025-11-07",
+    "last_val": 9.943,
     "previous_val": 0,
-    "net_asset": 271561248,
-    "buy_price": 9.9879,
-    "sell_price": 9.988,
-    "change": 9.9879,
+    "net_asset": 270435392,
+    "buy_price": 9.943,
+    "sell_price": 9.9431,
+    "change": 9.943,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 10.1556,
-      "previous_val": 0,
-      "net_asset": 287195840,
-      "buy_price": 10.1556,
-      "sell_price": 10.1557
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 10.1688,
@@ -250,6 +245,14 @@
       "net_asset": 271561248,
       "buy_price": 9.9879,
       "sell_price": 9.988
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 9.943,
+      "previous_val": 0,
+      "net_asset": 270435392,
+      "buy_price": 9.943,
+      "sell_price": 9.9431
     }
   ],
   "dividends": [],
@@ -388,7 +391,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:14.619Z",
+  "data_fetched_at": "2025-11-11T06:16:47.941Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

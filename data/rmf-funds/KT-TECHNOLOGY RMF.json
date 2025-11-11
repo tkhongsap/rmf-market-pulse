@@ -1,5 +1,8 @@
 {
   "fund_id": "M0966_2568",
+  "symbol": "KT-TECHNOLOGY RMF",
+  "fund_name": "KTAM World Technology RMF",
+  "amc": "KRUNG THAI ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "-",
@@ -7,8 +10,35 @@
     "risk_level": 7,
     "fund_type": "RMF"
   },
-  "latest_nav": null,
-  "nav_history_30d": [],
+  "latest_nav": {
+    "nav_date": "2025-11-07",
+    "last_val": 9.9988,
+    "previous_val": 0,
+    "net_asset": 16604889,
+    "buy_price": 9.9988,
+    "sell_price": 9.9989,
+    "change": 9.9988,
+    "change_percent": 0,
+    "last_upd_date": "2025-11-11T08:11:44.25"
+  },
+  "nav_history_30d": [
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 10,
+      "previous_val": 0,
+      "net_asset": 16606825,
+      "buy_price": 10,
+      "sell_price": 10
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 9.9988,
+      "previous_val": 0,
+      "net_asset": 16604889,
+      "buy_price": 9.9988,
+      "sell_price": 9.9989
+    }
+  ],
   "dividends": [],
   "performance": null,
   "benchmark": null,
@@ -99,10 +129,8 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:56.834Z",
+  "data_fetched_at": "2025-11-11T06:29:58.399Z",
   "errors": [
-    "Failed to fetch latest NAV",
-    "No NAV history available",
     "No performance data available",
     "No benchmark data available",
     "No risk metrics available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0186_2548",
+  "symbol": "RMF3",
+  "fund_name": "The Krung Thai Debt Securities RMF 3",
+  "amc": "KRUNG THAI ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXLONGGEN",
     "management_style": "AM",
@@ -392,7 +395,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:33:58.471Z",
+  "data_fetched_at": "2025-11-11T06:35:22.884Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

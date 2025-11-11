@@ -1,5 +1,8 @@
 {
   "fund_id": "M0576_2553",
+  "symbol": "ES-BRMF",
+  "fund_name": "Eastspring Bond RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMIDGEN",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 13.9614,
+    "nav_date": "2025-11-10",
+    "last_val": 13.9603,
     "previous_val": 0,
-    "net_asset": 3183968000,
-    "buy_price": 13.9614,
-    "sell_price": 13.9615,
-    "change": 13.9614,
+    "net_asset": 3179612416,
+    "buy_price": 13.9603,
+    "sell_price": 13.9604,
+    "change": 13.9603,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 13.983,
-      "previous_val": 0,
-      "net_asset": 3161060864,
-      "buy_price": 13.983,
-      "sell_price": 13.9831
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 13.9871,
@@ -250,6 +245,14 @@
       "net_asset": 3183968000,
       "buy_price": 13.9614,
       "sell_price": 13.9615
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 13.9603,
+      "previous_val": 0,
+      "net_asset": 3179612416,
+      "buy_price": 13.9603,
+      "sell_price": 13.9604
     }
   ],
   "dividends": [],
@@ -388,7 +391,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:09.402Z",
+  "data_fetched_at": "2025-11-11T06:16:07.932Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

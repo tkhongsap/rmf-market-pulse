@@ -1,5 +1,8 @@
 {
   "fund_id": "M0426_2564",
+  "symbol": "TSFRMF-A",
+  "fund_name": "TISCO Strategic RMF",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGEN",
     "management_style": "OT",
@@ -574,7 +577,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:42:02.858Z",
+  "data_fetched_at": "2025-11-11T06:43:19.698Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

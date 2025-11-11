@@ -1,5 +1,8 @@
 {
   "fund_id": "M0098_2551",
+  "symbol": "PFIXRMF",
+  "fund_name": "PHILLIP FIXED INCOME RETIREMENT MUTUAL FUND",
+  "amc": "PHILLIP ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMIDGOV",
     "management_style": "AM",
@@ -474,7 +477,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:32:58.221Z",
+  "data_fetched_at": "2025-11-11T06:34:02.104Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

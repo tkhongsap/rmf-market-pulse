@@ -27,7 +27,10 @@ npm run db:push      # Push database schema changes using Drizzle Kit
 
 ### Data Extraction
 ```bash
-# HTML Parsing
+# 100% API-Based Fund List Generation (NEW)
+npm run data:rmf:generate-list        # Generate RMF fund list from SEC API (no CSV dependency)
+
+# HTML Parsing (Legacy)
 npm run data:rmf:parse                # Parse HTML table to CSV/MD
 
 # RMF Data Pipeline
@@ -86,6 +89,10 @@ The backend has multiple SEC API service modules in `server/services/`:
     - `fetchFundsByAMC()` - Get funds under specific AMC
     - `fetchFundAssets()` - Asset allocation data
     - `searchFunds()` - Search funds by name
+  - **Metadata (NEW):**
+    - `fetchFundPolicy(proj_id)` - Fund classification + management style
+    - `fetchFundDividendPolicy(proj_id)` - Dividend policy
+    - `fetchFundSuitability(proj_id)` - Risk level (parsed from risk_spectrum)
   - **Performance Metrics:**
     - `fetchFundPerformance(proj_id)` - Historical returns (YTD, 3M, 6M, 1Y, 3Y, 5Y, 10Y, Since Inception)
     - `fetchFundBenchmark(proj_id)` - Benchmark name and returns across all time periods
@@ -93,13 +100,13 @@ The backend has multiple SEC API service modules in `server/services/`:
     - `fetchFundTrackingError(proj_id)` - 1-year tracking error vs benchmark
     - `fetchFundCompare(proj_id)` - Fund category/peer group classification
   - **Fee & Compliance:**
-    - `fetchFundFee()` - Fee structure information
-    - `fetchFundInvolvedParty()` - Fund managers and involved parties
-    - `fetchFundTop5Hold()` - Top 5 fund holdings
-    - `fetchFundRiskFactor()` - Risk factors
-    - `fetchFundSuitable()` - Suitability information
-    - `fetchFundDoc()` - Document URLs
-    - `fetchFundMinimumInvestment()` - Investment minimums
+    - `fetchFundFees()` - Fee structure information
+    - `fetchInvolvedParties()` - Fund managers and involved parties
+    - `fetchFundTop5Holdings()` - Top 5 fund holdings
+    - `fetchFundRiskFactors()` - Risk factors
+    - `fetchFundSuitability()` - Suitability information (enhanced with risk_level parsing)
+    - `fetchFundURLs()` - Document URLs
+    - `fetchFundInvestmentMinimums()` - Investment minimums
   - Rate limiting: 3,000 calls per 5 minutes
   - Caching: 24 hours for all endpoints
   - Note: Performance endpoint returns array with Thai language descriptors
@@ -239,7 +246,16 @@ The repository includes pre-extracted structured data for all RMF funds:
 
 ### Data Extraction Scripts
 
-**HTML Parsing** (in `scripts/data-parsing/rmf/`):
+**100% API-Based Fund List Generation** (in `scripts/data-extraction/rmf/`):
+
+NEW: `generate-rmf-fund-list.ts` - Automated RMF fund list generation
+- Fetches all RMF funds directly from SEC API (no CSV dependency)
+- Outputs: `docs/rmf-funds-api.csv` and `docs/rmf-funds-api.md`
+- Data includes: Symbol, Fund Name, AMC, Project ID, Status, Registration Date
+- Command: `npm run data:rmf:generate-list`
+- Replaces manual CSV/MD maintenance with pure API automation
+
+**HTML Parsing** (in `scripts/data-parsing/rmf/` - Legacy):
 - `parse-rmf-funds.js` - Node.js script to parse `docs/RMF-Fund-Comparison.md` HTML table
 - `parse-rmf-funds.py` - Python alternative (same functionality)
 - Outputs: `docs/rmf-funds.csv` and `docs/rmf-funds.md`

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0991_2550",
+  "symbol": "B25RMF",
+  "fund_name": "Bualuang Equity 25% RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 14.9455,
+    "nav_date": "2025-11-10",
+    "last_val": 14.9513,
     "previous_val": 0,
-    "net_asset": 3882364160,
-    "buy_price": 14.9455,
-    "sell_price": 14.9456,
-    "change": 14.9455,
+    "net_asset": 3885405696,
+    "buy_price": 14.9513,
+    "sell_price": 14.9514,
+    "change": 14.9513,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 15.0979,
-      "previous_val": 0,
-      "net_asset": 3969417984,
-      "buy_price": 15.0979,
-      "sell_price": 15.098
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 15.1233,
@@ -250,6 +245,14 @@
       "net_asset": 3882364160,
       "buy_price": 14.9455,
       "sell_price": 14.9456
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 14.9513,
+      "previous_val": 0,
+      "net_asset": 3885405696,
+      "buy_price": 14.9513,
+      "sell_price": 14.9514
     }
   ],
   "dividends": [],
@@ -466,7 +469,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:52.910Z",
+  "data_fetched_at": "2025-11-11T06:13:47.692Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

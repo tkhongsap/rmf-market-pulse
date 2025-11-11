@@ -1,5 +1,8 @@
 {
   "fund_id": "M0510_2560",
+  "symbol": "UGISRMF",
+  "fund_name": "United Global Income Strategic Bond Fund RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXGLDISC",
     "management_style": "OT",
@@ -426,7 +429,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:43:02.811Z",
+  "data_fetched_at": "2025-11-11T06:44:40.703Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

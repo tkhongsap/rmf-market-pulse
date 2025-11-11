@@ -1,5 +1,8 @@
 {
   "fund_id": "M0116_2553",
+  "symbol": "BGOLDRMF",
+  "fund_name": "Bualuang Gold RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "PM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 26.6602,
+    "nav_date": "2025-11-10",
+    "last_val": 27.126,
     "previous_val": 0,
-    "net_asset": 5605136384,
-    "buy_price": 26.6602,
-    "sell_price": 26.6603,
-    "change": 26.6602,
+    "net_asset": 5741812736,
+    "buy_price": 27.126,
+    "sell_price": 27.1261,
+    "change": 27.126,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 24.9833,
-      "previous_val": 0,
-      "net_asset": 5075884544,
-      "buy_price": 24.9833,
-      "sell_price": 24.9834
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 25.441,
@@ -250,6 +245,14 @@
       "net_asset": 5605136384,
       "buy_price": 26.6602,
       "sell_price": 26.6603
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 27.126,
+      "previous_val": 0,
+      "net_asset": 5741812736,
+      "buy_price": 27.126,
+      "sell_price": 27.1261
     }
   ],
   "dividends": [],
@@ -498,7 +501,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:58.278Z",
+  "data_fetched_at": "2025-11-11T06:14:47.680Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

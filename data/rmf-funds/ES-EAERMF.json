@@ -1,5 +1,8 @@
 {
   "fund_id": "M0648_2560",
+  "symbol": "ES-EAERMF",
+  "fund_name": "Eastspring Emerging Active Equity RMF",
+  "amc": "EQGEM",
   "metadata": {
     "fund_classification": "AN",
     "management_style": "No",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 7.0768,
+    "nav_date": "2025-11-07",
+    "last_val": 7.0047,
     "previous_val": 0,
-    "net_asset": 61748876,
-    "buy_price": 7.0697,
-    "sell_price": 7.084,
-    "change": 7.0768,
+    "net_asset": 61129964,
+    "buy_price": 6.9977,
+    "sell_price": 7.0118,
+    "change": 7.0047,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 6.9182,
-      "previous_val": 0,
-      "net_asset": 59128608,
-      "buy_price": 6.9113,
-      "sell_price": 6.9252
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 6.812,
@@ -242,6 +237,14 @@
       "net_asset": 61748876,
       "buy_price": 7.0697,
       "sell_price": 7.084
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 7.0047,
+      "previous_val": 0,
+      "net_asset": 61129964,
+      "buy_price": 6.9977,
+      "sell_price": 7.0118
     }
   ],
   "dividends": [],
@@ -368,7 +371,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:09.554Z",
+  "data_fetched_at": "2025-11-11T06:16:27.998Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

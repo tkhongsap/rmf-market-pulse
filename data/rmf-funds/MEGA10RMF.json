@@ -1,5 +1,8 @@
 {
   "fund_id": "M0619_2565",
+  "symbol": "MEGA10RMF",
+  "fund_name": "MEGA 10 RETIREMENT MUTUAL FUND",
+  "amc": "TALIS ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQUS",
     "management_style": "OT",
@@ -375,7 +378,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:31:38.116Z",
+  "data_fetched_at": "2025-11-11T06:33:01.592Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

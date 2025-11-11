@@ -1,5 +1,8 @@
 {
   "fund_id": "M0074_2545",
+  "symbol": "TFPRMF-A",
+  "fund_name": "TISCO Flexible Portfolio Retirement Fund",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXAGG",
     "management_style": "AM",
@@ -574,7 +577,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:39:02.980Z",
+  "data_fetched_at": "2025-11-11T06:40:14.851Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

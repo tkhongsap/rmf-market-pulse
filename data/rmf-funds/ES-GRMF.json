@@ -1,5 +1,8 @@
 {
   "fund_id": "M0970_2553",
+  "symbol": "ES-GRMF",
+  "fund_name": "Eastspring Global Bond RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXGLDISC",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 10.6454,
+    "nav_date": "2025-11-07",
+    "last_val": 10.6377,
     "previous_val": 0,
-    "net_asset": 175807056,
-    "buy_price": 10.6348,
-    "sell_price": 10.6561,
-    "change": 10.6454,
+    "net_asset": 175780400,
+    "buy_price": 10.6271,
+    "sell_price": 10.6484,
+    "change": 10.6377,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 10.5529,
-      "previous_val": 0,
-      "net_asset": 174180448,
-      "buy_price": 10.5423,
-      "sell_price": 10.5636
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 10.5528,
@@ -156,12 +151,108 @@
       "sell_price": 10.6907
     },
     {
+      "nav_date": "2025-10-21",
+      "last_val": 10.6878,
+      "previous_val": 0,
+      "net_asset": 176283360,
+      "buy_price": 10.6771,
+      "sell_price": 10.6986
+    },
+    {
+      "nav_date": "2025-10-22",
+      "last_val": 10.697,
+      "previous_val": 0,
+      "net_asset": 176487984,
+      "buy_price": 10.6863,
+      "sell_price": 10.7078
+    },
+    {
+      "nav_date": "2025-10-24",
+      "last_val": 10.6895,
+      "previous_val": 0,
+      "net_asset": 176373280,
+      "buy_price": 10.6788,
+      "sell_price": 10.7003
+    },
+    {
+      "nav_date": "2025-10-27",
+      "last_val": 10.6901,
+      "previous_val": 0,
+      "net_asset": 176364064,
+      "buy_price": 10.6794,
+      "sell_price": 10.7009
+    },
+    {
+      "nav_date": "2025-10-28",
+      "last_val": 10.6963,
+      "previous_val": 0,
+      "net_asset": 176216512,
+      "buy_price": 10.6856,
+      "sell_price": 10.7071
+    },
+    {
+      "nav_date": "2025-10-29",
+      "last_val": 10.662,
+      "previous_val": 0,
+      "net_asset": 175780816,
+      "buy_price": 10.6513,
+      "sell_price": 10.6728
+    },
+    {
+      "nav_date": "2025-10-30",
+      "last_val": 10.6532,
+      "previous_val": 0,
+      "net_asset": 175637152,
+      "buy_price": 10.6425,
+      "sell_price": 10.664
+    },
+    {
+      "nav_date": "2025-10-31",
+      "last_val": 10.6548,
+      "previous_val": 0,
+      "net_asset": 175720736,
+      "buy_price": 10.6441,
+      "sell_price": 10.6656
+    },
+    {
+      "nav_date": "2025-11-03",
+      "last_val": 10.6442,
+      "previous_val": 0,
+      "net_asset": 175595680,
+      "buy_price": 10.6336,
+      "sell_price": 10.6549
+    },
+    {
+      "nav_date": "2025-11-04",
+      "last_val": 10.6488,
+      "previous_val": 0,
+      "net_asset": 175730336,
+      "buy_price": 10.6382,
+      "sell_price": 10.6595
+    },
+    {
+      "nav_date": "2025-11-05",
+      "last_val": 10.6273,
+      "previous_val": 0,
+      "net_asset": 175374640,
+      "buy_price": 10.6167,
+      "sell_price": 10.638
+    },
+    {
       "nav_date": "2025-11-06",
       "last_val": 10.6454,
       "previous_val": 0,
       "net_asset": 175807056,
       "buy_price": 10.6348,
       "sell_price": 10.6561
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 10.6377,
+      "previous_val": 0,
+      "net_asset": 175780400,
+      "buy_price": 10.6271,
+      "sell_price": 10.6484
     }
   ],
   "dividends": [],
@@ -296,7 +387,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:19.146Z",
+  "data_fetched_at": "2025-11-11T06:17:27.944Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

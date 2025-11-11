@@ -1,5 +1,8 @@
 {
   "fund_id": "M0596_2559",
+  "symbol": "TLFLEXRMF",
+  "fund_name": "TALIS FLEXIBLE RETIREMENT MUTUAL FUND",
+  "amc": "TALIS ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXAGG",
     "management_style": "AM",
@@ -380,7 +383,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:40:43.370Z",
+  "data_fetched_at": "2025-11-11T06:42:18.677Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

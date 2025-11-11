@@ -1,5 +1,8 @@
 {
   "fund_id": "M0679_2557",
+  "symbol": "K-EURMF",
+  "fund_name": "K European Equity RMF",
+  "amc": "KASIKORN ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQEU",
     "management_style": "AN",
@@ -7,8 +10,235 @@
     "risk_level": 6,
     "fund_type": "RMF"
   },
-  "latest_nav": null,
-  "nav_history_30d": [],
+  "latest_nav": {
+    "nav_date": "2025-11-07",
+    "last_val": 17.0188,
+    "previous_val": 0,
+    "net_asset": 891559616,
+    "buy_price": 17.0188,
+    "sell_price": 17.0189,
+    "change": 17.0188,
+    "change_percent": 0,
+    "last_upd_date": "2025-11-11T08:11:44.25"
+  },
+  "nav_history_30d": [
+    {
+      "nav_date": "2025-09-26",
+      "last_val": 17.123,
+      "previous_val": 0,
+      "net_asset": 914294528,
+      "buy_price": 17.123,
+      "sell_price": 17.1231
+    },
+    {
+      "nav_date": "2025-09-29",
+      "last_val": 17.3261,
+      "previous_val": 0,
+      "net_asset": 925533376,
+      "buy_price": 17.3261,
+      "sell_price": 17.3262
+    },
+    {
+      "nav_date": "2025-09-30",
+      "last_val": 17.2773,
+      "previous_val": 0,
+      "net_asset": 922503232,
+      "buy_price": 17.2773,
+      "sell_price": 17.2774
+    },
+    {
+      "nav_date": "2025-10-01",
+      "last_val": 17.3341,
+      "previous_val": 0,
+      "net_asset": 925146112,
+      "buy_price": 17.3341,
+      "sell_price": 17.3342
+    },
+    {
+      "nav_date": "2025-10-02",
+      "last_val": 17.8035,
+      "previous_val": 0,
+      "net_asset": 949814400,
+      "buy_price": 17.8035,
+      "sell_price": 17.8036
+    },
+    {
+      "nav_date": "2025-10-06",
+      "last_val": 17.879,
+      "previous_val": 0,
+      "net_asset": 949753024,
+      "buy_price": 17.879,
+      "sell_price": 17.8791
+    },
+    {
+      "nav_date": "2025-10-07",
+      "last_val": 17.9989,
+      "previous_val": 0,
+      "net_asset": 955734336,
+      "buy_price": 17.9989,
+      "sell_price": 17.999
+    },
+    {
+      "nav_date": "2025-10-08",
+      "last_val": 17.9405,
+      "previous_val": 0,
+      "net_asset": 952070784,
+      "buy_price": 17.9405,
+      "sell_price": 17.9406
+    },
+    {
+      "nav_date": "2025-10-09",
+      "last_val": 17.9062,
+      "previous_val": 0,
+      "net_asset": 949790464,
+      "buy_price": 17.9062,
+      "sell_price": 17.9063
+    },
+    {
+      "nav_date": "2025-10-10",
+      "last_val": 17.8831,
+      "previous_val": 0,
+      "net_asset": 947425024,
+      "buy_price": 17.8831,
+      "sell_price": 17.8832
+    },
+    {
+      "nav_date": "2025-10-14",
+      "last_val": 17.5255,
+      "previous_val": 0,
+      "net_asset": 925778880,
+      "buy_price": 17.5255,
+      "sell_price": 17.5256
+    },
+    {
+      "nav_date": "2025-10-15",
+      "last_val": 17.7264,
+      "previous_val": 0,
+      "net_asset": 934360128,
+      "buy_price": 17.7264,
+      "sell_price": 17.7265
+    },
+    {
+      "nav_date": "2025-10-16",
+      "last_val": 17.7636,
+      "previous_val": 0,
+      "net_asset": 938061184,
+      "buy_price": 17.7636,
+      "sell_price": 17.7637
+    },
+    {
+      "nav_date": "2025-10-17",
+      "last_val": 17.5887,
+      "previous_val": 0,
+      "net_asset": 928186688,
+      "buy_price": 17.5887,
+      "sell_price": 17.5888
+    },
+    {
+      "nav_date": "2025-10-21",
+      "last_val": 17.9778,
+      "previous_val": 0,
+      "net_asset": 945618240,
+      "buy_price": 17.9778,
+      "sell_price": 17.9779
+    },
+    {
+      "nav_date": "2025-10-22",
+      "last_val": 17.9947,
+      "previous_val": 0,
+      "net_asset": 945543424,
+      "buy_price": 17.9947,
+      "sell_price": 17.9948
+    },
+    {
+      "nav_date": "2025-10-24",
+      "last_val": 18.1776,
+      "previous_val": 0,
+      "net_asset": 954724928,
+      "buy_price": 18.1776,
+      "sell_price": 18.1777
+    },
+    {
+      "nav_date": "2025-10-27",
+      "last_val": 18.1903,
+      "previous_val": 0,
+      "net_asset": 955408832,
+      "buy_price": 18.1903,
+      "sell_price": 18.1904
+    },
+    {
+      "nav_date": "2025-10-28",
+      "last_val": 18.0496,
+      "previous_val": 0,
+      "net_asset": 948820608,
+      "buy_price": 18.0496,
+      "sell_price": 18.0497
+    },
+    {
+      "nav_date": "2025-10-29",
+      "last_val": 17.9068,
+      "previous_val": 0,
+      "net_asset": 941364992,
+      "buy_price": 17.9068,
+      "sell_price": 17.9069
+    },
+    {
+      "nav_date": "2025-10-30",
+      "last_val": 17.7244,
+      "previous_val": 0,
+      "net_asset": 931800192,
+      "buy_price": 17.7244,
+      "sell_price": 17.7245
+    },
+    {
+      "nav_date": "2025-10-31",
+      "last_val": 17.645,
+      "previous_val": 0,
+      "net_asset": 926628224,
+      "buy_price": 17.645,
+      "sell_price": 17.6451
+    },
+    {
+      "nav_date": "2025-11-03",
+      "last_val": 17.6095,
+      "previous_val": 0,
+      "net_asset": 923977472,
+      "buy_price": 17.6095,
+      "sell_price": 17.6096
+    },
+    {
+      "nav_date": "2025-11-04",
+      "last_val": 17.2557,
+      "previous_val": 0,
+      "net_asset": 904766592,
+      "buy_price": 17.2557,
+      "sell_price": 17.2558
+    },
+    {
+      "nav_date": "2025-11-05",
+      "last_val": 17.3166,
+      "previous_val": 0,
+      "net_asset": 907683840,
+      "buy_price": 17.3166,
+      "sell_price": 17.3167
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 17.3883,
+      "previous_val": 0,
+      "net_asset": 910902784,
+      "buy_price": 17.3883,
+      "sell_price": 17.3884
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 17.0188,
+      "previous_val": 0,
+      "net_asset": 891559616,
+      "buy_price": 17.0188,
+      "sell_price": 17.0189
+    }
+  ],
   "dividends": [],
   "performance": {
     "ytd": -6.57,
@@ -120,10 +350,8 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:27.955Z",
+  "data_fetched_at": "2025-11-11T06:20:31.699Z",
   "errors": [
-    "Failed to fetch latest NAV",
-    "No NAV history available",
     "No benchmark data available",
     "No risk metrics available",
     "No category data available",

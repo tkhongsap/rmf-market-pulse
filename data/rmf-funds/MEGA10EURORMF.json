@@ -1,5 +1,8 @@
 {
   "fund_id": "M0539_2567",
+  "symbol": "MEGA10EURORMF",
+  "fund_name": "MEGA 10 EURO RETIREMENT MUTUAL FUND",
+  "amc": "TALIS ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQEU",
     "management_style": "-",
@@ -366,7 +369,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:31:38.106Z",
+  "data_fetched_at": "2025-11-11T06:32:41.090Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

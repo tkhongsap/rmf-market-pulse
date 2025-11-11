@@ -1,5 +1,8 @@
 {
   "fund_id": "M0597_2551",
+  "symbol": "MM-RMF",
+  "fund_name": "Bualuang Money Market RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "OT",
@@ -506,7 +509,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:31:58.612Z",
+  "data_fetched_at": "2025-11-11T06:33:21.620Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

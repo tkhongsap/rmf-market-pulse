@@ -1,5 +1,8 @@
 {
   "fund_id": "M0062_2545",
+  "symbol": "BFRMF",
+  "fund_name": "Bualuang Fixed-income RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 16.3502,
+    "nav_date": "2025-11-10",
+    "last_val": 16.3465,
     "previous_val": 0,
-    "net_asset": 13339916288,
-    "buy_price": 16.3502,
-    "sell_price": 16.3503,
-    "change": 16.3502,
+    "net_asset": 13328425984,
+    "buy_price": 16.3465,
+    "sell_price": 16.3466,
+    "change": 16.3465,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 16.4376,
-      "previous_val": 0,
-      "net_asset": 13521954816,
-      "buy_price": 16.4376,
-      "sell_price": 16.4377
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 16.4442,
@@ -250,6 +245,14 @@
       "net_asset": 13339916288,
       "buy_price": 16.3502,
       "sell_price": 16.3503
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 16.3465,
+      "previous_val": 0,
+      "net_asset": 13328425984,
+      "buy_price": 16.3465,
+      "sell_price": 16.3466
     }
   ],
   "dividends": [],
@@ -474,7 +477,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:58.299Z",
+  "data_fetched_at": "2025-11-11T06:14:27.695Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

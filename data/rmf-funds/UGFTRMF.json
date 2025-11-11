@@ -1,5 +1,8 @@
 {
   "fund_id": "M0380_2568",
+  "symbol": "UGFTRMF",
+  "fund_name": "United CIO Growth Fund TH RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "-",
@@ -360,7 +363,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:43:02.843Z",
+  "data_fetched_at": "2025-11-11T06:44:20.530Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

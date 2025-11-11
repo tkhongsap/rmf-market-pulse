@@ -1,5 +1,8 @@
 {
   "fund_id": "M0327_2558",
+  "symbol": "ES-ASIARMF",
+  "fund_name": "Eastspring Asia Active Equity RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQASxJP",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 14.5268,
+    "nav_date": "2025-11-07",
+    "last_val": 14.2722,
     "previous_val": 0,
-    "net_asset": 935841664,
-    "buy_price": 14.5123,
-    "sell_price": 14.5414,
-    "change": 14.5268,
+    "net_asset": 919757952,
+    "buy_price": 14.2579,
+    "sell_price": 14.2866,
+    "change": 14.2722,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 14.0967,
-      "previous_val": 0,
-      "net_asset": 908497856,
-      "buy_price": 14.0826,
-      "sell_price": 14.1109
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 13.9353,
@@ -250,6 +245,14 @@
       "net_asset": 935841664,
       "buy_price": 14.5123,
       "sell_price": 14.5414
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 14.2722,
+      "previous_val": 0,
+      "net_asset": 919757952,
+      "buy_price": 14.2579,
+      "sell_price": 14.2866
     }
   ],
   "dividends": [],
@@ -380,7 +383,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:09.551Z",
+  "data_fetched_at": "2025-11-11T06:16:08.124Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

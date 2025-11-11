@@ -1,5 +1,8 @@
 {
   "fund_id": "M0271_2561",
+  "symbol": "ASP-DISRUPTRMF",
+  "fund_name": "Asset Plus Disruptive Opportunities RMF Fund",
+  "amc": "ASSET PLUS FUND MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 12.2136,
+    "nav_date": "2025-11-07",
+    "last_val": 12.0638,
     "previous_val": 0,
-    "net_asset": 94739512,
-    "buy_price": 12.2136,
-    "sell_price": 12.2137,
-    "change": 12.2136,
+    "net_asset": 93772736,
+    "buy_price": 12.0638,
+    "sell_price": 12.0639,
+    "change": 12.0638,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 11.959,
-      "previous_val": 0,
-      "net_asset": 93860936,
-      "buy_price": 11.959,
-      "sell_price": 11.9591
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 12.0331,
@@ -250,6 +245,14 @@
       "net_asset": 94739512,
       "buy_price": 12.2136,
       "sell_price": 12.2137
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 12.0638,
+      "previous_val": 0,
+      "net_asset": 93772736,
+      "buy_price": 12.0638,
+      "sell_price": 12.0639
     }
   ],
   "dividends": [],
@@ -360,7 +363,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:37.038Z",
+  "data_fetched_at": "2025-11-11T06:11:23.331Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

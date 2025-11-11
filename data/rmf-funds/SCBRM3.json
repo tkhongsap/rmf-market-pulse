@@ -1,5 +1,8 @@
 {
   "fund_id": "M0080_2544",
+  "symbol": "SCBRM3",
+  "fund_name": "SCB FLEXIBLE FUND RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXAGG",
     "management_style": "SM",
@@ -556,7 +559,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:34:38.580Z",
+  "data_fetched_at": "2025-11-11T06:35:42.960Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

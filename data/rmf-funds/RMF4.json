@@ -1,5 +1,8 @@
 {
   "fund_id": "M0718_2551",
+  "symbol": "RMF4",
+  "fund_name": "Krung Thai Money Market RMF 4",
+  "amc": "KRUNG THAI ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMMGEN",
     "management_style": "AM",
@@ -406,7 +409,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:34:18.583Z",
+  "data_fetched_at": "2025-11-11T06:35:23.011Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0398_2563",
+  "symbol": "DAOL-MONYRMF",
+  "fund_name": "DAOL MONEY MARKET RETIREMENT MUTUAL FUND",
+  "amc": "DAOL INVESTMENT MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMMGEN",
     "management_style": "SM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 10.6136,
+    "nav_date": "2025-11-10",
+    "last_val": 10.6147,
     "previous_val": 0,
-    "net_asset": 7564570.5,
-    "buy_price": 10.6136,
-    "sell_price": 10.6137,
-    "change": 10.6136,
+    "net_asset": 7565812,
+    "buy_price": 10.6147,
+    "sell_price": 10.6148,
+    "change": 10.6147,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 10.5991,
-      "previous_val": 0,
-      "net_asset": 5664424,
-      "buy_price": 10.5991,
-      "sell_price": 10.5992
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 10.6002,
@@ -250,6 +245,14 @@
       "net_asset": 7564570.5,
       "buy_price": 10.6136,
       "sell_price": 10.6137
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 10.6147,
+      "previous_val": 0,
+      "net_asset": 7565812,
+      "buy_price": 10.6147,
+      "sell_price": 10.6148
     }
   ],
   "dividends": [],
@@ -342,7 +345,32 @@
       "fee_remark": null
     }
   ],
-  "involved_parties": null,
+  "involved_parties": [
+    {
+      "party_role": "Unknown",
+      "party_name": "Unknown"
+    },
+    {
+      "party_role": "Unknown",
+      "party_name": "Unknown"
+    },
+    {
+      "party_role": "Unknown",
+      "party_name": "Unknown"
+    },
+    {
+      "party_role": "Unknown",
+      "party_name": "Unknown"
+    },
+    {
+      "party_role": "Unknown",
+      "party_name": "Unknown"
+    },
+    {
+      "party_role": "Unknown",
+      "party_name": "Unknown"
+    }
+  ],
   "top_holdings": null,
   "risk_factors": [
     {
@@ -382,12 +410,11 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:09.241Z",
+  "data_fetched_at": "2025-11-11T06:15:47.623Z",
   "errors": [
     "No benchmark data available",
     "No risk metrics available",
     "No category data available",
-    "No involved parties data available",
     "No top holdings data available"
   ]
 }

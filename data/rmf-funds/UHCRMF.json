@@ -1,5 +1,8 @@
 {
   "fund_id": "M0475_2558",
+  "symbol": "UHCRMF",
+  "fund_name": "United Global Healthcare RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQHEALTH",
     "management_style": "OT",
@@ -406,7 +409,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:43:22.781Z",
+  "data_fetched_at": "2025-11-11T06:44:40.502Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

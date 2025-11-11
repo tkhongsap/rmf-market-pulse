@@ -1,5 +1,8 @@
 {
   "fund_id": "M0181_2545",
+  "symbol": "ERMF",
+  "fund_name": "Equity Retirement Mutual Fund",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGEN",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 78.0711,
+    "nav_date": "2025-11-10",
+    "last_val": 78.0583,
     "previous_val": 0,
-    "net_asset": 1142908416,
-    "buy_price": 78.0711,
-    "sell_price": 78.0712,
-    "change": 78.0711,
+    "net_asset": 1142778624,
+    "buy_price": 78.0583,
+    "sell_price": 78.0584,
+    "change": 78.0583,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 76.1204,
-      "previous_val": 0,
-      "net_asset": 1129102464,
-      "buy_price": 76.1204,
-      "sell_price": 76.1205
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 76.488,
@@ -250,6 +245,14 @@
       "net_asset": 1142908416,
       "buy_price": 78.0711,
       "sell_price": 78.0712
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 78.0583,
+      "previous_val": 0,
+      "net_asset": 1142778624,
+      "buy_price": 78.0583,
+      "sell_price": 78.0584
     }
   ],
   "dividends": [],
@@ -418,7 +421,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:09.569Z",
+  "data_fetched_at": "2025-11-11T06:15:47.595Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

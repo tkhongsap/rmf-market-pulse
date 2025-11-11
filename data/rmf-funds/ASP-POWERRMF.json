@@ -1,5 +1,8 @@
 {
   "fund_id": "M0402_2564",
+  "symbol": "ASP-POWERRMF",
+  "fund_name": "Asset Plus Futuristic Power Supply and Mobility RMF Fund",
+  "amc": "ASSET PLUS FUND MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 3.5143,
+    "nav_date": "2025-11-07",
+    "last_val": 3.5501,
     "previous_val": 0,
-    "net_asset": 68139128,
-    "buy_price": 3.5143,
-    "sell_price": 3.5144,
-    "change": 3.5143,
+    "net_asset": 70011320,
+    "buy_price": 3.5501,
+    "sell_price": 3.5502,
+    "change": 3.5501,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 3.5196,
-      "previous_val": 0,
-      "net_asset": 56509540,
-      "buy_price": 3.5196,
-      "sell_price": 3.5197
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 3.5121,
@@ -250,6 +245,14 @@
       "net_asset": 68139128,
       "buy_price": 3.5143,
       "sell_price": 3.5144
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 3.5501,
+      "previous_val": 0,
+      "net_asset": 70011320,
+      "buy_price": 3.5501,
+      "sell_price": 3.5502
     }
   ],
   "dividends": [],
@@ -368,7 +371,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:42.169Z",
+  "data_fetched_at": "2025-11-11T06:11:43.655Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

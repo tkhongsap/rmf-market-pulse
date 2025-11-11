@@ -1,5 +1,8 @@
 {
   "fund_id": "M0541_2559",
+  "symbol": "ES-ABRMF",
+  "fund_name": "Eastspring Aggregate Bond RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMIDGEN",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 11.7595,
+    "nav_date": "2025-11-10",
+    "last_val": 11.759,
     "previous_val": 0,
-    "net_asset": 718013696,
-    "buy_price": 11.7595,
-    "sell_price": 11.7596,
-    "change": 11.7595,
+    "net_asset": 718246208,
+    "buy_price": 11.759,
+    "sell_price": 11.7591,
+    "change": 11.759,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 11.7734,
-      "previous_val": 0,
-      "net_asset": 727583936,
-      "buy_price": 11.7734,
-      "sell_price": 11.7735
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 11.7765,
@@ -250,6 +245,14 @@
       "net_asset": 718013696,
       "buy_price": 11.7595,
       "sell_price": 11.7596
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 11.759,
+      "previous_val": 0,
+      "net_asset": 718246208,
+      "buy_price": 11.759,
+      "sell_price": 11.7591
     }
   ],
   "dividends": [],
@@ -392,7 +395,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:09.230Z",
+  "data_fetched_at": "2025-11-11T06:15:47.505Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

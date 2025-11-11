@@ -1,5 +1,8 @@
 {
   "fund_id": "M0181_2564",
+  "symbol": "SCBRMCHA",
+  "fund_name": "SCB China A-Shares RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "PN",
@@ -466,7 +469,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:34:59.697Z",
+  "data_fetched_at": "2025-11-11T06:36:03.208Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

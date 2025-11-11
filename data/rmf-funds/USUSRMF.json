@@ -1,5 +1,8 @@
 {
   "fund_id": "M0154_2564",
+  "symbol": "USUSRMF",
+  "fund_name": "United Sustainable Equity Solution Fund RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "OT",
@@ -398,7 +401,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:44:02.988Z",
+  "data_fetched_at": "2025-11-11T06:45:21.188Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0439_2566",
+  "symbol": "TNASDAQRMF-P",
+  "fund_name": "TISCO US Nasdaq Equity RMF",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQUS",
     "management_style": "PN",
@@ -505,7 +508,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:41:40.251Z",
+  "data_fetched_at": "2025-11-11T06:42:58.765Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

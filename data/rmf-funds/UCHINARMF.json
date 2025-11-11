@@ -1,5 +1,8 @@
 {
   "fund_id": "M0280_2562",
+  "symbol": "UCHINARMF",
+  "fund_name": "United All China Equity Fund RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQCH",
     "management_style": "OT",
@@ -358,7 +361,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:42:42.739Z",
+  "data_fetched_at": "2025-11-11T06:44:20.193Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

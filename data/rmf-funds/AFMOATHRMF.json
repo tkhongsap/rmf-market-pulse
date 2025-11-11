@@ -1,5 +1,8 @@
 {
   "fund_id": "M0525_2566",
+  "symbol": "AFMOATHRMF",
+  "fund_name": "AF US WIDE MOAT HEDGE RETIREMENT MUTUAL FUND",
+  "amc": "TALIS ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQUS",
     "management_style": "PN",
@@ -16,7 +19,7 @@
     "sell_price": 12.0521,
     "change": 12.052,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
     {
@@ -379,7 +382,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:36.776Z",
+  "data_fetched_at": "2025-11-11T06:11:02.456Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

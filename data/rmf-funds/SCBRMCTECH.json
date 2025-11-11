@@ -1,5 +1,8 @@
 {
   "fund_id": "M0295_2564",
+  "symbol": "SCBRMCTECH",
+  "fund_name": "SCB China Technology RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQCH",
     "management_style": "PN",
@@ -422,7 +425,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:34:59.558Z",
+  "data_fetched_at": "2025-11-11T06:36:24.049Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

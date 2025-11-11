@@ -1,5 +1,8 @@
 {
   "fund_id": "M0112_2564",
+  "symbol": "B-FUTURERMF",
+  "fund_name": "Bualuang Future Equity RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-05",
-    "last_val": 8.9948,
+    "nav_date": "2025-11-06",
+    "last_val": 8.9915,
     "previous_val": 0,
-    "net_asset": 513592064,
-    "buy_price": 8.9948,
-    "sell_price": 8.9949,
-    "change": 8.9948,
+    "net_asset": 512185632,
+    "buy_price": 8.9915,
+    "sell_price": 8.9916,
+    "change": 8.9915,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-24",
-      "last_val": 9.0202,
-      "previous_val": 0,
-      "net_asset": 520529472,
-      "buy_price": 9.0202,
-      "sell_price": 9.0203
-    },
     {
       "nav_date": "2025-09-25",
       "last_val": 9.0181,
@@ -250,6 +245,14 @@
       "net_asset": 513592064,
       "buy_price": 8.9948,
       "sell_price": 8.9949
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 8.9915,
+      "previous_val": 0,
+      "net_asset": 512185632,
+      "buy_price": 8.9915,
+      "sell_price": 8.9916
     }
   ],
   "dividends": [],
@@ -470,7 +473,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:47.669Z",
+  "data_fetched_at": "2025-11-11T06:12:24.144Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

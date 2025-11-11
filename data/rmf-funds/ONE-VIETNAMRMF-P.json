@@ -1,5 +1,8 @@
 {
   "fund_id": "M0149_2564",
+  "symbol": "ONE-VIETNAMRMF-P",
+  "fund_name": "ONE VIETNAM EQUITY RETIREMENT MUTUAL FUND",
+  "amc": "ONE ASSET MANAGEMENT LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -418,7 +421,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:32:38.376Z",
+  "data_fetched_at": "2025-11-11T06:34:01.882Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0258_2559",
+  "symbol": "ES-GINCOMERMF",
+  "fund_name": "Eastspring Global Income RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXGLDISC",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 12.0782,
+    "nav_date": "2025-11-07",
+    "last_val": 12.0768,
     "previous_val": 0,
-    "net_asset": 1218113536,
-    "buy_price": 12.0661,
-    "sell_price": 12.0904,
-    "change": 12.0782,
+    "net_asset": 1218264576,
+    "buy_price": 12.0647,
+    "sell_price": 12.089,
+    "change": 12.0768,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 11.9338,
-      "previous_val": 0,
-      "net_asset": 1195398656,
-      "buy_price": 11.9219,
-      "sell_price": 11.9458
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 11.9406,
@@ -250,6 +245,14 @@
       "net_asset": 1218113536,
       "buy_price": 12.0661,
       "sell_price": 12.0904
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 12.0768,
+      "previous_val": 0,
+      "net_asset": 1218264576,
+      "buy_price": 12.0647,
+      "sell_price": 12.089
     }
   ],
   "dividends": [],
@@ -384,7 +387,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:14.829Z",
+  "data_fetched_at": "2025-11-11T06:16:47.900Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0049_2565",
+  "symbol": "SCBRMUSA(A)",
+  "fund_name": "SCB US Active Equity RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQUS",
     "management_style": "OT",
@@ -426,7 +429,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:37:00.007Z",
+  "data_fetched_at": "2025-11-11T06:38:10.978Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

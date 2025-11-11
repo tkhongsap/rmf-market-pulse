@@ -1,5 +1,8 @@
 {
   "fund_id": "M0221_2554",
+  "symbol": "ES-GOLDRMF-H",
+  "fund_name": "Eastspring Gold Bullion RMF-Currency Hedged Fund",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "COMPM",
     "management_style": "PM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 20.1784,
+    "nav_date": "2025-11-10",
+    "last_val": 20.5273,
     "previous_val": 0,
-    "net_asset": 580541504,
-    "buy_price": 20.1784,
-    "sell_price": 20.1785,
-    "change": 20.1784,
+    "net_asset": 590867968,
+    "buy_price": 20.5273,
+    "sell_price": 20.5274,
+    "change": 20.5273,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 18.9469,
-      "previous_val": 0,
-      "net_asset": 548593408,
-      "buy_price": 18.9469,
-      "sell_price": 18.947
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 19.2783,
@@ -226,6 +221,14 @@
       "net_asset": 580541504,
       "buy_price": 20.1784,
       "sell_price": 20.1785
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 20.5273,
+      "previous_val": 0,
+      "net_asset": 590867968,
+      "buy_price": 20.5273,
+      "sell_price": 20.5274
     }
   ],
   "dividends": [],
@@ -372,7 +375,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:14.538Z",
+  "data_fetched_at": "2025-11-11T06:17:08.125Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

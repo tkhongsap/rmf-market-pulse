@@ -1,5 +1,8 @@
 {
   "fund_id": "M0766_2547",
+  "symbol": "SVRMF",
+  "fund_name": "Smart Value Retirement Mutual Fund",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXGEN",
     "management_style": "AM",
@@ -434,7 +437,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:37:20.349Z",
+  "data_fetched_at": "2025-11-11T06:38:53.121Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

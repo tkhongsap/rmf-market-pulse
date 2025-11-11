@@ -1,5 +1,8 @@
 {
   "fund_id": "M0511_2558",
+  "symbol": "SCBRMJP",
+  "fund_name": "SCB JAPAN EQUITY RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQJP",
     "management_style": "PN",
@@ -456,7 +459,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:35:59.514Z",
+  "data_fetched_at": "2025-11-11T06:37:06.006Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

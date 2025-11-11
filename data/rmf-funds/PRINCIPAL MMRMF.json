@@ -1,5 +1,8 @@
 {
   "fund_id": "M0820_2553",
+  "symbol": "PRINCIPAL MMRMF",
+  "fund_name": "Principal Money Market Retirement Mutual Fund",
+  "amc": "PRINCIPAL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMMGEN",
     "management_style": "SM",
@@ -380,7 +383,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:33:38.511Z",
+  "data_fetched_at": "2025-11-11T06:34:42.767Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

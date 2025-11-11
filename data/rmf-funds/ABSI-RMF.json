@@ -1,5 +1,8 @@
 {
   "fund_id": "M0141_2545",
+  "symbol": "ABSI-RMF",
+  "fund_name": "abrdn Smart Income Retirement Mutual Fund",
+  "amc": "ABERDEEN ASSET MANAGEMENT (THAILAND) LIMITED",
   "metadata": {
     "fund_classification": "FIXGOV",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 13.1888,
+    "nav_date": "2025-11-10",
+    "last_val": 13.1886,
     "previous_val": 0,
-    "net_asset": 517274336,
-    "buy_price": 13.1888,
-    "sell_price": 13.1889,
-    "change": 13.1888,
+    "net_asset": 517264896,
+    "buy_price": 13.1886,
+    "sell_price": 13.1887,
+    "change": 13.1886,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 13.1923,
-      "previous_val": 0,
-      "net_asset": 529162880,
-      "buy_price": 13.1923,
-      "sell_price": 13.1924
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 13.1946,
@@ -250,6 +245,14 @@
       "net_asset": 517274336,
       "buy_price": 13.1888,
       "sell_price": 13.1889
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 13.1886,
+      "previous_val": 0,
+      "net_asset": 517264896,
+      "buy_price": 13.1886,
+      "sell_price": 13.1887
     }
   ],
   "dividends": [],
@@ -384,7 +387,7 @@
     "minimum_redemption": "0",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:36.816Z",
+  "data_fetched_at": "2025-11-11T06:10:42.229Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

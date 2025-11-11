@@ -1,5 +1,8 @@
 {
   "fund_id": "M0650_2567",
+  "symbol": "BCAP-SET RMF",
+  "fund_name": "BCAP SET Index Retirement Mutual Fund",
+  "amc": "BANGKOK CAPITAL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGEN",
     "management_style": "-",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 9.2126,
+    "nav_date": "2025-11-10",
+    "last_val": 9.2373,
     "previous_val": 0,
-    "net_asset": 8181526.5,
-    "buy_price": 9.2126,
-    "sell_price": 9.2127,
-    "change": 9.2126,
+    "net_asset": 8203423.5,
+    "buy_price": 9.2373,
+    "sell_price": 9.2374,
+    "change": 9.2373,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 9.0131,
-      "previous_val": 0,
-      "net_asset": 7812635.5,
-      "buy_price": 9.0131,
-      "sell_price": 9.0132
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 9.0762,
@@ -250,6 +245,14 @@
       "net_asset": 8181526.5,
       "buy_price": 9.2126,
       "sell_price": 9.2127
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 9.2373,
+      "previous_val": 0,
+      "net_asset": 8203423.5,
+      "buy_price": 9.2373,
+      "sell_price": 9.2374
     }
   ],
   "dividends": [],
@@ -340,7 +343,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:58.453Z",
+  "data_fetched_at": "2025-11-11T06:14:07.606Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0778_2554",
+  "symbol": "SCBGOLDHRMF",
+  "fund_name": "SCB GOLD THB HEDGED RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "COMPM",
     "management_style": "PN",
@@ -452,7 +455,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:34:18.417Z",
+  "data_fetched_at": "2025-11-11T06:35:22.924Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

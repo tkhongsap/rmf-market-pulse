@@ -1,5 +1,8 @@
 {
   "fund_id": "M0681_2556",
+  "symbol": "ES-GLOBALEQRMF",
+  "fund_name": "Eastspring Global Equity RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-05",
-    "last_val": 20.8363,
+    "nav_date": "2025-11-06",
+    "last_val": 20.7285,
     "previous_val": 0,
-    "net_asset": 377422464,
-    "buy_price": 20.8363,
-    "sell_price": 20.8364,
-    "change": 20.8363,
+    "net_asset": 378966400,
+    "buy_price": 20.7285,
+    "sell_price": 20.7286,
+    "change": 20.7285,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-24",
-      "last_val": 20.5581,
-      "previous_val": 0,
-      "net_asset": 362895040,
-      "buy_price": 20.5581,
-      "sell_price": 20.5582
-    },
     {
       "nav_date": "2025-09-25",
       "last_val": 20.3444,
@@ -250,6 +245,14 @@
       "net_asset": 377422464,
       "buy_price": 20.8363,
       "sell_price": 20.8364
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 20.7285,
+      "previous_val": 0,
+      "net_asset": 378966400,
+      "buy_price": 20.7285,
+      "sell_price": 20.7286
     }
   ],
   "dividends": [],
@@ -400,7 +403,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:14.772Z",
+  "data_fetched_at": "2025-11-11T06:17:08.118Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

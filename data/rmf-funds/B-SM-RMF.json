@@ -1,5 +1,8 @@
 {
   "fund_id": "M0775_2554",
+  "symbol": "B-SM-RMF",
+  "fund_name": "Bualuang Small-Mid Cap RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 7.3371,
+    "nav_date": "2025-11-10",
+    "last_val": 7.3563,
     "previous_val": 0,
-    "net_asset": 641451328,
-    "buy_price": 7.3371,
-    "sell_price": 7.3372,
-    "change": 7.3371,
+    "net_asset": 643201152,
+    "buy_price": 7.3563,
+    "sell_price": 7.3564,
+    "change": 7.3563,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 7.6974,
-      "previous_val": 0,
-      "net_asset": 683706688,
-      "buy_price": 7.6974,
-      "sell_price": 7.6975
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 7.6552,
@@ -250,6 +245,14 @@
       "net_asset": 641451328,
       "buy_price": 7.3371,
       "sell_price": 7.3372
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 7.3563,
+      "previous_val": 0,
+      "net_asset": 643201152,
+      "buy_price": 7.3563,
+      "sell_price": 7.3564
     }
   ],
   "dividends": [],
@@ -486,7 +489,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:53.017Z",
+  "data_fetched_at": "2025-11-11T06:13:27.259Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

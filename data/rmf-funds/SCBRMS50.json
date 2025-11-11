@@ -1,5 +1,8 @@
 {
   "fund_id": "M0787_2554",
+  "symbol": "SCBRMS50",
+  "fund_name": "SCB SET50 INDEX RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQSET50",
     "management_style": "PM",
@@ -472,7 +475,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:36:39.661Z",
+  "data_fetched_at": "2025-11-11T06:38:12.217Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

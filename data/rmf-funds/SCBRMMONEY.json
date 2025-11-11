@@ -1,5 +1,8 @@
 {
   "fund_id": "M0706_2568",
+  "symbol": "SCBRMMONEY",
+  "fund_name": "SCB Money Market RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "-",
@@ -331,7 +334,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:36:19.901Z",
+  "data_fetched_at": "2025-11-11T06:37:28.061Z",
   "errors": [
     "No performance data available",
     "No benchmark data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M1034_2553",
+  "symbol": "ES-GOLDSRMF",
+  "fund_name": "Eastspring Gold Singapore RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "COMPM",
     "management_style": "PN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 21.2644,
+    "nav_date": "2025-11-10",
+    "last_val": 21.6254,
     "previous_val": 0,
-    "net_asset": 738369664,
-    "buy_price": 21.2431,
-    "sell_price": 21.2858,
-    "change": 21.2644,
+    "net_asset": 753596864,
+    "buy_price": 21.6038,
+    "sell_price": 21.6471,
+    "change": 21.6254,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 20.0053,
-      "previous_val": 0,
-      "net_asset": 685979520,
-      "buy_price": 19.9853,
-      "sell_price": 20.0254
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 20.3771,
@@ -242,6 +237,14 @@
       "net_asset": 738369664,
       "buy_price": 21.2431,
       "sell_price": 21.2858
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 21.6254,
+      "previous_val": 0,
+      "net_asset": 753596864,
+      "buy_price": 21.6038,
+      "sell_price": 21.6471
     }
   ],
   "dividends": [],
@@ -372,7 +375,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:14.815Z",
+  "data_fetched_at": "2025-11-11T06:17:08.117Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

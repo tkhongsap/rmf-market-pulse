@@ -1,5 +1,8 @@
 {
   "fund_id": "M0457_2564",
+  "symbol": "TLMSEQRMF",
+  "fund_name": "TALIS MID-SMALL CAP EQUITY RETIREMENT MUTUAL FUND",
+  "amc": "TALIS ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQSM",
     "management_style": "AM",
@@ -384,7 +387,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:41:03.313Z",
+  "data_fetched_at": "2025-11-11T06:42:18.515Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

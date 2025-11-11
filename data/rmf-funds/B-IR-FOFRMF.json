@@ -1,5 +1,8 @@
 {
   "fund_id": "M0573_2562",
+  "symbol": "B-IR-FOFRMF",
+  "fund_name": "Bualuang Infrastructure and Real Estate Fund of Funds RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 9.6234,
+    "nav_date": "2025-11-10",
+    "last_val": 9.6605,
     "previous_val": 0,
-    "net_asset": 310328992,
-    "buy_price": 9.6234,
-    "sell_price": 9.6235,
-    "change": 9.6234,
+    "net_asset": 311741504,
+    "buy_price": 9.6605,
+    "sell_price": 9.6606,
+    "change": 9.6605,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 9.4277,
-      "previous_val": 0,
-      "net_asset": 303690944,
-      "buy_price": 9.4277,
-      "sell_price": 9.4278
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 9.503,
@@ -250,6 +245,14 @@
       "net_asset": 310328992,
       "buy_price": 9.6234,
       "sell_price": 9.6235
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 9.6605,
+      "previous_val": 0,
+      "net_asset": 311741504,
+      "buy_price": 9.6605,
+      "sell_price": 9.6606
     }
   ],
   "dividends": [],
@@ -510,7 +513,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:47.384Z",
+  "data_fetched_at": "2025-11-11T06:13:06.498Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

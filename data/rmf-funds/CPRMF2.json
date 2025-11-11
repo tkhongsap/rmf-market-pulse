@@ -1,5 +1,8 @@
 {
   "fund_id": "M0078_2546",
+  "symbol": "CPRMF2",
+  "fund_name": "Capital Protected Retirement Mutual Fund 2",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MISC",
     "management_style": "PM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 16.1379,
+    "nav_date": "2025-11-10",
+    "last_val": 16.1312,
     "previous_val": 0,
-    "net_asset": 38317368,
-    "buy_price": 15.1379,
-    "sell_price": 17.138,
-    "change": 16.1379,
+    "net_asset": 38301396,
+    "buy_price": 15.1312,
+    "sell_price": 17.1313,
+    "change": 16.1312,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 16.1838,
-      "previous_val": 0,
-      "net_asset": 38426268,
-      "buy_price": 15.1838,
-      "sell_price": 17.1839
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 16.1966,
@@ -250,6 +245,14 @@
       "net_asset": 38317368,
       "buy_price": 15.1379,
       "sell_price": 17.138
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 16.1312,
+      "previous_val": 0,
+      "net_asset": 38301396,
+      "buy_price": 15.1312,
+      "sell_price": 17.1313
     }
   ],
   "dividends": [],
@@ -426,7 +429,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:03.546Z",
+  "data_fetched_at": "2025-11-11T06:15:07.653Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0398_2561",
+  "symbol": "UGQGRMF",
+  "fund_name": "United Global Quality Growth Fund RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "OT",
@@ -406,7 +409,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:43:02.707Z",
+  "data_fetched_at": "2025-11-11T06:44:40.723Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

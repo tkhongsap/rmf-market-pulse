@@ -1,5 +1,8 @@
 {
   "fund_id": "M0473_2565",
+  "symbol": "B-GLOB-INFRARMF",
+  "fund_name": "Bualuang Global Infrastructure Equity RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-05",
-    "last_val": 11.3459,
+    "nav_date": "2025-11-06",
+    "last_val": 11.3083,
     "previous_val": 0,
-    "net_asset": 246618304,
-    "buy_price": 11.3459,
-    "sell_price": 11.346,
-    "change": 11.3459,
+    "net_asset": 245854880,
+    "buy_price": 11.3083,
+    "sell_price": 11.3084,
+    "change": 11.3083,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-24",
-      "last_val": 10.9562,
-      "previous_val": 0,
-      "net_asset": 236944400,
-      "buy_price": 10.9562,
-      "sell_price": 10.9563
-    },
     {
       "nav_date": "2025-09-25",
       "last_val": 10.9212,
@@ -250,6 +245,14 @@
       "net_asset": 246618304,
       "buy_price": 11.3459,
       "sell_price": 11.346
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 11.3083,
+      "previous_val": 0,
+      "net_asset": 245854880,
+      "buy_price": 11.3083,
+      "sell_price": 11.3084
     }
   ],
   "dividends": [],
@@ -381,7 +384,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:47.674Z",
+  "data_fetched_at": "2025-11-11T06:12:46.614Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

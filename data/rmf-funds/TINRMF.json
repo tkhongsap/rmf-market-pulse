@@ -1,5 +1,8 @@
 {
   "fund_id": "M0237_2561",
+  "symbol": "TINRMF",
+  "fund_name": "TISCO Income Plus RMF",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXMOD",
     "management_style": "AM",
@@ -646,7 +649,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:40:03.380Z",
+  "data_fetched_at": "2025-11-11T06:41:36.650Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

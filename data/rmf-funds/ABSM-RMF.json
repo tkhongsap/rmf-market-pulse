@@ -1,5 +1,8 @@
 {
   "fund_id": "M0569_2565",
+  "symbol": "ABSM-RMF",
+  "fund_name": "abrdn Small-Mid Cap Retirement Mutual Fund",
+  "amc": "ABERDEEN ASSET MANAGEMENT (THAILAND) LIMITED",
   "metadata": {
     "fund_classification": "EQSM",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 7.0839,
+    "nav_date": "2025-11-10",
+    "last_val": 7.1044,
     "previous_val": 0,
-    "net_asset": 35285720,
-    "buy_price": 7.0839,
-    "sell_price": 7.084,
-    "change": 7.0839,
+    "net_asset": 35387744,
+    "buy_price": 7.1044,
+    "sell_price": 7.1045,
+    "change": 7.1044,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 7.5492,
-      "previous_val": 0,
-      "net_asset": 35712836,
-      "buy_price": 7.5492,
-      "sell_price": 7.5493
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 7.5047,
@@ -250,6 +245,14 @@
       "net_asset": 35285720,
       "buy_price": 7.0839,
       "sell_price": 7.084
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 7.1044,
+      "previous_val": 0,
+      "net_asset": 35387744,
+      "buy_price": 7.1044,
+      "sell_price": 7.1045
     }
   ],
   "dividends": [],
@@ -353,7 +356,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:36.799Z",
+  "data_fetched_at": "2025-11-11T06:11:02.231Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

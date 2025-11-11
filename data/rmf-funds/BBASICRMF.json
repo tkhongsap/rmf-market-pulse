@@ -1,5 +1,8 @@
 {
   "fund_id": "M0237_2557",
+  "symbol": "BBASICRMF",
+  "fund_name": "Bualuang Basic RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 7.3637,
+    "nav_date": "2025-11-10",
+    "last_val": 7.4052,
     "previous_val": 0,
-    "net_asset": 1758298880,
-    "buy_price": 7.3637,
-    "sell_price": 7.3638,
-    "change": 7.3637,
+    "net_asset": 1767659904,
+    "buy_price": 7.4052,
+    "sell_price": 7.4053,
+    "change": 7.4052,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 7.9075,
-      "previous_val": 0,
-      "net_asset": 1917198336,
-      "buy_price": 7.9075,
-      "sell_price": 7.9076
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 7.9391,
@@ -250,6 +245,14 @@
       "net_asset": 1758298880,
       "buy_price": 7.3637,
       "sell_price": 7.3638
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 7.4052,
+      "previous_val": 0,
+      "net_asset": 1767659904,
+      "buy_price": 7.4052,
+      "sell_price": 7.4053
     }
   ],
   "dividends": [],
@@ -490,7 +493,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:52.856Z",
+  "data_fetched_at": "2025-11-11T06:13:47.721Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0489_2563",
+  "symbol": "ES-CHINAARMF",
+  "fund_name": "Eastspring China A RMF",
+  "amc": "EQCH",
   "metadata": {
     "fund_classification": "AN",
     "management_style": "No",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 6.1053,
+    "nav_date": "2025-11-07",
+    "last_val": 6.0955,
     "previous_val": 0,
-    "net_asset": 591711488,
-    "buy_price": 6.1053,
-    "sell_price": 6.1054,
-    "change": 6.1053,
+    "net_asset": 590588416,
+    "buy_price": 6.0955,
+    "sell_price": 6.0956,
+    "change": 6.0955,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 6.2215,
-      "previous_val": 0,
-      "net_asset": 610487232,
-      "buy_price": 6.2215,
-      "sell_price": 6.2216
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 6.1793,
@@ -194,6 +189,14 @@
       "net_asset": 591711488,
       "buy_price": 6.1053,
       "sell_price": 6.1054
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 6.0955,
+      "previous_val": 0,
+      "net_asset": 590588416,
+      "buy_price": 6.0955,
+      "sell_price": 6.0956
     }
   ],
   "dividends": [],
@@ -350,7 +353,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:09.403Z",
+  "data_fetched_at": "2025-11-11T06:16:07.744Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0146_2565",
+  "symbol": "SCBRMPGF(A)",
+  "fund_name": "SCB Platinum Global RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AN",
@@ -426,7 +429,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:36:19.914Z",
+  "data_fetched_at": "2025-11-11T06:37:49.577Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

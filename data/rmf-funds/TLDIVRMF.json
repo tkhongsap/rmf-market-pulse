@@ -1,5 +1,8 @@
 {
   "fund_id": "M0616_2560",
+  "symbol": "TLDIVRMF",
+  "fund_name": "TALIS DIVIDEND STOCK RMF",
+  "amc": "TALIS ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGEN",
     "management_style": "AM",
@@ -384,7 +387,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:40:43.386Z",
+  "data_fetched_at": "2025-11-11T06:41:58.386Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

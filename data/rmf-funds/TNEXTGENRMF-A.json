@@ -1,5 +1,8 @@
 {
   "fund_id": "M0459_2564",
+  "symbol": "TNEXTGENRMF-A",
+  "fund_name": "TISCO Next Generation Internet RMF",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "OT",
@@ -578,7 +581,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:41:43.072Z",
+  "data_fetched_at": "2025-11-11T06:42:58.901Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

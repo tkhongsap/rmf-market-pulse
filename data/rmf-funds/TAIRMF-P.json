@@ -1,5 +1,8 @@
 {
   "fund_id": "M0549_2567",
+  "symbol": "TAIRMF-P",
+  "fund_name": "TISCO AI & Big Data RMF",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "-",
@@ -436,7 +439,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:37:37.709Z",
+  "data_fetched_at": "2025-11-11T06:38:53.127Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

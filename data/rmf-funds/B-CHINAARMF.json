@@ -1,5 +1,8 @@
 {
   "fund_id": "M0110_2563",
+  "symbol": "B-CHINAARMF",
+  "fund_name": "Bualuang China A-Shares Equity RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 7.8102,
+    "nav_date": "2025-11-07",
+    "last_val": 7.7622,
     "previous_val": 0,
-    "net_asset": 4454906368,
-    "buy_price": 7.8102,
-    "sell_price": 7.8103,
-    "change": 7.8102,
+    "net_asset": 4428891136,
+    "buy_price": 7.7622,
+    "sell_price": 7.7623,
+    "change": 7.7622,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 7.7968,
-      "previous_val": 0,
-      "net_asset": 4419198976,
-      "buy_price": 7.7968,
-      "sell_price": 7.7969
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 7.6889,
@@ -250,6 +245,14 @@
       "net_asset": 4454906368,
       "buy_price": 7.8102,
       "sell_price": 7.8103
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 7.7622,
+      "previous_val": 0,
+      "net_asset": 4428891136,
+      "buy_price": 7.7622,
+      "sell_price": 7.7623
     }
   ],
   "dividends": [],
@@ -518,7 +521,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:47.501Z",
+  "data_fetched_at": "2025-11-11T06:12:24.370Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

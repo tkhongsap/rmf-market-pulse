@@ -1,5 +1,8 @@
 {
   "fund_id": "M0819_2554",
+  "symbol": "TGOLDRMF-A",
+  "fund_name": "TISCO Gold Retirement Fund",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "COMPM",
     "management_style": "PN",
@@ -566,7 +569,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:39:23.151Z",
+  "data_fetched_at": "2025-11-11T06:40:35.892Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

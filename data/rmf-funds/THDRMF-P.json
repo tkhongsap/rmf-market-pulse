@@ -1,5 +1,8 @@
 {
   "fund_id": "M0796_2555",
+  "symbol": "THDRMF-P",
+  "fund_name": "TISCO High Dividend Equity RMF",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQLARGE",
     "management_style": "AM",
@@ -570,7 +573,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:40:03.381Z",
+  "data_fetched_at": "2025-11-11T06:41:33.489Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

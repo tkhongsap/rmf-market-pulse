@@ -1,5 +1,8 @@
 {
   "fund_id": "M0714_2568",
+  "symbol": "TGSMARTRMF-P",
+  "fund_name": "TISCO Global Smart Allocation RMF",
+  "amc": "MIXFI",
   "metadata": {
     "fund_classification": "-",
     "management_style": "No",
@@ -459,7 +462,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:40:01.407Z",
+  "data_fetched_at": "2025-11-11T06:41:16.531Z",
   "errors": [
     "No performance data available",
     "No benchmark data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0731_2567",
+  "symbol": "B-OPPRMF",
+  "fund_name": "Bualuang Equity Opportunities RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "-",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-05",
-    "last_val": 10.0584,
+    "nav_date": "2025-11-06",
+    "last_val": 9.8951,
     "previous_val": 0,
-    "net_asset": 139209792,
-    "buy_price": 10.0584,
-    "sell_price": 10.0585,
-    "change": 10.0584,
+    "net_asset": 137109888,
+    "buy_price": 9.8951,
+    "sell_price": 9.8952,
+    "change": 9.8951,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-24",
-      "last_val": 9.9252,
-      "previous_val": 0,
-      "net_asset": 141523456,
-      "buy_price": 9.9252,
-      "sell_price": 9.9253
-    },
     {
       "nav_date": "2025-09-25",
       "last_val": 9.8291,
@@ -250,6 +245,14 @@
       "net_asset": 139209792,
       "buy_price": 10.0584,
       "sell_price": 10.0585
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 9.8951,
+      "previous_val": 0,
+      "net_asset": 137109888,
+      "buy_price": 9.8951,
+      "sell_price": 9.8952
     }
   ],
   "dividends": [],
@@ -372,7 +375,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:52.823Z",
+  "data_fetched_at": "2025-11-11T06:13:06.828Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

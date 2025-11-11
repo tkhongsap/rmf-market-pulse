@@ -1,5 +1,8 @@
 {
   "fund_id": "M0084_2545",
+  "symbol": "MMF-RMF",
+  "fund_name": "MFC Money Market Retirement Fund",
+  "amc": "MFC ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMMGEN",
     "management_style": "SM",
@@ -398,7 +401,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:32:18.595Z",
+  "data_fetched_at": "2025-11-11T06:33:21.819Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

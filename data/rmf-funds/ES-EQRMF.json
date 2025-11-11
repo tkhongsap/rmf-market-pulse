@@ -1,5 +1,8 @@
 {
   "fund_id": "M0056_2545",
+  "symbol": "ES-EQRMF",
+  "fund_name": "Eastspring Equity RMF",
+  "amc": "EQGEN",
   "metadata": {
     "fund_classification": "AM",
     "management_style": "No",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 56.0256,
+    "nav_date": "2025-11-10",
+    "last_val": 56.1335,
     "previous_val": 0,
-    "net_asset": 1321100288,
-    "buy_price": 56.0256,
-    "sell_price": 56.0257,
-    "change": 56.0256,
+    "net_asset": 1323647232,
+    "buy_price": 56.1335,
+    "sell_price": 56.1336,
+    "change": 56.1335,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 54.9992,
-      "previous_val": 0,
-      "net_asset": 1288950016,
-      "buy_price": 54.9992,
-      "sell_price": 54.9993
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 55.3598,
@@ -250,6 +245,14 @@
       "net_asset": 1321100288,
       "buy_price": 56.0256,
       "sell_price": 56.0257
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 56.1335,
+      "previous_val": 0,
+      "net_asset": 1323647232,
+      "buy_price": 56.1335,
+      "sell_price": 56.1336
     }
   ],
   "dividends": [],
@@ -412,7 +415,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:14.814Z",
+  "data_fetched_at": "2025-11-11T06:16:27.840Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0659_2547",
+  "symbol": "ES-MIXEDRMF",
+  "fund_name": "Eastspring Mixed RMF",
+  "amc": "EASTSPRING ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXAGG",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 31.8763,
+    "nav_date": "2025-11-10",
+    "last_val": 31.9423,
     "previous_val": 0,
-    "net_asset": 1108179712,
-    "buy_price": 31.8763,
-    "sell_price": 31.8764,
-    "change": 31.8763,
+    "net_asset": 1110478592,
+    "buy_price": 31.9423,
+    "sell_price": 31.9424,
+    "change": 31.9423,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 31.5243,
-      "previous_val": 0,
-      "net_asset": 1114263808,
-      "buy_price": 31.5243,
-      "sell_price": 31.5244
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 31.7026,
@@ -164,12 +159,100 @@
       "sell_price": 32.0274
     },
     {
+      "nav_date": "2025-10-24",
+      "last_val": 32.2853,
+      "previous_val": 0,
+      "net_asset": 1128373376,
+      "buy_price": 32.2853,
+      "sell_price": 32.2854
+    },
+    {
+      "nav_date": "2025-10-27",
+      "last_val": 32.3302,
+      "previous_val": 0,
+      "net_asset": 1129011840,
+      "buy_price": 32.3302,
+      "sell_price": 32.3303
+    },
+    {
+      "nav_date": "2025-10-28",
+      "last_val": 32.1418,
+      "previous_val": 0,
+      "net_asset": 1120332032,
+      "buy_price": 32.1418,
+      "sell_price": 32.1419
+    },
+    {
+      "nav_date": "2025-10-29",
+      "last_val": 32.1434,
+      "previous_val": 0,
+      "net_asset": 1120336512,
+      "buy_price": 32.1434,
+      "sell_price": 32.1435
+    },
+    {
+      "nav_date": "2025-10-30",
+      "last_val": 32.1764,
+      "previous_val": 0,
+      "net_asset": 1118920960,
+      "buy_price": 32.1764,
+      "sell_price": 32.1765
+    },
+    {
+      "nav_date": "2025-10-31",
+      "last_val": 32.0745,
+      "previous_val": 0,
+      "net_asset": 1115796096,
+      "buy_price": 32.0745,
+      "sell_price": 32.0746
+    },
+    {
+      "nav_date": "2025-11-03",
+      "last_val": 32.0254,
+      "previous_val": 0,
+      "net_asset": 1114154880,
+      "buy_price": 32.0254,
+      "sell_price": 32.0255
+    },
+    {
+      "nav_date": "2025-11-04",
+      "last_val": 31.7658,
+      "previous_val": 0,
+      "net_asset": 1104964608,
+      "buy_price": 31.7658,
+      "sell_price": 31.7659
+    },
+    {
+      "nav_date": "2025-11-05",
+      "last_val": 31.7087,
+      "previous_val": 0,
+      "net_asset": 1102790656,
+      "buy_price": 31.7087,
+      "sell_price": 31.7088
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 32.0676,
+      "previous_val": 0,
+      "net_asset": 1115131264,
+      "buy_price": 32.0676,
+      "sell_price": 32.0677
+    },
+    {
       "nav_date": "2025-11-07",
       "last_val": 31.8763,
       "previous_val": 0,
       "net_asset": 1108179712,
       "buy_price": 31.8763,
       "sell_price": 31.8764
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 31.9423,
+      "previous_val": 0,
+      "net_asset": 1110478592,
+      "buy_price": 31.9423,
+      "sell_price": 31.9424
     }
   ],
   "dividends": [],
@@ -336,7 +419,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:19.144Z",
+  "data_fetched_at": "2025-11-11T06:18:09.035Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

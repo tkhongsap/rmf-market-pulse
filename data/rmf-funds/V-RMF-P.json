@@ -1,5 +1,8 @@
 {
   "fund_id": "M0070_2544",
+  "symbol": "V-RMF-P",
+  "fund_name": "VALUED STOCK RETIREMENT MUTUAL FUND",
+  "amc": "ONE ASSET MANAGEMENT LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -490,7 +493,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:44:02.754Z",
+  "data_fetched_at": "2025-11-11T06:45:41.137Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0935_2554",
+  "symbol": "SCBRMGWP",
+  "fund_name": "SCB GLOBAL WEALTH PLUS RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXFI",
     "management_style": "AM",
@@ -452,7 +455,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:35:39.566Z",
+  "data_fetched_at": "2025-11-11T06:37:06.455Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0425_2562",
+  "symbol": "SCBRMLEQ",
+  "fund_name": "SCB Low Volatility Equity RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "AN",
@@ -462,7 +465,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:35:59.756Z",
+  "data_fetched_at": "2025-11-11T06:37:27.790Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

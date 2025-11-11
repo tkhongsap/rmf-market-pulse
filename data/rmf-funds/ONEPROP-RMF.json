@@ -1,5 +1,8 @@
 {
   "fund_id": "M0768_2555",
+  "symbol": "ONEPROP-RMF",
+  "fund_name": "ONE PROPERTY RETIREMENT MUTUAL FUND",
+  "amc": "ONE ASSET MANAGEMENT LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -430,7 +433,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:32:58.232Z",
+  "data_fetched_at": "2025-11-11T06:34:01.860Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

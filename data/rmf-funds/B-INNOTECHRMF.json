@@ -1,5 +1,8 @@
 {
   "fund_id": "M0213_2561",
+  "symbol": "B-INNOTECHRMF",
+  "fund_name": "Bualuang Global Innovation & Technology RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-05",
-    "last_val": 30.6332,
+    "nav_date": "2025-11-06",
+    "last_val": 30.1174,
     "previous_val": 0,
-    "net_asset": 17910020096,
-    "buy_price": 30.6332,
-    "sell_price": 30.6333,
-    "change": 30.6332,
+    "net_asset": 17618927616,
+    "buy_price": 30.1174,
+    "sell_price": 30.1175,
+    "change": 30.1174,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-24",
-      "last_val": 29.6867,
-      "previous_val": 0,
-      "net_asset": 16963077120,
-      "buy_price": 29.6867,
-      "sell_price": 29.6868
-    },
     {
       "nav_date": "2025-09-25",
       "last_val": 29.6796,
@@ -250,6 +245,14 @@
       "net_asset": 17910020096,
       "buy_price": 30.6332,
       "sell_price": 30.6333
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 30.1174,
+      "previous_val": 0,
+      "net_asset": 17618927616,
+      "buy_price": 30.1174,
+      "sell_price": 30.1175
     }
   ],
   "dividends": [],
@@ -518,7 +521,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:47.610Z",
+  "data_fetched_at": "2025-11-11T06:13:06.820Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

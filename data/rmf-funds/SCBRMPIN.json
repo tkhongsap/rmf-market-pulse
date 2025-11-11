@@ -1,5 +1,8 @@
 {
   "fund_id": "M0424_2562",
+  "symbol": "SCBRMPIN",
+  "fund_name": "SCB Property and Infrastructure Flexible RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "PRFOPMIX",
     "management_style": "AM",
@@ -450,7 +453,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:36:39.877Z",
+  "data_fetched_at": "2025-11-11T06:37:49.075Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

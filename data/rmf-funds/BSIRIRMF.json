@@ -1,5 +1,8 @@
 {
   "fund_id": "M0202_2556",
+  "symbol": "BSIRIRMF",
+  "fund_name": "Bualuang Siriphol Corporate Governance RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 10.5222,
+    "nav_date": "2025-11-10",
+    "last_val": 10.5776,
     "previous_val": 0,
-    "net_asset": 2802839296,
-    "buy_price": 10.5222,
-    "sell_price": 10.5223,
-    "change": 10.5222,
+    "net_asset": 2816649216,
+    "buy_price": 10.5776,
+    "sell_price": 10.5777,
+    "change": 10.5776,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 10.5757,
-      "previous_val": 0,
-      "net_asset": 2874591488,
-      "buy_price": 10.5757,
-      "sell_price": 10.5758
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 10.6248,
@@ -250,6 +245,14 @@
       "net_asset": 2802839296,
       "buy_price": 10.5222,
       "sell_price": 10.5223
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 10.5776,
+      "previous_val": 0,
+      "net_asset": 2816649216,
+      "buy_price": 10.5776,
+      "sell_price": 10.5777
     }
   ],
   "dividends": [],
@@ -486,7 +489,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:03.554Z",
+  "data_fetched_at": "2025-11-11T06:15:07.786Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

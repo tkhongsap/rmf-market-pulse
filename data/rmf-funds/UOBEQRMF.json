@@ -1,5 +1,8 @@
 {
   "fund_id": "M0089_2545",
+  "symbol": "UOBEQRMF",
+  "fund_name": "UOB EQUITIES RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGEN",
     "management_style": "AM",
@@ -426,7 +429,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:43:42.939Z",
+  "data_fetched_at": "2025-11-11T06:45:00.552Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

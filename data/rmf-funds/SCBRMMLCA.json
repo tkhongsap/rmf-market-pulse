@@ -1,5 +1,8 @@
 {
   "fund_id": "M0310_2564",
+  "symbol": "SCBRMMLCA",
+  "fund_name": "SCB Machine Learning China All Share RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQCH",
     "management_style": "AN",
@@ -454,7 +457,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:35:59.817Z",
+  "data_fetched_at": "2025-11-11T06:37:28.319Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0776_2547",
+  "symbol": "ASP-ERF",
+  "fund_name": "Asset Plus Equity RMF",
+  "amc": "ASSET PLUS FUND MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGEN",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 28.9154,
+    "nav_date": "2025-11-10",
+    "last_val": 28.9871,
     "previous_val": 0,
-    "net_asset": 213221104,
-    "buy_price": 28.9154,
-    "sell_price": 28.9155,
-    "change": 28.9154,
+    "net_asset": 213749328,
+    "buy_price": 28.9871,
+    "sell_price": 28.9872,
+    "change": 28.9871,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 28.3433,
-      "previous_val": 0,
-      "net_asset": 214080496,
-      "buy_price": 28.3433,
-      "sell_price": 28.3434
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 28.3691,
@@ -250,6 +245,14 @@
       "net_asset": 213221104,
       "buy_price": 28.9154,
       "sell_price": 28.9155
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 28.9871,
+      "previous_val": 0,
+      "net_asset": 213749328,
+      "buy_price": 28.9871,
+      "sell_price": 28.9872
     }
   ],
   "dividends": [],
@@ -394,7 +397,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:36.895Z",
+  "data_fetched_at": "2025-11-11T06:11:23.096Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

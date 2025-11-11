@@ -1,5 +1,8 @@
 {
   "fund_id": "M0550_2563",
+  "symbol": "MGFRMF",
+  "fund_name": "MFC Global Focus Retirement Fund",
+  "amc": "MFC ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "OT",
@@ -386,7 +389,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:31:58.611Z",
+  "data_fetched_at": "2025-11-11T06:33:01.547Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0317_2565",
+  "symbol": "SCBRMWORLD(E)",
+  "fund_name": "SCB World Equity Index RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "PN",
@@ -381,7 +384,7 @@
     "minimum_redemption": "1.00",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:37:20.347Z",
+  "data_fetched_at": "2025-11-11T06:38:32.657Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0548_2564",
+  "symbol": "SCBRMVIET(E)",
+  "fund_name": "SCB Vietnam Equity RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQVIET",
     "management_style": "AN",
@@ -422,7 +425,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:36:59.830Z",
+  "data_fetched_at": "2025-11-11T06:38:32.619Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

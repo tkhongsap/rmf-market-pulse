@@ -1,5 +1,8 @@
 {
   "fund_id": "M0152_2567",
+  "symbol": "TGQUALITYRMF-B",
+  "fund_name": "TISCO Global Quality Equity RMF",
+  "amc": "EQGL",
   "metadata": {
     "fund_classification": "-",
     "management_style": "No",
@@ -492,7 +495,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:39:40.587Z",
+  "data_fetched_at": "2025-11-11T06:40:56.231Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0542_2560",
+  "symbol": "ASP-AIEQRMF",
+  "fund_name": "Asset Plus Artificial Intelligence Equity Growth RMF Fund",
+  "amc": "ASSET PLUS FUND MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 13.1917,
+    "nav_date": "2025-11-07",
+    "last_val": 13.0801,
     "previous_val": 0,
-    "net_asset": 166423024,
-    "buy_price": 13.1917,
-    "sell_price": 13.1918,
-    "change": 13.1917,
+    "net_asset": 164788336,
+    "buy_price": 13.0801,
+    "sell_price": 13.0802,
+    "change": 13.0801,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 12.3812,
-      "previous_val": 0,
-      "net_asset": 147694960,
-      "buy_price": 12.3812,
-      "sell_price": 12.3813
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 12.403,
@@ -250,6 +245,14 @@
       "net_asset": 166423024,
       "buy_price": 13.1917,
       "sell_price": 13.1918
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 13.0801,
+      "previous_val": 0,
+      "net_asset": 164788336,
+      "buy_price": 13.0801,
+      "sell_price": 13.0802
     }
   ],
   "dividends": [],
@@ -360,7 +363,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:36.993Z",
+  "data_fetched_at": "2025-11-11T06:11:02.460Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

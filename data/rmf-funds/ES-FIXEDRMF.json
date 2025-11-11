@@ -1,5 +1,8 @@
 {
   "fund_id": "M0422_2545",
+  "symbol": "ES-FIXEDRMF",
+  "fund_name": "Eastspring General Fixed Income RMF",
+  "amc": "FIXMIDGOV",
   "metadata": {
     "fund_classification": "AM",
     "management_style": "No",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 17.6703,
+    "nav_date": "2025-11-10",
+    "last_val": 17.668,
     "previous_val": 0,
-    "net_asset": 5590920192,
-    "buy_price": 17.6703,
-    "sell_price": 17.6704,
-    "change": 17.6703,
+    "net_asset": 5590502912,
+    "buy_price": 17.668,
+    "sell_price": 17.6681,
+    "change": 17.668,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 17.7556,
-      "previous_val": 0,
-      "net_asset": 5753277440,
-      "buy_price": 17.7556,
-      "sell_price": 17.7557
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 17.7614,
@@ -250,6 +245,14 @@
       "net_asset": 5590920192,
       "buy_price": 17.6703,
       "sell_price": 17.6704
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 17.668,
+      "previous_val": 0,
+      "net_asset": 5590502912,
+      "buy_price": 17.668,
+      "sell_price": 17.6681
     }
   ],
   "dividends": [],
@@ -424,7 +427,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:59:14.577Z",
+  "data_fetched_at": "2025-11-11T06:16:27.788Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

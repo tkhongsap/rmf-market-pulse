@@ -1,5 +1,8 @@
 {
   "fund_id": "M0833_2553",
+  "symbol": "PRINCIPAL SET100RMF",
+  "fund_name": "Principal SET100 Retirement Mutual Fund",
+  "amc": "PRINCIPAL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQLARGE",
     "management_style": "PM",
@@ -354,7 +357,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:33:38.510Z",
+  "data_fetched_at": "2025-11-11T06:35:02.748Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

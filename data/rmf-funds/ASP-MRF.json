@@ -1,5 +1,8 @@
 {
   "fund_id": "M0785_2547",
+  "symbol": "ASP-MRF",
+  "fund_name": "Asset Plus Mixed RMF",
+  "amc": "ASSET PLUS FUND MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXAGG",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 26.8085,
+    "nav_date": "2025-11-10",
+    "last_val": 26.8503,
     "previous_val": 0,
-    "net_asset": 138245088,
-    "buy_price": 26.8085,
-    "sell_price": 26.8086,
-    "change": 26.8085,
+    "net_asset": 138449600,
+    "buy_price": 26.8503,
+    "sell_price": 26.8504,
+    "change": 26.8503,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 26.7554,
-      "previous_val": 0,
-      "net_asset": 140007664,
-      "buy_price": 26.7554,
-      "sell_price": 26.7555
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 26.7744,
@@ -250,6 +245,14 @@
       "net_asset": 138245088,
       "buy_price": 26.8085,
       "sell_price": 26.8086
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 26.8503,
+      "previous_val": 0,
+      "net_asset": 138449600,
+      "buy_price": 26.8503,
+      "sell_price": 26.8504
     }
   ],
   "dividends": [],
@@ -394,7 +397,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:42.085Z",
+  "data_fetched_at": "2025-11-11T06:11:43.555Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

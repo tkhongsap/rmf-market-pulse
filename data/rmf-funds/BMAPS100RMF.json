@@ -1,5 +1,8 @@
 {
   "fund_id": "M0149_2565",
+  "symbol": "BMAPS100RMF",
+  "fund_name": "BUALUANG MAPS 100 RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-05",
-    "last_val": 11.6946,
+    "nav_date": "2025-11-06",
+    "last_val": 11.6744,
     "previous_val": 0,
-    "net_asset": 85351040,
-    "buy_price": 11.6946,
-    "sell_price": 11.6947,
-    "change": 11.6946,
+    "net_asset": 85184656,
+    "buy_price": 11.6744,
+    "sell_price": 11.6745,
+    "change": 11.6744,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-24",
-      "last_val": 11.4742,
-      "previous_val": 0,
-      "net_asset": 75804944,
-      "buy_price": 11.4742,
-      "sell_price": 11.4743
-    },
     {
       "nav_date": "2025-09-25",
       "last_val": 11.4813,
@@ -250,6 +245,14 @@
       "net_asset": 85351040,
       "buy_price": 11.6946,
       "sell_price": 11.6947
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 11.6744,
+      "previous_val": 0,
+      "net_asset": 85184656,
+      "buy_price": 11.6744,
+      "sell_price": 11.6745
     }
   ],
   "dividends": [],
@@ -373,7 +376,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:58.421Z",
+  "data_fetched_at": "2025-11-11T06:14:47.847Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

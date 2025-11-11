@@ -1,5 +1,8 @@
 {
   "fund_id": "M0140_2545",
+  "symbol": "ABSC-RMF",
+  "fund_name": "abrdn Smart Capital Retirement Mutual Fund",
+  "amc": "ABERDEEN ASSET MANAGEMENT (THAILAND) LIMITED",
   "metadata": {
     "fund_classification": "EQGEN",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 63.0012,
+    "nav_date": "2025-11-10",
+    "last_val": 63.1157,
     "previous_val": 0,
-    "net_asset": 2662687488,
-    "buy_price": 63.0012,
-    "sell_price": 63.0013,
-    "change": 63.0012,
+    "net_asset": 2664001280,
+    "buy_price": 63.1157,
+    "sell_price": 63.1158,
+    "change": 63.1157,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 62.851,
-      "previous_val": 0,
-      "net_asset": 2686150912,
-      "buy_price": 62.851,
-      "sell_price": 62.8511
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 63.0533,
@@ -250,6 +245,14 @@
       "net_asset": 2662687488,
       "buy_price": 63.0012,
       "sell_price": 63.0013
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 63.1157,
+      "previous_val": 0,
+      "net_asset": 2664001280,
+      "buy_price": 63.1157,
+      "sell_price": 63.1158
     }
   ],
   "dividends": [],
@@ -372,7 +375,7 @@
     "minimum_redemption": "0",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:36.576Z",
+  "data_fetched_at": "2025-11-11T06:10:42.408Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0570_2565",
+  "symbol": "ABGDD-RMF",
+  "fund_name": "abrdn Global Dynamic Dividend Retirement Mutual Fund",
+  "amc": "ABERDEEN ASSET MANAGEMENT (THAILAND) LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 12.3351,
+    "nav_date": "2025-11-07",
+    "last_val": 12.2747,
     "previous_val": 0,
-    "net_asset": 95227016,
-    "buy_price": 12.3351,
-    "sell_price": 12.3352,
-    "change": 12.3351,
+    "net_asset": 94761704,
+    "buy_price": 12.2747,
+    "sell_price": 12.2748,
+    "change": 12.2747,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 12.2089,
-      "previous_val": 0,
-      "net_asset": 85022680,
-      "buy_price": 12.2089,
-      "sell_price": 12.209
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 12.1199,
@@ -250,6 +245,14 @@
       "net_asset": 95227016,
       "buy_price": 12.3351,
       "sell_price": 12.3352
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 12.2747,
+      "previous_val": 0,
+      "net_asset": 94761704,
+      "buy_price": 12.2747,
+      "sell_price": 12.2748
     }
   ],
   "dividends": [],
@@ -342,7 +345,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:36.730Z",
+  "data_fetched_at": "2025-11-11T06:10:42.105Z",
   "errors": [
     "No benchmark data available",
     "No risk metrics available",

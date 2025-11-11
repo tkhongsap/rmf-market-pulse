@@ -1,5 +1,8 @@
 {
   "fund_id": "M0343_2566",
+  "symbol": "ASP-TOPBRANDRMF",
+  "fund_name": "Asset Plus Top Brand RMF Fund",
+  "amc": "ASSET PLUS FUND MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-06",
-    "last_val": 10.2888,
+    "nav_date": "2025-11-07",
+    "last_val": 10.2273,
     "previous_val": 0,
-    "net_asset": 15063559,
-    "buy_price": 10.2888,
-    "sell_price": 10.2889,
-    "change": 10.2888,
+    "net_asset": 14912382,
+    "buy_price": 10.2273,
+    "sell_price": 10.2274,
+    "change": 10.2273,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-25",
-      "last_val": 10.5442,
-      "previous_val": 0,
-      "net_asset": 17152852,
-      "buy_price": 10.5442,
-      "sell_price": 10.5443
-    },
     {
       "nav_date": "2025-09-26",
       "last_val": 10.6051,
@@ -250,6 +245,14 @@
       "net_asset": 15063559,
       "buy_price": 10.2888,
       "sell_price": 10.2889
+    },
+    {
+      "nav_date": "2025-11-07",
+      "last_val": 10.2273,
+      "previous_val": 0,
+      "net_asset": 14912382,
+      "buy_price": 10.2273,
+      "sell_price": 10.2274
     }
   ],
   "dividends": [],
@@ -339,7 +342,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:42.252Z",
+  "data_fetched_at": "2025-11-11T06:12:04.219Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

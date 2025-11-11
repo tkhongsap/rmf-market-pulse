@@ -1,5 +1,8 @@
 {
   "fund_id": "M0083_2545",
+  "symbol": "UOBGBRMF",
+  "fund_name": "UOB GOVERNMENT BOND RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMIDGOV",
     "management_style": "AM",
@@ -415,7 +418,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:43:42.955Z",
+  "data_fetched_at": "2025-11-11T06:45:21.255Z",
   "errors": [
     "No benchmark data available",
     "No risk metrics available",

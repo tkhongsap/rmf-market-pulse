@@ -1,5 +1,8 @@
 {
   "fund_id": "M0096_2545",
+  "symbol": "TEGRMF-P",
+  "fund_name": "TISCO Equity Growth Retirement Fund",
+  "amc": "EQGEN",
   "metadata": {
     "fund_classification": "AM",
     "management_style": "No",
@@ -634,7 +637,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:38:21.308Z",
+  "data_fetched_at": "2025-11-11T06:39:51.899Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

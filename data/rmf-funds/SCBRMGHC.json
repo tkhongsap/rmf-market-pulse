@@ -1,5 +1,8 @@
 {
   "fund_id": "M0593_2558",
+  "symbol": "SCBRMGHC",
+  "fund_name": "SCB GLOBAL HEALTH CARE RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQHEALTH",
     "management_style": "AN",
@@ -456,7 +459,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": 1000
   },
-  "data_fetched_at": "2025-11-11T02:35:19.640Z",
+  "data_fetched_at": "2025-11-11T06:36:45.295Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

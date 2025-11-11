@@ -1,5 +1,8 @@
 {
   "fund_id": "M0837_2568",
+  "symbol": "B-USPASSIVERMF",
+  "fund_name": "Bualuang US Equity Passive RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "-",
@@ -96,7 +99,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:51.119Z",
+  "data_fetched_at": "2025-11-11T06:13:45.947Z",
   "errors": [
     "Failed to fetch latest NAV",
     "No NAV history available",

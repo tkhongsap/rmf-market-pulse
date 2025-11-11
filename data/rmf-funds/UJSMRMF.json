@@ -1,5 +1,8 @@
 {
   "fund_id": "M0165_2562",
+  "symbol": "UJSMRMF",
+  "fund_name": "United Japan Small And Mid Cap Fund RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQJP",
     "management_style": "OT",
@@ -398,7 +401,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:43:22.893Z",
+  "data_fetched_at": "2025-11-11T06:45:00.664Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0479_2564",
+  "symbol": "MRENEWRMF",
+  "fund_name": "MFC Renewable Energy Retirement Fund",
+  "amc": "MFC ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQGL",
     "management_style": "OT",
@@ -386,7 +389,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:32:18.437Z",
+  "data_fetched_at": "2025-11-11T06:33:21.621Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

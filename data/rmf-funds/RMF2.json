@@ -1,5 +1,8 @@
 {
   "fund_id": "M0112_2545",
+  "symbol": "RMF2",
+  "fund_name": "The Krung Thai Fixed Income RMF 2",
+  "amc": "KRUNG THAI ASSET MANAGEMENT PUBLIC COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXMIDGEN",
     "management_style": "AM",
@@ -400,7 +403,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:33:58.639Z",
+  "data_fetched_at": "2025-11-11T06:35:23.006Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

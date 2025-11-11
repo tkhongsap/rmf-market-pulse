@@ -1,5 +1,8 @@
 {
   "fund_id": "M0021_2558",
+  "symbol": "UOBGARMF",
+  "fund_name": "UOB Global Allocation RMF",
+  "amc": "UOB ASSET MANAGEMENT (THAILAND) COMPANY LIMITED",
   "metadata": {
     "fund_classification": "MIXFI",
     "management_style": "OT",
@@ -414,7 +417,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:43:42.942Z",
+  "data_fetched_at": "2025-11-11T06:45:00.492Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -683,7 +683,104 @@ export async function fetchFundCompare(proj_id: string): Promise<FundCompareData
 }
 
 /**
- * Fetch fee structure for a fund
+ * Fund Policy Data Type
+ */
+export interface FundPolicyData {
+  policy_desc: string | null;           // Fund classification (e.g., "equity", "fixed income")
+  management_style: string | null;      // Management style code (AM, AN, PM, PN, etc.)
+  investment_policy_desc: string | null; // Investment policy (Base64 encoded)
+}
+
+/**
+ * Fetch fund policy and classification
+ *
+ * @param proj_id Fund project ID
+ * @returns Fund policy data including classification and management style
+ */
+export async function fetchFundPolicy(proj_id: string): Promise<FundPolicyData | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/policy`;
+
+    const rawData = await secFundFactsheetApiRequest<any>(
+      endpoint,
+      {
+        cacheKey: `factsheet-policy-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    if (!rawData || Object.keys(rawData).length === 0) {
+      console.log(`[SEC Fund Factsheet API] No policy data for ${proj_id}`);
+      return null;
+    }
+
+    const policyData: FundPolicyData = {
+      policy_desc: rawData.policy_desc || null,
+      management_style: rawData.management_style || null,
+      investment_policy_desc: rawData.investment_policy_desc || null,
+    };
+
+    console.log(`[SEC Fund Factsheet API] Fetched policy data for ${proj_id}`);
+    return policyData;
+  } catch (error) {
+    console.error(`Error fetching policy for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Dividend Policy Data Type
+ */
+export interface DividendPolicyData {
+  class_abbr_name: string | null;       // Class name
+  dividend_policy: string | null;        // Dividend policy (e.g., "No", "Yes - annually")
+  dividend_policy_remark: string | null; // Additional remarks
+  dividend_details: any[] | null;        // Historical dividend payments
+}
+
+/**
+ * Fetch dividend policy for a fund
+ *
+ * @param proj_id Fund project ID
+ * @returns Dividend policy data
+ */
+export async function fetchFundDividendPolicy(proj_id: string): Promise<DividendPolicyData | null> {
+  try {
+    const endpoint = `/fund/${proj_id}/dividend`;
+
+    const rawData = await secFundFactsheetApiRequest<any[]>(
+      endpoint,
+      {
+        cacheKey: `factsheet-dividend-${proj_id}`,
+        cacheTTL: 24 * 60 * 60 * 1000, // 24 hours
+      }
+    );
+
+    if (!Array.isArray(rawData) || rawData.length === 0) {
+      console.log(`[SEC Fund Factsheet API] No dividend policy data for ${proj_id}`);
+      return null;
+    }
+
+    // Use first entry (typically the main/default class)
+    const firstEntry = rawData[0];
+
+    const dividendData: DividendPolicyData = {
+      class_abbr_name: firstEntry.class_abbr_name || null,
+      dividend_policy: firstEntry.dividend_policy || null,
+      dividend_policy_remark: firstEntry.dividend_policy_remark || null,
+      dividend_details: firstEntry.dividend_details || null,
+    };
+
+    console.log(`[SEC Fund Factsheet API] Fetched dividend policy for ${proj_id}`);
+    return dividendData;
+  } catch (error) {
+    console.error(`Error fetching dividend policy for fund ${proj_id}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fee structure for a fund
  *
  * @param proj_id Fund project ID
  * @returns Fee structure data
@@ -788,16 +885,45 @@ export async function fetchFundRiskFactors(proj_id: string): Promise<any[] | nul
 }
 
 /**
+ * Suitability Data Type
+ */
+export interface SuitabilityData {
+  risk_spectrum: string | null;         // Raw risk code (RS1-RS8, RS81)
+  risk_level: number | null;            // Parsed risk level (1-8)
+  risk_spectrum_desc: string | null;    // Risk description (Base64 encoded)
+}
+
+/**
+ * Parse risk spectrum code to numeric risk level
+ * @param riskCode Risk code (e.g., "RS6", "RS81")
+ * @returns Numeric risk level (1-8) or null
+ */
+function parseRiskSpectrum(riskCode: string | null | undefined): number | null {
+  if (!riskCode) return null;
+
+  // Handle RS1-RS8 and RS81 (which is 8+)
+  if (riskCode === 'RS81') return 8;
+
+  const match = riskCode.match(/^RS(\d+)$/);
+  if (match && match[1]) {
+    const level = parseInt(match[1], 10);
+    return (level >= 1 && level <= 8) ? level : null;
+  }
+
+  return null;
+}
+
+/**
  * Fetch investor suitability for a fund
  *
  * @param proj_id Fund project ID
- * @returns Suitability data
+ * @returns Suitability data with parsed risk level
  */
-export async function fetchFundSuitability(proj_id: string): Promise<any | null> {
+export async function fetchFundSuitability(proj_id: string): Promise<SuitabilityData | null> {
   try {
     const endpoint = `/fund/${proj_id}/suitability`;
 
-    const suitability = await secFundFactsheetApiRequest<any>(
+    const rawData = await secFundFactsheetApiRequest<any>(
       endpoint,
       {
         cacheKey: `factsheet-suitability-${proj_id}`,
@@ -805,7 +931,18 @@ export async function fetchFundSuitability(proj_id: string): Promise<any | null>
       }
     );
 
-    console.log(`[SEC Fund Factsheet API] Fetched suitability for ${proj_id}`);
+    if (!rawData || Object.keys(rawData).length === 0) {
+      console.log(`[SEC Fund Factsheet API] No suitability data for ${proj_id}`);
+      return null;
+    }
+
+    const suitability: SuitabilityData = {
+      risk_spectrum: rawData.risk_spectrum || null,
+      risk_level: parseRiskSpectrum(rawData.risk_spectrum),
+      risk_spectrum_desc: rawData.risk_spectrum_desc || null,
+    };
+
+    console.log(`[SEC Fund Factsheet API] Fetched suitability for ${proj_id} (risk level: ${suitability.risk_level})`);
     return suitability;
   } catch (error) {
     console.error(`Error fetching suitability for fund ${proj_id}:`, error);

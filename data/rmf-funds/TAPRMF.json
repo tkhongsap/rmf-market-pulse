@@ -1,5 +1,8 @@
 {
   "fund_id": "M0648_2552",
+  "symbol": "TAPRMF",
+  "fund_name": "TISCO Asia Pacific ex Japan Retirement Fund",
+  "amc": "TISCO ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "EQASxJP",
     "management_style": "PN",
@@ -530,7 +533,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:37:40.313Z",
+  "data_fetched_at": "2025-11-11T06:38:53.464Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -1,5 +1,8 @@
 {
   "fund_id": "M0457_2565",
+  "symbol": "SCBRMDIGI(A)",
+  "fund_name": "SCB Global Digital RMF",
+  "amc": "SCB ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AN",
@@ -385,7 +388,7 @@
     "minimum_redemption": "1000",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:35:19.637Z",
+  "data_fetched_at": "2025-11-11T06:36:24.150Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

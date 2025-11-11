@@ -1,5 +1,8 @@
 {
   "fund_id": "M0082_2564",
+  "symbol": "B-GTORMF",
+  "fund_name": "Bualuang Global Thematic Opportunities RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AN",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-05",
-    "last_val": 10.6309,
+    "nav_date": "2025-11-06",
+    "last_val": 10.4998,
     "previous_val": 0,
-    "net_asset": 439778944,
-    "buy_price": 10.6309,
-    "sell_price": 10.631,
-    "change": 10.6309,
+    "net_asset": 434457600,
+    "buy_price": 10.4998,
+    "sell_price": 10.4999,
+    "change": 10.4998,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-24",
-      "last_val": 10.2057,
-      "previous_val": 0,
-      "net_asset": 426537472,
-      "buy_price": 10.2057,
-      "sell_price": 10.2058
-    },
     {
       "nav_date": "2025-09-25",
       "last_val": 10.1686,
@@ -250,6 +245,14 @@
       "net_asset": 439778944,
       "buy_price": 10.6309,
       "sell_price": 10.631
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 10.4998,
+      "previous_val": 0,
+      "net_asset": 434457600,
+      "buy_price": 10.4998,
+      "sell_price": 10.4999
     }
   ],
   "dividends": [],
@@ -466,7 +469,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:47.550Z",
+  "data_fetched_at": "2025-11-11T06:12:46.083Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

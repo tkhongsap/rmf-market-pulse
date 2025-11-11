@@ -1,5 +1,8 @@
 {
   "fund_id": "M0095_2545",
+  "symbol": "TFIRMF-B",
+  "fund_name": "TISCO Fixed Income Retirement Fund",
+  "amc": "FIXMIDGEN",
   "metadata": {
     "fund_classification": "SM",
     "management_style": "No",
@@ -650,7 +653,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:38:41.543Z",
+  "data_fetched_at": "2025-11-11T06:40:11.962Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

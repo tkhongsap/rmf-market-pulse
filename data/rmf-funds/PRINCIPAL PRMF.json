@@ -1,5 +1,8 @@
 {
   "fund_id": "M0821_2548",
+  "symbol": "PRINCIPAL PRMF",
+  "fund_name": "Principal Protected Retirement Mutual Fund",
+  "amc": "PRINCIPAL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "FIXGOV",
     "management_style": "AM",
@@ -402,7 +405,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:33:38.683Z",
+  "data_fetched_at": "2025-11-11T06:34:42.593Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

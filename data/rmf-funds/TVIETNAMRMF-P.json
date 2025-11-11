@@ -1,5 +1,8 @@
 {
   "fund_id": "M0577_2565",
+  "symbol": "TVIETNAMRMF-P",
+  "fund_name": "TISCO Vietnam Equity RMF",
+  "amc": "EQVIET",
   "metadata": {
     "fund_classification": "AM",
     "management_style": "No",
@@ -441,7 +444,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:42:40.127Z",
+  "data_fetched_at": "2025-11-11T06:44:00.141Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

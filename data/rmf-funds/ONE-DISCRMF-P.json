@@ -1,5 +1,8 @@
 {
   "fund_id": "M0475_2563",
+  "symbol": "ONE-DISCRMF-P",
+  "fund_name": "ONE DISCOVERY RETIREMENT MUTUAL FUND",
+  "amc": "ONE ASSET MANAGEMENT LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "OT",
@@ -411,7 +414,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T02:32:18.509Z",
+  "data_fetched_at": "2025-11-11T06:33:41.895Z",
   "errors": [
     "No benchmark data available",
     "No risk metrics available",

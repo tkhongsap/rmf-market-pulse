@@ -1,5 +1,8 @@
 {
   "fund_id": "M0067_2545",
+  "symbol": "BERMF",
+  "fund_name": "Bualuang Equity RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-07",
-    "last_val": 65.0273,
+    "nav_date": "2025-11-10",
+    "last_val": 65.2081,
     "previous_val": 0,
-    "net_asset": 8296845312,
-    "buy_price": 65.0273,
-    "sell_price": 65.0274,
-    "change": 65.0273,
+    "net_asset": 8313820672,
+    "buy_price": 65.2081,
+    "sell_price": 65.2082,
+    "change": 65.2081,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-26",
-      "last_val": 64.6858,
-      "previous_val": 0,
-      "net_asset": 8396442112,
-      "buy_price": 64.6858,
-      "sell_price": 64.6859
-    },
     {
       "nav_date": "2025-09-29",
       "last_val": 65.1781,
@@ -250,6 +245,14 @@
       "net_asset": 8296845312,
       "buy_price": 65.0273,
       "sell_price": 65.0274
+    },
+    {
+      "nav_date": "2025-11-10",
+      "last_val": 65.2081,
+      "previous_val": 0,
+      "net_asset": 8313820672,
+      "buy_price": 65.2081,
+      "sell_price": 65.2082
     }
   ],
   "dividends": [],
@@ -482,7 +485,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:58.456Z",
+  "data_fetched_at": "2025-11-11T06:14:27.907Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

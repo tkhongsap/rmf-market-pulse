@@ -1,5 +1,8 @@
 {
   "fund_id": "M0320_2566",
+  "symbol": "B-DYNAMICRMF",
+  "fund_name": "Bualuang Dynamic Bond RMF",
+  "amc": "BBL ASSET MANAGEMENT COMPANY LIMITED",
   "metadata": {
     "fund_classification": "-",
     "management_style": "AM",
@@ -8,25 +11,17 @@
     "fund_type": "RMF"
   },
   "latest_nav": {
-    "nav_date": "2025-11-05",
-    "last_val": 10.5113,
+    "nav_date": "2025-11-06",
+    "last_val": 10.5131,
     "previous_val": 0,
-    "net_asset": 649727616,
-    "buy_price": 10.5113,
-    "sell_price": 10.5114,
-    "change": 10.5113,
+    "net_asset": 651361856,
+    "buy_price": 10.5131,
+    "sell_price": 10.5132,
+    "change": 10.5131,
     "change_percent": 0,
-    "last_upd_date": "2025-11-10T16:05:52.2"
+    "last_upd_date": "2025-11-11T08:11:44.25"
   },
   "nav_history_30d": [
-    {
-      "nav_date": "2025-09-24",
-      "last_val": 10.397,
-      "previous_val": 0,
-      "net_asset": 604803136,
-      "buy_price": 10.397,
-      "sell_price": 10.3971
-    },
     {
       "nav_date": "2025-09-25",
       "last_val": 10.3954,
@@ -250,6 +245,14 @@
       "net_asset": 649727616,
       "buy_price": 10.5113,
       "sell_price": 10.5114
+    },
+    {
+      "nav_date": "2025-11-06",
+      "last_val": 10.5131,
+      "previous_val": 0,
+      "net_asset": 651361856,
+      "buy_price": 10.5131,
+      "sell_price": 10.5132
     }
   ],
   "dividends": [],
@@ -381,7 +384,7 @@
     "minimum_redemption": null,
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-11T01:58:47.552Z",
+  "data_fetched_at": "2025-11-11T06:12:24.202Z",
   "errors": [
     "No risk metrics available",
     "No category data available",
