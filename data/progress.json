@@ -1,11 +1,11 @@
 {
-  "started_at": "2025-11-10T15:09:53.444Z",
-  "last_updated": "2025-11-10T22:59:12.632Z",
+  "started_at": "2025-11-11T01:58:31.636Z",
+  "last_updated": "2025-11-11T02:00:36.311Z",
   "total_funds": 410,
-  "processed": 505,
-  "successful": 316,
-  "failed": 1,
-  "skipped": 188,
+  "processed": 410,
+  "successful": 403,
+  "failed": 0,
+  "skipped": 7,
   "completed_symbols": [
     "ABAPAC-RMF",
     "ABGDD-RMF",
@@ -116,6 +116,8 @@
     "FP ASM RMF",
     "FP FLEX RMF",
     "GBRMF",
+    "GOLD-RMF-A",
+    "GOLD-RMF-P",
     "HI-DIV RMF",
     "I-GOLDRMF",
     "IN-RMF",
@@ -200,11 +202,15 @@
     "KFUSINDFXRMF",
     "KFUSRMF",
     "KFVIETRMF",
+    "KKP INRMF-F",
     "KKP BLRMF",
     "KKP EQRMF",
     "KKP GNP RMF-H",
     "KKP GNP RMF-UH",
     "KKP INDIA RMF-UH",
+    "KKP INRMF",
+    "KKP MMRMF",
+    "KKP MMRMF-F",
     "KKP PGE RMF-H",
     "KKP PGE RMF-UH",
     "KKP PROPRMF",
@@ -225,6 +231,7 @@
     "KT-VIETNAM RMF",
     "KT-WEQ RMF",
     "KT-WTAI RMF",
+    "KT25/75RMF",
     "KTEF-RMF",
     "KTMEE-RMF",
     "KTMUNG-RMF",
@@ -242,6 +249,8 @@
     "LHMMRMF",
     "LHTPROPRMF",
     "M-PROP RMF",
+    "M-RMF-A",
+    "M-RMF-P",
     "M-S50 RMF",
     "M-TWSUK RMF",
     "MEGA10AICHINARMF",
@@ -258,6 +267,12 @@
     "MM-RMF",
     "MMF-RMF",
     "MRENEWRMF",
+    "ONE-DISCRMF-A",
+    "ONE-DISCRMF-P",
+    "ONE-UGERMF-A",
+    "ONE-UGERMF-P",
+    "ONE-VIETNAMRMF-A",
+    "ONE-VIETNAMRMF-P",
     "ONEPROP-RMF",
     "PFIXRMF",
     "PMIXRMF",
@@ -280,32 +295,103 @@
     "SCBRM2",
     "SCBRM3",
     "SCBRM4",
+    "SCBRMASHARES(A)",
+    "SCBRMASHARES(E)",
     "SCBRMCHA",
+    "SCBRMCLEAN(A)",
+    "SCBRMCLEAN(E)",
     "SCBRMCTECH",
+    "SCBRMDIGI(A)",
+    "SCBRMDIGI(E)",
     "SCBRMEU",
     "SCBRMGHC",
     "SCBRMGIF",
     "SCBRMGW",
     "SCBRMGWP",
+    "SCBRMJAPAN(A)",
+    "SCBRMJAPAN(E)",
     "SCBRMJP",
     "SCBRMLEQ",
     "SCBRMMLCA",
     "SCBRMMONEY",
+    "SCBRMNDQ(A)",
+    "SCBRMNDQ(E)",
+    "SCBRMPGF(A)",
+    "SCBRMPGF(E)",
     "SCBRMPIN",
     "SCBRMPOP",
     "SCBRMS50",
+    "SCBRMUSA(A)",
+    "SCBRMUSA(E)",
+    "SCBRMVIET(A)",
+    "SCBRMVIET(E)",
+    "SCBRMWORLD(A)",
+    "SCBRMWORLD(E)",
     "SVRMF",
+    "TAIRMF-A",
+    "TAIRMF-P",
     "TAPRMF",
+    "TCHARMF-A",
+    "TCHARMF-P",
     "TCHRMF",
+    "TCHTECHRMF-A",
+    "TCHTECHRMF-P",
     "TCIRMF",
+    "TEGRMF-A",
+    "TEGRMF-B",
+    "TEGRMF-P",
+    "TEURMF-A",
+    "TEURMF-P",
+    "TFIRMF-A",
+    "TFIRMF-B",
+    "TFIRMF-P",
+    "TFPRMF-A",
+    "TFPRMF-P",
+    "TGHRMF-A",
+    "TGHRMF-B",
+    "TGHRMF-P",
+    "TGOLDRMF-A",
+    "TGOLDRMF-P",
+    "TGQUALITYRMF-A",
+    "TGQUALITYRMF-B",
+    "TGQUALITYRMF-P",
+    "TGSMARTRMF-A",
+    "TGSMARTRMF-B",
+    "TGSMARTRMF-P",
+    "THDRMF-A",
+    "THDRMF-P",
     "TINRMF",
+    "TINRMF-A",
+    "TINRMF-B",
+    "TINRMF-P",
+    "TJPRMF-A",
+    "TJPRMF-P",
     "TLDIVRMF",
     "TLEQRMF",
     "TLFLEXRMF",
     "TLMMRMF",
     "TLMSEQRMF",
     "TMSRMF",
+    "TMSRMF-A",
+    "TMSRMF-B",
+    "TMSRMF-P",
+    "TNASDAQRMF-A",
+    "TNASDAQRMF-B",
+    "TNASDAQRMF-P",
+    "TNEXTGENRMF-A",
+    "TNEXTGENRMF-P",
     "TSFIRMF",
+    "TSFRMF-A",
+    "TSFRMF-P",
+    "TTECHRMF-A",
+    "TTECHRMF-P",
+    "TUSRMF-A",
+    "TUSRMF-B",
+    "TUSRMF-P",
+    "TVIETNAMRMF-A",
+    "TVIETNAMRMF-P",
+    "TWBRMF-A",
+    "TWBRMF-P",
     "UCHINARMF",
     "UGBFRMF",
     "UGFTRMF",
@@ -321,42 +407,13 @@
     "UOBGRMF-H",
     "UOBSVRMF",
     "USUSRMF",
-    "X-EQRMF",
-    "KT25/75RMF"
+    "V-RMF-A",
+    "V-RMF-P",
+    "X-EQRMF"
   ],
-  "failed_symbols": [
-    {
-      "symbol": "KT25/75RMF",
-      "error": "ENOENT: no such file or directory, open '/home/runner/workspace/data/rmf-funds/KT25/75RMF.json'",
-      "timestamp": "2025-11-10T15:29:17.170Z"
-    }
-  ],
+  "failed_symbols": [],
   "skipped_symbols": [
     {
-      "symbol": "GOLD-RMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "GOLD-RMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "KKP INRMF-F",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "KKP INRMF",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "KKP MMRMF",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "KKP MMRMF-F",
-      "reason": "Not found in fund mapping"
-    },
-    {
       "symbol": "M-BOND",
       "reason": "Not found in fund mapping"
     },
@@ -369,39 +426,7 @@
       "reason": "Not found in fund mapping"
     },
     {
-      "symbol": "M-RMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "M-RMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
       "symbol": "M-VALUE",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-DISCRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-DISCRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-UGERMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-UGERMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-VIETNAMRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-VIETNAMRMF-P",
       "reason": "Not found in fund mapping"
     },
     {
@@ -409,680 +434,12 @@
       "reason": "Fund status: LI"
     },
     {
-      "symbol": "SCBRMASHARES(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMASHARES(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMCLEAN(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMCLEAN(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMDIGI(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMDIGI(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMJAPAN(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMJAPAN(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMNDQ(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMNDQ(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMPGF(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMPGF(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
       "symbol": "SCBRMTMFPLUS(A)",
-      "reason": "Not found in fund mapping"
+      "reason": "Fund status: CA"
     },
     {
       "symbol": "SCBRMTMFPLUS(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMUSA(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMUSA(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMVIET(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMVIET(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMWORLD(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMWORLD(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TAIRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TAIRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TCHARMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TCHARMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TCHTECHRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TCHTECHRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEGRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEGRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEGRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEURMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEURMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFIRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFIRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFIRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFPRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFPRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGHRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGHRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGHRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGOLDRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGOLDRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGQUALITYRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGQUALITYRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGQUALITYRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGSMARTRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGSMARTRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGSMARTRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "THDRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "THDRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TINRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TINRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TINRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TJPRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TJPRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TMSRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TMSRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TMSRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNASDAQRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNASDAQRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNASDAQRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNEXTGENRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNEXTGENRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TSFRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TSFRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TTECHRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TTECHRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TUSRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TUSRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TUSRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TVIETNAMRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TVIETNAMRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TWBRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TWBRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "V-RMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "V-RMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "GOLD-RMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "GOLD-RMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "KKP INRMF-F",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "KKP INRMF",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "KKP MMRMF",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "KKP MMRMF-F",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "M-BOND",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "M-CR",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "M-FIX",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "M-RMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "M-RMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "M-VALUE",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-DISCRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-DISCRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-UGERMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-UGERMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-VIETNAMRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "ONE-VIETNAMRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "S-FRMF",
-      "reason": "Fund status: LI"
-    },
-    {
-      "symbol": "SCBRMASHARES(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMASHARES(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMCLEAN(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMCLEAN(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMDIGI(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMDIGI(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMJAPAN(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMJAPAN(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMNDQ(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMNDQ(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMPGF(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMPGF(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMTMFPLUS(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMTMFPLUS(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMUSA(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMUSA(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMVIET(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMVIET(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMWORLD(A)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "SCBRMWORLD(E)",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TAIRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TAIRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TCHARMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TCHARMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TCHTECHRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TCHTECHRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEGRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEGRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEGRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEURMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TEURMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFIRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFIRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFIRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFPRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TFPRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGHRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGHRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGHRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGOLDRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGOLDRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGQUALITYRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGQUALITYRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGQUALITYRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGSMARTRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGSMARTRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TGSMARTRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "THDRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "THDRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TINRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TINRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TINRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TJPRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TJPRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TMSRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TMSRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TMSRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNASDAQRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNASDAQRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNASDAQRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNEXTGENRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TNEXTGENRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TSFRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TSFRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TTECHRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TTECHRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TUSRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TUSRMF-B",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TUSRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TVIETNAMRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TVIETNAMRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TWBRMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "TWBRMF-P",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "V-RMF-A",
-      "reason": "Not found in fund mapping"
-    },
-    {
-      "symbol": "V-RMF-P",
-      "reason": "Not found in fund mapping"
+      "reason": "Fund status: CA"
     }
   ]
 }

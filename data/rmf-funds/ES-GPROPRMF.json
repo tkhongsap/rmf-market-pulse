@@ -148,86 +148,6 @@
       "sell_price": 9.1249
     },
     {
-      "nav_date": "2025-10-20",
-      "last_val": 9.1902,
-      "previous_val": 0,
-      "net_asset": 46515356,
-      "buy_price": 9.181,
-      "sell_price": 9.1995
-    },
-    {
-      "nav_date": "2025-10-21",
-      "last_val": 9.1652,
-      "previous_val": 0,
-      "net_asset": 46330496,
-      "buy_price": 9.156,
-      "sell_price": 9.1745
-    },
-    {
-      "nav_date": "2025-10-22",
-      "last_val": 9.22,
-      "previous_val": 0,
-      "net_asset": 46736796,
-      "buy_price": 9.2108,
-      "sell_price": 9.2293
-    },
-    {
-      "nav_date": "2025-10-28",
-      "last_val": 9.1509,
-      "previous_val": 0,
-      "net_asset": 46452940,
-      "buy_price": 9.1417,
-      "sell_price": 9.1602
-    },
-    {
-      "nav_date": "2025-10-29",
-      "last_val": 8.9893,
-      "previous_val": 0,
-      "net_asset": 45667212,
-      "buy_price": 8.9803,
-      "sell_price": 8.9984
-    },
-    {
-      "nav_date": "2025-10-30",
-      "last_val": 8.9868,
-      "previous_val": 0,
-      "net_asset": 45886016,
-      "buy_price": 8.9778,
-      "sell_price": 8.9959
-    },
-    {
-      "nav_date": "2025-10-31",
-      "last_val": 8.9775,
-      "previous_val": 0,
-      "net_asset": 45950460,
-      "buy_price": 8.9685,
-      "sell_price": 8.9866
-    },
-    {
-      "nav_date": "2025-11-03",
-      "last_val": 8.9782,
-      "previous_val": 0,
-      "net_asset": 45987056,
-      "buy_price": 8.9692,
-      "sell_price": 8.9873
-    },
-    {
-      "nav_date": "2025-11-04",
-      "last_val": 8.9689,
-      "previous_val": 0,
-      "net_asset": 45932904,
-      "buy_price": 8.9599,
-      "sell_price": 8.978
-    },
-    {
-      "nav_date": "2025-11-05",
-      "last_val": 8.9718,
-      "previous_val": 0,
-      "net_asset": 46043152,
-      "buy_price": 8.9628,
-      "sell_price": 8.9809
-    },
-    {
       "nav_date": "2025-11-06",
       "last_val": 8.9841,
       "previous_val": 0,
@@ -364,7 +284,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-10T15:16:55.570Z",
+  "data_fetched_at": "2025-11-11T01:59:19.150Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

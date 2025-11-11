@@ -164,78 +164,6 @@
       "sell_price": 23.0849
     },
     {
-      "nav_date": "2025-10-24",
-      "last_val": 23.0458,
-      "previous_val": 0,
-      "net_asset": 162771952,
-      "buy_price": 23.0228,
-      "sell_price": 23.0689
-    },
-    {
-      "nav_date": "2025-10-27",
-      "last_val": 23.6105,
-      "previous_val": 0,
-      "net_asset": 167109552,
-      "buy_price": 23.5869,
-      "sell_price": 23.6342
-    },
-    {
-      "nav_date": "2025-10-28",
-      "last_val": 23.4584,
-      "previous_val": 0,
-      "net_asset": 166570160,
-      "buy_price": 23.4349,
-      "sell_price": 23.482
-    },
-    {
-      "nav_date": "2025-10-29",
-      "last_val": 23.9767,
-      "previous_val": 0,
-      "net_asset": 170959552,
-      "buy_price": 23.9527,
-      "sell_price": 24.0008
-    },
-    {
-      "nav_date": "2025-10-30",
-      "last_val": 23.9259,
-      "previous_val": 0,
-      "net_asset": 170650528,
-      "buy_price": 23.902,
-      "sell_price": 23.9499
-    },
-    {
-      "nav_date": "2025-10-31",
-      "last_val": 24.4236,
-      "previous_val": 0,
-      "net_asset": 176461824,
-      "buy_price": 24.3992,
-      "sell_price": 24.4481
-    },
-    {
-      "nav_date": "2025-11-04",
-      "last_val": 24.0607,
-      "previous_val": 0,
-      "net_asset": 173860352,
-      "buy_price": 24.0366,
-      "sell_price": 24.0849
-    },
-    {
-      "nav_date": "2025-11-05",
-      "last_val": 23.4369,
-      "previous_val": 0,
-      "net_asset": 174950672,
-      "buy_price": 23.4135,
-      "sell_price": 23.4604
-    },
-    {
-      "nav_date": "2025-11-06",
-      "last_val": 23.6926,
-      "previous_val": 0,
-      "net_asset": 178202592,
-      "buy_price": 23.6689,
-      "sell_price": 23.7164
-    },
-    {
       "nav_date": "2025-11-07",
       "last_val": 23.4702,
       "previous_val": 0,
@@ -368,7 +296,7 @@
     "minimum_redemption": "1",
     "minimum_balance": null
   },
-  "data_fetched_at": "2025-11-10T15:17:24.768Z",
+  "data_fetched_at": "2025-11-11T01:59:19.156Z",
   "errors": [
     "No risk metrics available",
     "No category data available",

@@ -5,9 +5,9 @@
  * for each fund using the mapping generated in Phase 0.
  *
  * Features:
- * - Sequential processing (one fund at a time)
+ * - Concurrent batch processing (15 funds at a time)
  * - Progress tracking with resume capability
- * - Rate limiting (100ms delay between funds)
+ * - Respects SEC API rate limits
  * - Error handling with detailed logging
  * - Individual JSON file output per fund
  *
@@ -24,6 +24,17 @@ import {
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
+
+// ============================================================================
+// Configuration
+// ============================================================================
+
+// Number of funds to process concurrently
+// SEC API limit: 3,000 calls per 5 minutes = 10 calls/second
+// Each fund: ~14 endpoint calls
+// Safe rate: 4 funds × 14 calls = 56 calls per batch every 15 seconds = 3.7 calls/sec
+const CONCURRENT_BATCH_SIZE = 4; // Reduced from 10 to respect rate limits
+const BATCH_DELAY_MS = 15000; // 15 seconds between batches
 
 // ============================================================================
 // Types
@@ -210,6 +221,77 @@ function saveProgress(progress: ProcessProgress) {
 }
 
 // ============================================================================
+// Fund Mapping Helper Functions
+// ============================================================================
+
+/**
+ * Find mapping entry for a fund symbol, handling variant suffixes
+ * 
+ * Handles cases where CSV has variant suffixes but mapping doesn't:
+ * - SCBRMASHARES(A) → SCBRMASHARES
+ * - TEGRMF-A → TEGRMF
+ * - KKP INRMF → KKP INRMF FUND
+ * 
+ * @param symbol Fund symbol from CSV
+ * @param mapping Fund mapping object
+ * @returns Mapping entry if found, null otherwise
+ */
+function findMappingEntry(
+  symbol: string,
+  mapping: FundMapping['mapping']
+): FundMappingEntry | null {
+  // Strategy 1: Try exact match first
+  if (mapping[symbol]) {
+    return mapping[symbol];
+  }
+
+  // Strategy 2: Try removing parentheses variants: (A), (B), (E), (P)
+  const parenthesesVariants = ['(A)', '(B)', '(E)', '(P)'];
+  for (const variant of parenthesesVariants) {
+    if (symbol.endsWith(variant)) {
+      const baseSymbol = symbol.slice(0, -variant.length);
+      if (mapping[baseSymbol]) {
+        return mapping[baseSymbol];
+      }
+    }
+  }
+
+  // Strategy 3: Try removing dash variants: -A, -B, -P, -H, -UH, -F
+  const dashVariants = ['-A', '-B', '-P', '-H', '-UH', '-F'];
+  for (const variant of dashVariants) {
+    if (symbol.endsWith(variant)) {
+      const baseSymbol = symbol.slice(0, -variant.length);
+      if (mapping[baseSymbol]) {
+        return mapping[baseSymbol];
+      }
+    }
+  }
+
+  // Strategy 4: For KKP funds, try adding "FUND" suffix
+  // Handle cases like: KKP INRMF → KKP INRMF FUND
+  // Or: KKP INRMF-F → KKP INRMF FUND (remove -F first, then add FUND)
+  if (symbol.startsWith('KKP ')) {
+    // First try adding FUND directly
+    const withFund = `${symbol} FUND`;
+    if (mapping[withFund]) {
+      return mapping[withFund];
+    }
+
+    // If symbol ends with -F, remove it first, then add FUND
+    if (symbol.endsWith('-F')) {
+      const baseSymbol = symbol.slice(0, -2); // Remove '-F'
+      const withFund = `${baseSymbol} FUND`;
+      if (mapping[withFund]) {
+        return mapping[withFund];
+      }
+    }
+  }
+
+  // No match found
+  return null;
+}
+
+// ============================================================================
 // Main Processing Function
 // ============================================================================
 
@@ -266,6 +348,69 @@ async function processFund(
 }
 
 // ============================================================================
+// Batch Processing Functions
+// ============================================================================
+
+interface FundProcessingTask {
+  csvFund: CSVFundRow;
+  mappingEntry: FundMappingEntry;
+  index: number;
+  total: number;
+}
+
+interface BatchResult {
+  symbol: string;
+  success: boolean;
+  error?: string;
+  skipped?: boolean;
+  skipReason?: string;
+}
+
+async function processBatch(
+  tasks: FundProcessingTask[]
+): Promise<BatchResult[]> {
+  // Process all funds in the batch concurrently
+  const promises = tasks.map(async (task): Promise<BatchResult> => {
+    try {
+      const result = await processFund(
+        task.csvFund,
+        task.mappingEntry,
+        task.index,
+        task.total
+      );
+      
+      return {
+        symbol: task.csvFund.symbol,
+        success: result.success,
+        error: result.error,
+      };
+    } catch (error: any) {
+      return {
+        symbol: task.csvFund.symbol,
+        success: false,
+        error: error.message,
+      };
+    }
+  });
+
+  // Wait for all promises to settle
+  const results = await Promise.allSettled(promises);
+
+  // Convert PromiseSettledResult to BatchResult
+  return results.map((result, index) => {
+    if (result.status === 'fulfilled') {
+      return result.value;
+    } else {
+      return {
+        symbol: tasks[index].csvFund.symbol,
+        success: false,
+        error: result.reason?.message || 'Unknown error',
+      };
+    }
+  });
+}
+
+// ============================================================================
 // Main Batch Processing
 // ============================================================================
 
@@ -314,10 +459,13 @@ async function batchProcessAllFunds() {
       };
     }
 
-    // Step 4: Process each fund
+    // Step 4: Process funds in concurrent batches
     logSection('Step 4: Processing Funds');
-    log(`Processing ${csvFunds.length} RMF funds sequentially\n`, 'cyan');
+    log(`Processing ${csvFunds.length} RMF funds in batches of ${CONCURRENT_BATCH_SIZE}\n`, 'cyan');
 
+    // Prepare list of funds to process
+    const fundsToProcess: Array<{ csvFund: CSVFundRow; index: number }> = [];
+    
     for (let i = 0; i < csvFunds.length; i++) {
       const csvFund = csvFunds[i];
 
@@ -327,8 +475,8 @@ async function batchProcessAllFunds() {
         continue;
       }
 
-      // Check if fund exists in mapping
-      const mappingEntry = fundMapping.mapping[csvFund.symbol];
+      // Check if fund exists in mapping (with variant suffix handling)
+      const mappingEntry = findMappingEntry(csvFund.symbol, fundMapping.mapping);
 
       if (!mappingEntry) {
         log(`[${i + 1}/${csvFunds.length}] Skipping ${csvFund.symbol} (not found in mapping)`, 'yellow');
@@ -338,7 +486,6 @@ async function batchProcessAllFunds() {
           symbol: csvFund.symbol,
           reason: 'Not found in fund mapping',
         });
-        saveProgress(progress);
         continue;
       }
 
@@ -351,43 +498,89 @@ async function batchProcessAllFunds() {
           symbol: csvFund.symbol,
           reason: `Fund status: ${mappingEntry.fund_status}`,
         });
-        saveProgress(progress);
         continue;
       }
 
-      // Process fund
-      const result = await processFund(csvFund, mappingEntry, i, csvFunds.length);
+      fundsToProcess.push({ csvFund, index: i });
+    }
 
-      progress.processed++;
+    log(`Found ${fundsToProcess.length} funds to process\n`, 'green');
 
-      if (result.success) {
-        progress.successful++;
-        progress.completed_symbols.push(csvFund.symbol);
-      } else {
-        progress.failed++;
-        progress.failed_symbols.push({
-          symbol: csvFund.symbol,
-          error: result.error || 'Unknown error',
-          timestamp: new Date().toISOString(),
-        });
+    // Process funds in batches
+    const totalBatches = Math.ceil(fundsToProcess.length / CONCURRENT_BATCH_SIZE);
+    
+    for (let batchIndex = 0; batchIndex < totalBatches; batchIndex++) {
+      const batchStart = batchIndex * CONCURRENT_BATCH_SIZE;
+      const batchEnd = Math.min(batchStart + CONCURRENT_BATCH_SIZE, fundsToProcess.length);
+      const batch = fundsToProcess.slice(batchStart, batchEnd);
+
+      log(`\n${'─'.repeat(80)}`, 'cyan');
+      log(`Batch ${batchIndex + 1}/${totalBatches}: Processing ${batch.length} funds concurrently`, 'cyan');
+      log(`${'─'.repeat(80)}\n`, 'cyan');
+
+      // Create processing tasks for this batch
+      const tasks: FundProcessingTask[] = batch.map(({ csvFund, index }) => {
+        const mappingEntry = findMappingEntry(csvFund.symbol, fundMapping.mapping);
+        if (!mappingEntry) {
+          throw new Error(`Mapping entry not found for ${csvFund.symbol} (should have been caught earlier)`);
+        }
+        return {
+          csvFund,
+          mappingEntry,
+          index,
+          total: csvFunds.length,
+        };
+      });
+
+      // Process batch concurrently
+      const batchStartTime = Date.now();
+      const results = await processBatch(tasks);
+      const batchDuration = Date.now() - batchStartTime;
+
+      // Update progress based on results
+      for (const result of results) {
+        progress.processed++;
+
+        if (result.success) {
+          progress.successful++;
+          progress.completed_symbols.push(result.symbol);
+        } else {
+          progress.failed++;
+          progress.failed_symbols.push({
+            symbol: result.symbol,
+            error: result.error || 'Unknown error',
+            timestamp: new Date().toISOString(),
+          });
+        }
       }
 
-      // Save progress after each fund
+      // Save progress after each batch
       saveProgress(progress);
 
-      // Rate limiting: 100ms delay between funds
-      await sleep(100);
+      // Batch summary
+      const successCount = results.filter(r => r.success).length;
+      const failedCount = results.filter(r => !r.success).length;
+      
+      log(`\n  Batch completed in ${formatDuration(batchDuration)}`, 'cyan');
+      log(`  Success: ${successCount} | Failed: ${failedCount}`, successCount > 0 ? 'green' : 'red');
 
-      // Progress update every 10 funds
-      if ((i + 1) % 10 === 0) {
-        const elapsed = Date.now() - startTime;
-        const avgTimePerFund = elapsed / (i + 1);
-        const remaining = csvFunds.length - (i + 1);
-        const estimatedTimeLeft = avgTimePerFund * remaining;
+      // Overall progress update
+      const elapsed = Date.now() - startTime;
+      const processed = batchEnd;
+      const remaining = fundsToProcess.length - processed;
+      const avgTimePerFund = elapsed / processed;
+      const estimatedTimeLeft = avgTimePerFund * remaining;
 
-        log(`\n  Progress: ${i + 1}/${csvFunds.length} (${((i + 1) / csvFunds.length * 100).toFixed(1)}%)`, 'magenta');
-        log(`  Elapsed: ${formatDuration(elapsed)}`, 'cyan');
-        log(`  Estimated time left: ${formatDuration(estimatedTimeLeft)}\n`, 'cyan');
+      log(`\n  Overall Progress: ${processed}/${fundsToProcess.length} (${(processed / fundsToProcess.length * 100).toFixed(1)}%)`, 'magenta');
+      log(`  Elapsed: ${formatDuration(elapsed)}`, 'cyan');
+      log(`  Estimated time left: ${formatDuration(estimatedTimeLeft)}`, 'cyan');
+
+      // Rate limit delay: Wait 15 seconds between batches to respect SEC API limits
+      if (batchIndex < totalBatches - 1) {
+        const delaySeconds = BATCH_DELAY_MS / 1000;
+        log(`\n⏳ Waiting ${delaySeconds}s before next batch to respect API rate limits...`, 'yellow');
+        log(`   (SEC API: 3,000 calls per 5 minutes | Current rate: ~3.7 calls/sec)`, 'dim');
+        await sleep(BATCH_DELAY_MS);
       }
     }
 
