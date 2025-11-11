@@ -15,7 +15,9 @@
     "data:rmf:identify-incomplete": "tsx scripts/data-extraction/rmf/identify-incomplete-funds.ts",
     "data:rmf:reprocess": "tsx scripts/data-extraction/rmf/reprocess-incomplete-funds.ts",
     "data:rmf:parse": "node scripts/data-parsing/rmf/parse-rmf-funds.js",
-    "data:rmf:consolidate-csv": "tsx scripts/data-extraction/rmf/consolidate-to-csv.ts"
+    "data:rmf:consolidate-csv": "tsx scripts/data-extraction/rmf/consolidate-to-csv.ts",
+    "data:esg:generate-list": "tsx scripts/data-extraction/esg/generate-thai-esg-fund-list.ts",
+    "data:esgx:generate-list": "tsx scripts/data-extraction/esgx/generate-thai-esgx-fund-list.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
