@@ -7,3 +7,7 @@ vite.config.ts.*
 .env
 .env.local
 .env.*.local
+
+# Generated data pipeline files
+data/progress.json
+data/batch-process.log
