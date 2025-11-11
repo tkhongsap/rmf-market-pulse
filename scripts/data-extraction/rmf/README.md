@@ -47,6 +47,38 @@ npm run data:rmf:fetch-all
 - 15-second delay between batches
 - Throughput: ~3.7 API calls/second (well under 3,000 calls per 5 minutes limit)
 
+## Data Consolidation
+
+### Consolidate to CSV
+**Script:** `consolidate-to-csv.ts`
+
+Consolidates all 403 RMF fund JSON files into a single flattened CSV file optimized for chatbot/LLM querying.
+
+**Features:**
+- Flattens nested objects into separate columns
+- Summarizes arrays (NAV history, dividends, fees, etc.)
+- 60 columns with all key fund data
+- Optimized for Market Pulse chatbot data source
+
+**Output:** `docs/rmf-funds-consolidated.csv`
+
+**Usage:**
+```bash
+npm run data:rmf:consolidate-csv
+```
+
+**CSV Structure:**
+- One row per fund (403 rows)
+- Core: fund_id, symbol, fund_name, amc
+- Metadata: classification, style, dividend policy, risk level
+- NAV: latest NAV data + 30-day history summary
+- Performance: YTD, 3M, 6M, 1Y, 3Y, 5Y, 10Y, since inception
+- Benchmark: name and returns for all time periods
+- Fees: count and details (JSON)
+- Asset allocation: full breakdown (JSON)
+- Documents: factsheet, reports URLs
+- Investment minimums: initial, additional, redemption
+
 ## Utility Scripts
 
 ### Identify Incomplete Funds

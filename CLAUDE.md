@@ -244,6 +244,25 @@ The repository includes pre-extracted structured data for all RMF funds:
 - `docs/rmf-funds.md` - Same data in markdown table format
 - `docs/RMF-Fund-Comparison.md` - Source HTML table (6,766 lines) scraped from SET website
 
+### Consolidated Fund Data (Market Pulse Data Source)
+- `docs/rmf-funds-consolidated.csv` - **403 RMF funds** with comprehensive data (1.5MB)
+  - Flattened structure optimized for chatbot/LLM querying
+  - 60 columns including all fund data points
+  - Core: fund_id, symbol, fund_name, amc
+  - Metadata: classification, style, dividend policy, risk level
+  - NAV: latest values + 30-day history summary (count, first/last dates, min/max)
+  - Performance: YTD, 3M, 6M, 1Y, 3Y, 5Y, 10Y, since inception
+  - Benchmark: name and returns for all time periods
+  - Dividends: count, total, last date
+  - Asset allocation: JSON breakdown
+  - Fees: count and details (JSON)
+  - Parties: count and list (JSON)
+  - Risk factors: count and descriptions (JSON)
+  - Documents: factsheet, annual/halfyear report URLs
+  - Investment minimums: initial, additional, redemption, balance
+  - Generated from: `data/rmf-funds/{SYMBOL}.json` files
+  - Command: `npm run data:rmf:consolidate-csv`
+
 ### Data Extraction Scripts
 
 **100% API-Based Fund List Generation** (in `scripts/data-extraction/rmf/`):

@@ -17,7 +17,8 @@
       "Bash(while read symbol)",
       "Bash(do grep -q \"\"\"$symbol\"\"\" data/progress.json)",
       "Bash(echo:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "WebFetch(domain:api-portal.sec.or.th)"
     ],
     "deny": [],
     "ask": []
