@@ -205,6 +205,28 @@ The `/mcp` endpoint implements the Model Context Protocol for ChatGPT apps:
    - `RMFFundCard.tsx` for card view (grid layout)
 6. Auto-refetch every 5 minutes maintains freshness
 
+## OpenAI App SDK Integration
+
+**Master Plan:** See `tasks/OPENAI_APP_SDK_MASTER_PLAN.md` for comprehensive implementation guide.
+
+The project is being enhanced to support OpenAI Apps SDK widgets for ChatGPT integration:
+
+**Planned Features:**
+- 6 MCP tools with structured content responses (`get_rmf_funds`, `get_rmf_fund_detail`, `search_rmf_funds`, `get_rmf_fund_performance`, `get_rmf_fund_nav_history`, `compare_rmf_funds`)
+- 4 interactive widgets (Fund Card, Fund List, Fund Detail, Performance Chart)
+- `window.openai` API integration for state persistence and theme matching
+- Structured response format with `structuredContent`, `_meta`, and `content` fields
+- Widget resources served from `/mcp/resources/{widget-id}`
+
+**Implementation Approach:**
+- Contract-first development: Tool schemas frozen before UI implementation
+- Data service layer with in-memory indexes for fast lookups
+- Standalone HTML widgets (< 100KB gzipped, bundled with esbuild)
+- WCAG AA accessibility compliance
+- Testing with 20 golden prompts (direct, indirect, negative, edge cases)
+
+**Timeline:** 6 phases over 17-24 days (see master plan for detailed breakdown)
+
 ## Development Notes
 
 ### Vite Configuration
