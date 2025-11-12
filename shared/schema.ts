@@ -244,3 +244,299 @@ export const rmfFundDetailWithPerformanceResponseSchema = z.object({
 });
 
 export type RMFFundDetailWithPerformanceResponse = z.infer<typeof rmfFundDetailWithPerformanceResponseSchema>;
+
+// ====================================================================
+// MCP (Model Context Protocol) SCHEMAS FOR CHATGPT INTEGRATION
+// ====================================================================
+
+/**
+ * MCP Fund Summary Schema
+ * Lightweight fund info for list responses
+ * Used by: get_rmf_funds, search_rmf_funds, get_rmf_fund_performance
+ */
+export const mcpFundSummarySchema = z.object({
+  symbol: z.string(),
+  fund_name: z.string(),
+  amc: z.string(),
+  nav_value: z.number(),
+  nav_date: z.string(),
+  nav_change_percent: z.number().nullable(),
+  risk_level: z.number().int().min(1).max(8),
+  perf_ytd: z.number().nullable(),
+  perf_1y: z.number().nullable(),
+  fund_classification: z.string().nullable(),
+});
+
+export type MCPFundSummary = z.infer<typeof mcpFundSummarySchema>;
+
+/**
+ * MCP Fund Detail Schema
+ * Complete fund information for detail view
+ * Used by: get_rmf_fund_detail
+ */
+export const mcpFundDetailSchema = z.object({
+  // Core info
+  fund_id: z.string(),
+  symbol: z.string(),
+  fund_name: z.string(),
+  amc: z.string(),
+  fund_classification: z.string().nullable(),
+  management_style: z.string().nullable(),
+  dividend_policy: z.string().nullable(),
+  risk_level: z.number().int().min(1).max(8),
+  fund_type: z.string(),
+
+  // NAV data
+  nav_date: z.string(),
+  nav_value: z.number(),
+  nav_change: z.number().nullable(),
+  nav_change_percent: z.number().nullable(),
+  buy_price: z.number().nullable(),
+  sell_price: z.number().nullable(),
+
+  // Performance
+  perf_ytd: z.number().nullable(),
+  perf_3m: z.number().nullable(),
+  perf_6m: z.number().nullable(),
+  perf_1y: z.number().nullable(),
+  perf_3y: z.number().nullable(),
+  perf_5y: z.number().nullable(),
+  perf_10y: z.number().nullable(),
+  perf_since_inception: z.number().nullable(),
+
+  // Benchmark
+  benchmark_name: z.string().nullable(),
+  benchmark_ytd: z.number().nullable(),
+  benchmark_3m: z.number().nullable(),
+  benchmark_6m: z.number().nullable(),
+  benchmark_1y: z.number().nullable(),
+  benchmark_3y: z.number().nullable(),
+  benchmark_5y: z.number().nullable(),
+  benchmark_10y: z.number().nullable(),
+
+  // Asset allocation
+  asset_allocation: z.array(z.object({
+    asset_class: z.string(),
+    percentage: z.number(),
+  })).nullable(),
+
+  // Fees (may contain "Unknown" values - see DATA_GAPS.md)
+  fees: z.array(z.object({
+    fee_type: z.string(),
+    fee_desc: z.string(),
+    fee_value: z.number().nullable(),
+    fee_remark: z.string().nullable(),
+  })).nullable(),
+
+  // Investment minimums
+  min_initial: z.number().nullable(),
+  min_additional: z.number().nullable(),
+  min_redemption: z.number().nullable(),
+  min_balance: z.number().nullable(),
+
+  // Documents
+  factsheet_url: z.string().nullable(),
+  annual_report_url: z.string().nullable(),
+  halfyear_report_url: z.string().nullable(),
+
+  // Suitability (Base64 encoded Thai text)
+  suitability_risk_level: z.string().nullable(),
+  suitability_target_investor: z.string().nullable(),
+  suitability_investment_horizon: z.string().nullable(),
+});
+
+export type MCPFundDetail = z.infer<typeof mcpFundDetailSchema>;
+
+/**
+ * MCP NAV History Point Schema
+ * Single NAV data point for charting
+ */
+export const mcpNavHistoryPointSchema = z.object({
+  date: z.string(), // ISO 8601 date
+  nav: z.number(),
+  change: z.number().nullable(),
+  changePercent: z.number().nullable(),
+});
+
+export type MCPNavHistoryPoint = z.infer<typeof mcpNavHistoryPointSchema>;
+
+/**
+ * MCP NAV History Schema
+ * Historical NAV data for charts
+ * Used by: get_rmf_fund_nav_history
+ */
+export const mcpNavHistorySchema = z.object({
+  fundCode: z.string(),
+  fundName: z.string(),
+  navHistory: z.array(mcpNavHistoryPointSchema),
+  periodReturn: z.number(),
+  volatility: z.number(),
+  minNav: z.number(),
+  maxNav: z.number(),
+  avgNav: z.number(),
+  currentNav: z.number(),
+  currentDate: z.string(),
+});
+
+export type MCPNavHistory = z.infer<typeof mcpNavHistorySchema>;
+
+/**
+ * MCP Fund Comparison Schema
+ * Single fund data for comparison view
+ * Used by: compare_rmf_funds
+ */
+export const mcpFundComparisonSchema = z.object({
+  symbol: z.string(),
+  fund_name: z.string(),
+  amc: z.string(),
+  risk_level: z.number().int().min(1).max(8),
+
+  // Performance comparison
+  perf_ytd: z.number().nullable(),
+  perf_1y: z.number().nullable(),
+  perf_3y: z.number().nullable(),
+  perf_5y: z.number().nullable(),
+
+  // Benchmark comparison
+  benchmark_name: z.string().nullable(),
+  benchmark_ytd: z.number().nullable(),
+  benchmark_1y: z.number().nullable(),
+
+  // Fees
+  fees: z.array(z.object({
+    fee_desc: z.string(),
+    fee_value: z.number().nullable(),
+  })).nullable(),
+
+  // Risk metrics
+  volatility_1y: z.number().nullable(),
+  tracking_error: z.number().nullable(),
+
+  // NAV
+  nav_value: z.number(),
+  nav_date: z.string(),
+});
+
+export type MCPFundComparison = z.infer<typeof mcpFundComparisonSchema>;
+
+/**
+ * MCP Comparison Highlights Schema
+ * Highlights best/worst performers in comparison
+ */
+export const mcpComparisonHighlightsSchema = z.object({
+  bestYtd: z.string().nullable(),
+  worstYtd: z.string().nullable(),
+  lowestRisk: z.string().nullable(),
+  highestRisk: z.string().nullable(),
+  lowestFees: z.string().nullable(),
+});
+
+export type MCPComparisonHighlights = z.infer<typeof mcpComparisonHighlightsSchema>;
+
+/**
+ * MCP Content Block Schema
+ * Content blocks for MCP responses
+ */
+export const mcpContentBlockSchema = z.object({
+  type: z.enum(["text", "image", "resource"]),
+  text: z.string().optional(),
+  data: z.string().optional(),
+  mimeType: z.string().optional(),
+});
+
+export type MCPContentBlock = z.infer<typeof mcpContentBlockSchema>;
+
+/**
+ * MCP Tool Response Metadata Schema
+ * Metadata for tool responses
+ */
+export const mcpToolResponseMetadataSchema = z.object({
+  "openai/outputTemplate": z.string().optional(), // Widget component URI
+  timestamp: z.string(), // ISO 8601
+}).catchall(z.unknown()); // Allow additional metadata fields
+
+export type MCPToolResponseMetadata = z.infer<typeof mcpToolResponseMetadataSchema>;
+
+/**
+ * MCP Tool Response Schema
+ * Base response wrapper for all MCP tools
+ */
+export const mcpToolResponseSchema = z.object({
+  content: z.array(mcpContentBlockSchema),
+  structuredContent: z.unknown().optional(), // Tool-specific structured data
+  _meta: mcpToolResponseMetadataSchema.optional(),
+});
+
+export type MCPToolResponse = z.infer<typeof mcpToolResponseSchema>;
+
+/**
+ * MCP Error Response Schema
+ * Standard error format for MCP tools
+ */
+export const mcpErrorResponseSchema = z.object({
+  error: z.object({
+    code: z.enum(["BAD_REQUEST", "NOT_FOUND", "INTERNAL_ERROR", "UNAUTHORIZED"]),
+    message: z.string(),
+    actionableHint: z.string(),
+    details: z.unknown().optional(),
+  }),
+});
+
+export type MCPErrorResponse = z.infer<typeof mcpErrorResponseSchema>;
+
+/**
+ * MCP Fund List Response Schema
+ * Response for get_rmf_funds and search_rmf_funds
+ */
+export const mcpFundListResponseSchema = mcpToolResponseSchema.extend({
+  structuredContent: z.object({
+    funds: z.array(mcpFundSummarySchema),
+    totalCount: z.number(),
+    page: z.number().optional(),
+    pageSize: z.number().optional(),
+    totalPages: z.number().optional(),
+  }),
+});
+
+export type MCPFundListResponse = z.infer<typeof mcpFundListResponseSchema>;
+
+/**
+ * MCP Fund Detail Response Schema
+ * Response for get_rmf_fund_detail
+ */
+export const mcpFundDetailResponseSchema = mcpToolResponseSchema.extend({
+  structuredContent: z.object({
+    fund: mcpFundDetailSchema,
+  }),
+  _meta: mcpToolResponseMetadataSchema.extend({
+    navHistory7d: z.array(z.object({
+      date: z.string(),
+      nav: z.number(),
+    })).optional(),
+  }).optional(),
+});
+
+export type MCPFundDetailResponse = z.infer<typeof mcpFundDetailResponseSchema>;
+
+/**
+ * MCP NAV History Response Schema
+ * Response for get_rmf_fund_nav_history
+ */
+export const mcpNavHistoryResponseSchema = mcpToolResponseSchema.extend({
+  structuredContent: mcpNavHistorySchema,
+});
+
+export type MCPNavHistoryResponse = z.infer<typeof mcpNavHistoryResponseSchema>;
+
+/**
+ * MCP Fund Comparison Response Schema
+ * Response for compare_rmf_funds
+ */
+export const mcpFundComparisonResponseSchema = mcpToolResponseSchema.extend({
+  structuredContent: z.object({
+    funds: z.array(mcpFundComparisonSchema),
+    comparisonHighlights: mcpComparisonHighlightsSchema,
+  }),
+});
+
+export type MCPFundComparisonResponse = z.infer<typeof mcpFundComparisonResponseSchema>;
