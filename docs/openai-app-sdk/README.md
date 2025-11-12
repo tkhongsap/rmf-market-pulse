@@ -33,6 +33,46 @@ This directory contains extracted documentation for building OpenAI apps using t
    - Visual design standards
    - Tone and communication guidelines
 
+### Planning Phase
+
+5. **[Use Case Planning](05-plan-use-case.md)** - Research and planning methodology
+   - Research phase and evaluation prompts
+   - Scope definition and prioritization
+   - Tool translation from use cases
+   - Iteration planning
+
+6. **[Define Tools](06-plan-tools.md)** - Tool design and specifications
+   - Tool-first thinking principles
+   - Single responsibility and metadata capture
+   - Model-side guardrails
+   - Validation strategy
+
+7. **[Design Components](07-plan-components.md)** - UI component planning
+   - Component patterns (list, map, carousel, etc.)
+   - User interaction considerations
+   - Data requirements and state management
+   - Responsive design and debugging
+
+### Build Phase
+
+8. **[Build MCP Server](08-build-mcp-server.md)** - MCP server implementation
+   - SDK selection (Python vs TypeScript)
+   - Tool definition and component templates
+   - Response structure and setup steps
+   - Advanced configuration (CSP, localization)
+
+9. **[Build Custom UX](09-build-custom-ux.md)** - Frontend component development
+   - `window.openai` API architecture
+   - React hook patterns
+   - Project structure and bundling
+   - Component implementation guidelines
+
+10. **[Authentication](10-build-auth.md)** - OAuth 2.1 security implementation
+    - Three-party architecture
+    - MCP authorization spec requirements
+    - OAuth flow steps and token verification
+    - Recommended providers and testing strategy
+
 ## Overview
 
 The OpenAI Apps SDK allows developers to build applications for ChatGPT using:
