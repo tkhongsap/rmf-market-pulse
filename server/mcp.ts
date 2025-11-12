@@ -51,6 +51,38 @@ export class RMFMCPServer {
       },
       async (args) => this.handleGetRmfFundDetail(args)
     );
+
+    this.server.tool(
+      'get_rmf_fund_performance',
+      'Get top performing Thai RMF funds for a specific period with benchmark comparison',
+      {
+        period: z.enum(['ytd', '3m', '6m', '1y', '3y', '5y', '10y']).describe('Performance period'),
+        sortOrder: z.enum(['asc', 'desc']).optional().default('desc').describe('Sort order (desc = best performers first)'),
+        limit: z.number().optional().default(10).describe('Maximum number of funds to return'),
+        riskLevel: z.number().min(1).max(8).optional().describe('Filter by risk level'),
+      },
+      async (args) => this.handleGetRmfFundPerformance(args)
+    );
+
+    this.server.tool(
+      'get_rmf_fund_nav_history',
+      'Get NAV (Net Asset Value) history for a specific Thai RMF fund over time',
+      {
+        fundCode: z.string().describe('Fund symbol/code (e.g., "ABAPAC-RMF")'),
+        days: z.number().optional().default(30).describe('Number of days of history (max: 365)'),
+      },
+      async (args) => this.handleGetRmfFundNavHistory(args)
+    );
+
+    this.server.tool(
+      'compare_rmf_funds',
+      'Compare multiple Thai RMF funds side by side',
+      {
+        fundCodes: z.array(z.string()).min(2).max(5).describe('Array of fund symbols to compare (2-5 funds)'),
+        compareBy: z.enum(['performance', 'risk', 'fees', 'all']).optional().default('all').describe('Comparison focus'),
+      },
+      async (args) => this.handleCompareFunds(args)
+    );
   }
 
   private async handleGetRmfFunds(args: any) {
@@ -241,6 +273,311 @@ export class RMFMCPServer {
         {
           type: 'text' as const,
           text: JSON.stringify(fundDetail, null, 2),
+        },
+      ],
+    };
+  }
+
+  private async handleGetRmfFundPerformance(args: any) {
+    const period = args?.period || 'ytd';
+    const sortOrder = args?.sortOrder || 'desc';
+    const limit = args?.limit || 10;
+    const riskLevel = args?.riskLevel;
+
+    // Map period to fund property
+    const periodMap: Record<string, string> = {
+      'ytd': 'perf_ytd',
+      '3m': 'perf_3m',
+      '6m': 'perf_6m',
+      '1y': 'perf_1y',
+      '3y': 'perf_3y',
+      '5y': 'perf_5y',
+      '10y': 'perf_10y',
+    };
+
+    // Map period to benchmark field
+    const benchmarkMap: Record<string, string> = {
+      'ytd': 'benchmark_ytd',
+      '3m': 'benchmark_3m',
+      '6m': 'benchmark_6m',
+      '1y': 'benchmark_1y',
+      '3y': 'benchmark_3y',
+      '5y': 'benchmark_5y',
+      '10y': 'benchmark_10y',
+    };
+
+    const perfField = periodMap[period];
+    const benchmarkField = benchmarkMap[period];
+    
+    if (!perfField) {
+      throw new Error(`Invalid period: ${period}`);
+    }
+
+    // Get all funds and filter
+    const { funds: allFunds } = rmfDataService.search({});
+    
+    let filteredFunds = allFunds.filter(fund => {
+      const perfValue = (fund as any)[perfField];
+      // Exclude funds with null/undefined performance
+      if (perfValue === null || perfValue === undefined) return false;
+      
+      // Apply risk level filter if specified
+      if (riskLevel && fund.risk_level !== riskLevel) return false;
+      
+      return true;
+    });
+
+    // Sort by performance
+    filteredFunds.sort((a, b) => {
+      const aPerf = (a as any)[perfField] || 0;
+      const bPerf = (b as any)[perfField] || 0;
+      return sortOrder === 'desc' ? bPerf - aPerf : aPerf - bPerf;
+    });
+
+    // Limit results
+    const topFunds = filteredFunds.slice(0, limit);
+
+    const periodLabel = {
+      'ytd': 'YTD',
+      '3m': '3-Month',
+      '6m': '6-Month',
+      '1y': '1-Year',
+      '3y': '3-Year',
+      '5y': '5-Year',
+      '10y': '10-Year',
+    }[period];
+
+    const textSummary = riskLevel
+      ? `Top ${topFunds.length} performing RMF funds for ${periodLabel} (Risk Level ${riskLevel})`
+      : `Top ${topFunds.length} performing RMF funds for ${periodLabel}`;
+
+    const fundsData = topFunds.map((f, index) => {
+      const fundPerf = (f as any)[perfField];
+      const benchPerf = (f as any)[benchmarkField];
+      
+      return {
+        rank: index + 1,
+        symbol: f.symbol,
+        fund_name: f.fund_name,
+        amc: f.amc,
+        risk_level: f.risk_level,
+        performance: fundPerf,
+        nav_value: f.nav_value,
+        benchmark: f.benchmark_name ? {
+          name: f.benchmark_name,
+          performance: benchPerf,
+          outperformance: fundPerf !== null && fundPerf !== undefined && benchPerf !== null && benchPerf !== undefined
+            ? parseFloat((fundPerf - benchPerf).toFixed(2))
+            : null,
+        } : null,
+      };
+    });
+
+    return {
+      content: [
+        {
+          type: 'text' as const,
+          text: textSummary,
+        },
+        {
+          type: 'text' as const,
+          text: JSON.stringify({
+            period,
+            periodLabel,
+            funds: fundsData,
+            totalCount: topFunds.length,
+            filters: { riskLevel },
+            timestamp: new Date().toISOString(),
+          }, null, 2),
+        },
+      ],
+    };
+  }
+
+  private async handleGetRmfFundNavHistory(args: any) {
+    const fundCode = args?.fundCode;
+    const days = Math.min(args?.days || 30, 365);
+
+    if (!fundCode) {
+      throw new Error('fundCode parameter is required');
+    }
+
+    const fund = rmfDataService.getBySymbol(fundCode);
+    if (!fund) {
+      throw new Error(`Fund not found: ${fundCode}`);
+    }
+
+    const navHistory = rmfDataService.getNavHistory(fundCode, days);
+
+    if (!navHistory || navHistory.length === 0) {
+      const textSummary = `No NAV history available for ${fund.fund_name} (${fundCode})`;
+      return {
+        content: [
+          {
+            type: 'text' as const,
+            text: textSummary,
+          },
+          {
+            type: 'text' as const,
+            text: JSON.stringify({
+              symbol: fundCode,
+              fund_name: fund.fund_name,
+              message: 'No NAV history available',
+              timestamp: new Date().toISOString(),
+            }, null, 2),
+          },
+        ],
+      };
+    }
+
+    // Calculate statistics using last_val field
+    const navValues = navHistory.map(h => h.last_val).filter(v => v !== null && v !== undefined);
+    const minNav = navValues.length > 0 ? Math.min(...navValues) : 0;
+    const maxNav = navValues.length > 0 ? Math.max(...navValues) : 0;
+    const avgNav = navValues.length > 0 ? navValues.reduce((sum, v) => sum + v, 0) / navValues.length : 0;
+    
+    // Calculate period return
+    const firstNav = navHistory[navHistory.length - 1]?.last_val;
+    const lastNav = navHistory[0]?.last_val;
+    const periodReturn = firstNav && lastNav && firstNav > 0 ? ((lastNav - firstNav) / firstNav * 100).toFixed(2) : null;
+
+    // Calculate volatility (standard deviation of daily returns)
+    const dailyReturns = [];
+    for (let i = 0; i < navHistory.length - 1; i++) {
+      const currentNav = navHistory[i].last_val;
+      const prevNav = navHistory[i + 1].last_val;
+      if (currentNav && prevNav && prevNav > 0) {
+        dailyReturns.push((currentNav - prevNav) / prevNav);
+      }
+    }
+    
+    let volatility: string = 'N/A';
+    if (dailyReturns.length > 0) {
+      const avgReturn = dailyReturns.reduce((sum, r) => sum + r, 0) / dailyReturns.length;
+      const variance = dailyReturns.reduce((sum, r) => sum + Math.pow(r - avgReturn, 2), 0) / dailyReturns.length;
+      volatility = (Math.sqrt(variance) * 100).toFixed(2);
+    }
+
+    const textSummary = `${fund.fund_name} (${fundCode}) NAV history over ${days} days. Period return: ${periodReturn}%. Volatility: ${volatility}%.`;
+
+    return {
+      content: [
+        {
+          type: 'text' as const,
+          text: textSummary,
+        },
+        {
+          type: 'text' as const,
+          text: JSON.stringify({
+            symbol: fundCode,
+            fund_name: fund.fund_name,
+            days,
+            navHistory: navHistory.map(h => ({
+              date: h.nav_date,
+              nav: h.last_val,
+              previous_nav: h.previous_val,
+              change: h.last_val && h.previous_val ? h.last_val - h.previous_val : null,
+              change_percent: h.last_val && h.previous_val && h.previous_val > 0 
+                ? ((h.last_val - h.previous_val) / h.previous_val * 100).toFixed(2)
+                : null,
+            })),
+            statistics: {
+              minNav: minNav.toFixed(4),
+              maxNav: maxNav.toFixed(4),
+              avgNav: avgNav.toFixed(4),
+              periodReturn: periodReturn ? `${periodReturn}%` : 'N/A',
+              volatility: `${volatility}%`,
+            },
+            timestamp: new Date().toISOString(),
+          }, null, 2),
+        },
+      ],
+    };
+  }
+
+  private async handleCompareFunds(args: any) {
+    const fundCodes = args?.fundCodes || [];
+    const compareBy = args?.compareBy || 'all';
+
+    if (!fundCodes || fundCodes.length < 2) {
+      throw new Error('At least 2 fund codes are required for comparison');
+    }
+
+    if (fundCodes.length > 5) {
+      throw new Error('Maximum 5 funds can be compared at once');
+    }
+
+    // Fetch all funds
+    const funds = fundCodes.map((code: string) => {
+      const fund = rmfDataService.getBySymbol(code);
+      if (!fund) {
+        throw new Error(`Fund not found: ${code}`);
+      }
+      return fund;
+    });
+
+    const textSummary = `Comparing ${funds.length} RMF funds: ${funds.map(f => f.symbol).join(', ')}`;
+
+    // Build comparison data
+    const comparison = funds.map(fund => {
+      const data: any = {
+        symbol: fund.symbol,
+        fund_name: fund.fund_name,
+        amc: fund.amc,
+      };
+
+      // Include data based on compareBy
+      if (compareBy === 'all' || compareBy === 'performance') {
+        data.nav_value = fund.nav_value;
+        data.performance = {
+          ytd: fund.perf_ytd,
+          '3m': fund.perf_3m,
+          '6m': fund.perf_6m,
+          '1y': fund.perf_1y,
+          '3y': fund.perf_3y,
+          '5y': fund.perf_5y,
+          '10y': fund.perf_10y,
+        };
+        data.benchmark = fund.benchmark_name ? {
+          name: fund.benchmark_name,
+          ytd: fund.benchmark_ytd,
+          '1y': fund.benchmark_1y,
+          '3y': fund.benchmark_3y,
+          '5y': fund.benchmark_5y,
+        } : null;
+      }
+
+      if (compareBy === 'all' || compareBy === 'risk') {
+        data.risk_level = fund.risk_level;
+        data.fund_classification = fund.fund_classification;
+        data.management_style = fund.management_style;
+      }
+
+      if (compareBy === 'all' || compareBy === 'fees') {
+        data.fees = fund.fees_json;
+        data.investment_minimums = {
+          initial: fund.investment_min_initial,
+          additional: fund.investment_min_additional,
+        };
+      }
+
+      return data;
+    });
+
+    return {
+      content: [
+        {
+          type: 'text' as const,
+          text: textSummary,
+        },
+        {
+          type: 'text' as const,
+          text: JSON.stringify({
+            compareBy,
+            fundCount: funds.length,
+            funds: comparison,
+            timestamp: new Date().toISOString(),
+          }, null, 2),
         },
       ],
     };
