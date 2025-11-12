@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RMF Fund Card</title>
+  <link rel="stylesheet" href="./shared/styles.css">
+  <style>
+    .fund-card-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .fund-header {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .fund-symbol-large {
+      font-size: var(--font-size-2xl);
+      font-weight: 700;
+      color: var(--color-fg);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .fund-name-large {
+      font-size: var(--font-size-base);
+      color: var(--color-fg-secondary);
+      line-height: 1.5;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .fund-amc-large {
+      font-size: var(--font-size-sm);
+      color: var(--color-fg-tertiary);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .nav-section {
+      display: flex;
+      align-items: baseline;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .nav-value-large {
+      font-size: var(--font-size-3xl);
+      font-weight: 700;
+      color: var(--color-fg);
+    }
+
+    .nav-change-large {
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+    }
+
+    .risk-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      background: var(--color-bg-tertiary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      color: var(--color-fg);
+    }
+
+    .info-section {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .section-title {
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      color: var(--color-fg);
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-sm);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .info-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-fg-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-value {
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      color: var(--color-fg);
+    }
+
+    .performance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .performance-item {
+      text-align: center;
+      padding: var(--spacing-sm);
+      background: var(--color-bg-tertiary);
+      border-radius: var(--radius-sm);
+    }
+
+    .performance-period {
+      font-size: var(--font-size-xs);
+      color: var(--color-fg-secondary);
+      margin-bottom: 4px;
+    }
+
+    .performance-value {
+      font-size: var(--font-size-lg);
+      font-weight: 700;
+    }
+
+    .benchmark-section {
+      margin-top: var(--spacing-md);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .benchmark-name {
+      font-size: var(--font-size-sm);
+      color: var(--color-fg-secondary);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .benchmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: var(--spacing-sm);
+    }
+
+    .benchmark-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-xs);
+      background: var(--color-bg);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-sm);
+    }
+
+    .benchmark-label {
+      color: var(--color-fg-tertiary);
+    }
+
+    .benchmark-value {
+      font-weight: 600;
+      color: var(--color-fg-secondary);
+    }
+  </style>
+</head>
+<body>
+  <div class="widget-container">
+    <div class="fund-card-container">
+      <div id="loading-state" data-testid="loading-state">
+        <div class="state-container">
+          <div class="state-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12a9 9 0 11-6.219-8.56"/>
+            </svg>
+          </div>
+          <div class="state-message">Loading fund details...</div>
+        </div>
+      </div>
+
+      <div id="error-state" data-testid="error-state" style="display: none;">
+        <div class="state-container">
+          <div class="state-icon state-icon-error">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div class="state-message" id="error-message">Failed to load fund details</div>
+        </div>
+      </div>
+
+      <div id="content" style="display: none;">
+        <div class="fund-header">
+          <div class="fund-symbol-large" data-testid="text-symbol" id="fund-symbol"></div>
+          <div class="fund-name-large" data-testid="text-fund-name" id="fund-name"></div>
+          <div class="fund-amc-large" data-testid="text-amc" id="fund-amc"></div>
+          
+          <div class="nav-section">
+            <div class="nav-value-large" data-testid="text-nav-value" id="nav-value"></div>
+            <div class="nav-change-large" data-testid="text-nav-change" id="nav-change"></div>
+          </div>
+          
+          <div>
+            <span class="risk-badge" data-testid="badge-risk-level">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path>
+              </svg>
+              <span id="risk-level"></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="section-title">Fund Information</div>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Asset Type</div>
+              <div class="info-value" data-testid="text-asset-type" id="asset-type"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Policy</div>
+              <div class="info-value" data-testid="text-policy" id="policy"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Registrar</div>
+              <div class="info-value" data-testid="text-registrar" id="registrar"></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">NAV Date</div>
+              <div class="info-value" data-testid="text-nav-date" id="nav-date"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="section-title">Performance</div>
+          <div class="performance-grid" id="performance-grid"></div>
+          
+          <div class="benchmark-section" id="benchmark-section" style="display: none;">
+            <div class="benchmark-name" data-testid="text-benchmark-name" id="benchmark-name"></div>
+            <div class="benchmark-grid" id="benchmark-grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./shared/utils.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      window.openai.matchTheme();
+      
+      try {
+        const data = window.openai.toolOutput.structuredContent();
+        if (!data || !data.symbol) {
+          throw new Error('Invalid fund data');
+        }
+        
+        renderFund(data);
+        
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+      } catch (error) {
+        console.error('Error rendering fund card:', error);
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('error-state').style.display = 'block';
+        document.getElementById('error-message').textContent = error.message || 'Failed to load fund details';
+      }
+    });
+
+    function renderFund(fund) {
+      document.getElementById('fund-symbol').textContent = fund.symbol || 'N/A';
+      document.getElementById('fund-name').textContent = fund.fund_name || 'N/A';
+      document.getElementById('fund-amc').textContent = fund.amc || 'N/A';
+      
+      const navValue = fund.nav_value || 0;
+      document.getElementById('nav-value').textContent = window.formatters.formatCurrency(navValue);
+      
+      const change = fund.nav_change || 0;
+      const changePercent = fund.nav_change_percent || 0;
+      const navChangeEl = document.getElementById('nav-change');
+      navChangeEl.textContent = `${window.formatters.formatChange(change)} (${window.formatters.formatPercent(changePercent)})`;
+      navChangeEl.className = `nav-change-large ${window.formatters.getChangeClass(changePercent)}`;
+      
+      document.getElementById('risk-level').textContent = `Risk Level ${fund.risk_level || 'N/A'}`;
+      document.getElementById('asset-type').textContent = fund.asset_type || 'N/A';
+      document.getElementById('policy').textContent = fund.policy || 'N/A';
+      document.getElementById('registrar').textContent = fund.registrar || 'N/A';
+      document.getElementById('nav-date').textContent = window.formatters.formatDate(fund.nav_date) || 'N/A';
+      
+      renderPerformance(fund.performance);
+      
+      if (fund.benchmark && fund.benchmark.name) {
+        renderBenchmark(fund.benchmark);
+      }
+    }
+
+    function renderPerformance(performance) {
+      if (!performance) return;
+      
+      const periods = [
+        { key: 'ytd', label: 'YTD' },
+        { key: '3m', label: '3M' },
+        { key: '6m', label: '6M' },
+        { key: '1y', label: '1Y' },
+        { key: '3y', label: '3Y' },
+        { key: '5y', label: '5Y' },
+        { key: '10y', label: '10Y' }
+      ];
+      
+      const grid = document.getElementById('performance-grid');
+      grid.innerHTML = '';
+      
+      periods.forEach(period => {
+        const value = performance[period.key];
+        if (value !== null && value !== undefined) {
+          const item = document.createElement('div');
+          item.className = 'performance-item';
+          item.setAttribute('data-testid', `performance-${period.key}`);
+          
+          const periodDiv = document.createElement('div');
+          periodDiv.className = 'performance-period';
+          periodDiv.textContent = period.label;
+          
+          const valueDiv = document.createElement('div');
+          valueDiv.className = `performance-value ${window.formatters.getChangeClass(value)}`;
+          valueDiv.textContent = window.formatters.formatPercent(value);
+          
+          item.appendChild(periodDiv);
+          item.appendChild(valueDiv);
+          grid.appendChild(item);
+        }
+      });
+    }
+
+    function renderBenchmark(benchmark) {
+      document.getElementById('benchmark-name').textContent = `Benchmark: ${benchmark.name}`;
+      document.getElementById('benchmark-section').style.display = 'block';
+      
+      const periods = [
+        { key: 'ytd', label: 'YTD' },
+        { key: '1y', label: '1Y' },
+        { key: '3y', label: '3Y' },
+        { key: '5y', label: '5Y' }
+      ];
+      
+      const grid = document.getElementById('benchmark-grid');
+      grid.innerHTML = '';
+      
+      periods.forEach(period => {
+        const value = benchmark[period.key];
+        if (value !== null && value !== undefined) {
+          const item = document.createElement('div');
+          item.className = 'benchmark-item';
+          item.setAttribute('data-testid', `benchmark-${period.key}`);
+          
+          const label = document.createElement('span');
+          label.className = 'benchmark-label';
+          label.textContent = period.label;
+          
+          const valueSpan = document.createElement('span');
+          valueSpan.className = 'benchmark-value';
+          valueSpan.textContent = window.formatters.formatPercent(value);
+          
+          item.appendChild(label);
+          item.appendChild(valueSpan);
+          grid.appendChild(item);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

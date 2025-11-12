@@ -244,3 +244,107 @@ export const rmfFundDetailWithPerformanceResponseSchema = z.object({
 });
 
 export type RMFFundDetailWithPerformanceResponse = z.infer<typeof rmfFundDetailWithPerformanceResponseSchema>;
+
+// ====================================================================
+// CSV CONSOLIDATED DATA SCHEMA (for in-memory data service)
+// ====================================================================
+
+/**
+ * RMF Fund CSV Row Schema
+ * Matches the structure of docs/rmf-funds-consolidated.csv
+ * Uses snake_case to match CSV column names
+ */
+export const rmfFundCSVSchema = z.object({
+  // Core
+  fund_id: z.string(),
+  symbol: z.string(),
+  fund_name: z.string(),
+  amc: z.string(),
+  
+  // Metadata
+  fund_classification: z.string(),
+  management_style: z.string(),
+  dividend_policy: z.string(),
+  risk_level: z.number(),
+  fund_type: z.string(),
+  
+  // Latest NAV
+  nav_date: z.string(),
+  nav_value: z.number(),
+  nav_change: z.number(),
+  nav_change_percent: z.number(),
+  net_asset: z.number(),
+  buy_price: z.number(),
+  sell_price: z.number(),
+  
+  // NAV History Summary
+  nav_history_count: z.number(),
+  nav_history_first_date: z.string().nullable(),
+  nav_history_last_date: z.string().nullable(),
+  nav_history_min: z.number().nullable(),
+  nav_history_max: z.number().nullable(),
+  
+  // Performance
+  perf_ytd: z.number().nullable(),
+  perf_3m: z.number().nullable(),
+  perf_6m: z.number().nullable(),
+  perf_1y: z.number().nullable(),
+  perf_3y: z.number().nullable(),
+  perf_5y: z.number().nullable(),
+  perf_10y: z.number().nullable(),
+  perf_since_inception: z.number().nullable(),
+  
+  // Benchmark
+  benchmark_name: z.string().nullable(),
+  benchmark_ytd: z.number().nullable(),
+  benchmark_3m: z.number().nullable(),
+  benchmark_6m: z.number().nullable(),
+  benchmark_1y: z.number().nullable(),
+  benchmark_3y: z.number().nullable(),
+  benchmark_5y: z.number().nullable(),
+  benchmark_10y: z.number().nullable(),
+  
+  // Dividends
+  dividends_count: z.number(),
+  dividends_total: z.number().nullable(),
+  dividend_dates: z.string().nullable(),
+  
+  // JSON fields
+  asset_allocation_json: z.any().nullable(),
+  fees_json: z.any().nullable(),
+  parties_json: z.any().nullable(),
+  holdings_json: z.any().nullable(),
+  risk_factors_json: z.any().nullable(),
+  suitability_json: z.any().nullable(),
+  
+  // Documents
+  factsheet_url: z.string().nullable(),
+  annual_report_url: z.string().nullable(),
+  halfyear_report_url: z.string().nullable(),
+  
+  // Investment Minimums
+  investment_min_initial: z.number().nullable(),
+  investment_min_additional: z.number().nullable(),
+  
+  // Metadata
+  last_upd_date: z.string(),
+});
+
+export type RMFFundCSV = z.infer<typeof rmfFundCSVSchema>;
+
+/**
+ * NAV History Point Schema
+ * Individual NAV data point from nav_history_30d array in JSON files
+ */
+export const navHistorySchema = z.object({
+  nav_date: z.string(),
+  last_val: z.number(),
+  previous_val: z.number(),
+  net_asset: z.number(),
+  buy_price: z.number(),
+  sell_price: z.number(),
+  change: z.number(),
+  change_percent: z.number(),
+});
+
+export type RMFNavHistory = z.infer<typeof navHistorySchema>;
