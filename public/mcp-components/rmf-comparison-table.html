@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RMF Fund Comparison</title>
+  <link rel="stylesheet" href="./shared/styles.css">
+  <style>
+    .comparison-container {
+      overflow-x: auto;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .comparison-header {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .comparison-title {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      color: var(--color-fg);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .comparison-subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-fg-secondary);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .comparison-table thead {
+      background: var(--color-bg-tertiary);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .comparison-table th {
+      padding: var(--spacing-md);
+      text-align: left;
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      color: var(--color-fg);
+      border-bottom: 2px solid var(--color-border);
+      white-space: nowrap;
+    }
+
+    .comparison-table th:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 11;
+      background: var(--color-bg-tertiary);
+    }
+
+    .comparison-table tbody tr {
+      transition: background-color 0.2s ease;
+    }
+
+    .comparison-table tbody tr:hover {
+      background: var(--color-bg-tertiary);
+    }
+
+    .comparison-table td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-fg);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .comparison-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table td:first-child {
+      position: sticky;
+      left: 0;
+      background: var(--color-bg-secondary);
+      font-weight: 600;
+      color: var(--color-fg-secondary);
+      white-space: nowrap;
+    }
+
+    .comparison-table tbody tr:hover td:first-child {
+      background: var(--color-bg-tertiary);
+    }
+
+    .fund-cell {
+      min-width: 200px;
+      max-width: 250px;
+    }
+
+    .fund-symbol-cell {
+      font-weight: 700;
+      color: var(--color-fg);
+      margin-bottom: 4px;
+    }
+
+    .fund-name-cell {
+      font-size: var(--font-size-xs);
+      color: var(--color-fg-secondary);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .category-header {
+      background: var(--color-bg);
+      font-weight: 700;
+      color: var(--color-fg);
+      text-transform: uppercase;
+      font-size: var(--font-size-xs);
+      letter-spacing: 0.5px;
+    }
+
+    .category-header td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .numeric-cell {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .best-value {
+      background: var(--color-success-bg);
+      color: var(--color-success);
+      font-weight: 700;
+    }
+
+    .worst-value {
+      background: var(--color-danger-bg);
+      color: var(--color-danger);
+    }
+  </style>
+</head>
+<body>
+  <div class="widget-container">
+    <div id="loading-state" data-testid="loading-state">
+      <div class="state-container">
+        <div class="state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12a9 9 0 11-6.219-8.56"/>
+          </svg>
+        </div>
+        <div class="state-message">Loading comparison...</div>
+      </div>
+    </div>
+
+    <div id="error-state" data-testid="error-state" style="display: none;">
+      <div class="state-container">
+        <div class="state-icon state-icon-error">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div class="state-message" id="error-message">Failed to load comparison</div>
+      </div>
+    </div>
+
+    <div id="content" style="display: none;">
+      <div class="comparison-header">
+        <div class="comparison-title" data-testid="text-title">Fund Comparison</div>
+        <div class="comparison-subtitle" data-testid="text-subtitle" id="subtitle"></div>
+      </div>
+      
+      <div class="comparison-container">
+        <table class="comparison-table" data-testid="table-comparison">
+          <thead id="table-head"></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="./shared/utils.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      window.openai.matchTheme();
+      
+      try {
+        const data = window.openai.toolOutput.structuredContent();
+        if (!data || !data.funds || data.funds.length === 0) {
+          throw new Error('No funds to compare');
+        }
+        
+        renderComparison(data);
+        
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+      } catch (error) {
+        console.error('Error rendering comparison:', error);
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('error-state').style.display = 'block';
+        document.getElementById('error-message').textContent = error.message || 'Failed to load comparison';
+      }
+    });
+
+    function renderComparison(data) {
+      const funds = data.funds;
+      const compareBy = data.compareBy || 'all';
+      
+      document.getElementById('subtitle').textContent = `Comparing ${funds.length} funds`;
+      
+      const thead = document.getElementById('table-head');
+      const tbody = document.getElementById('table-body');
+      
+      const headerRow = document.createElement('tr');
+      headerRow.innerHTML = '<th>Metric</th>';
+      funds.forEach((fund, index) => {
+        const th = document.createElement('th');
+        th.className = 'fund-cell';
+        th.setAttribute('data-testid', `header-fund-${index}`);
+        th.innerHTML = `
+          <div class="fund-symbol-cell">${fund.symbol}</div>
+          <div class="fund-name-cell">${fund.fund_name}</div>
+        `;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+      
+      if (compareBy === 'all' || compareBy === 'basic') {
+        addCategoryHeader(tbody, funds.length, 'Basic Information');
+        addRow(tbody, funds, 'AMC', f => f.amc, 'text-amc');
+        addRow(tbody, funds, 'NAV', f => window.formatters.formatCurrency(f.nav_value), 'text-nav', true);
+        addRow(tbody, funds, 'Risk Level', f => f.risk_level, 'text-risk');
+      }
+      
+      if (compareBy === 'all' || compareBy === 'performance') {
+        addCategoryHeader(tbody, funds.length, 'Performance');
+        
+        const periods = [
+          { key: 'ytd', label: 'YTD' },
+          { key: '3m', label: '3 Month' },
+          { key: '6m', label: '6 Month' },
+          { key: '1y', label: '1 Year' },
+          { key: '3y', label: '3 Year' },
+          { key: '5y', label: '5 Year' },
+          { key: '10y', label: '10 Year' }
+        ];
+        
+        periods.forEach(period => {
+          const hasData = funds.some(f => f.performance && f.performance[period.key] !== null);
+          if (hasData) {
+            addRow(tbody, funds, period.label, f => {
+              const val = f.performance?.[period.key];
+              return val !== null && val !== undefined ? window.formatters.formatPercent(val) : 'N/A';
+            }, `performance-${period.key}`, true, period.key);
+          }
+        });
+      }
+      
+      if (compareBy === 'all' || compareBy === 'risk') {
+        addCategoryHeader(tbody, funds.length, 'Risk Metrics');
+        addRow(tbody, funds, 'Standard Deviation', f => f.std_dev ? `${f.std_dev.toFixed(2)}%` : 'N/A', 'text-std-dev');
+        addRow(tbody, funds, 'Sharpe Ratio', f => f.sharpe_ratio ? f.sharpe_ratio.toFixed(2) : 'N/A', 'text-sharpe', true);
+      }
+      
+      if (compareBy === 'all' || compareBy === 'fees') {
+        addCategoryHeader(tbody, funds.length, 'Fees');
+        addRow(tbody, funds, 'Front-end Fee', f => f.frontend_fee ? `${f.frontend_fee.toFixed(2)}%` : 'N/A', 'text-frontend-fee');
+        addRow(tbody, funds, 'Back-end Fee', f => f.backend_fee ? `${f.backend_fee.toFixed(2)}%` : 'N/A', 'text-backend-fee');
+        addRow(tbody, funds, 'Management Fee', f => f.management_fee ? `${f.management_fee.toFixed(2)}%` : 'N/A', 'text-mgmt-fee');
+      }
+    }
+
+    function addCategoryHeader(tbody, fundCount, title) {
+      const row = document.createElement('tr');
+      row.className = 'category-header';
+      row.innerHTML = `<td colspan="${fundCount + 1}">${title}</td>`;
+      tbody.appendChild(row);
+    }
+
+    function addRow(tbody, funds, label, valueGetter, testIdPrefix, highlightBest = false, performanceKey = null) {
+      const row = document.createElement('tr');
+      
+      const labelCell = document.createElement('td');
+      labelCell.textContent = label;
+      row.appendChild(labelCell);
+      
+      const values = funds.map(valueGetter);
+      
+      let bestIndex = -1;
+      if (highlightBest && performanceKey) {
+        const numericValues = values.map((v, i) => {
+          const raw = funds[i].performance?.[performanceKey];
+          return raw !== null && raw !== undefined ? parseFloat(raw) : -Infinity;
+        });
+        bestIndex = numericValues.indexOf(Math.max(...numericValues));
+      } else if (highlightBest) {
+        const numericValues = values.map(v => {
+          const match = v.match(/-?\d+\.?\d*/);
+          return match ? parseFloat(match[0]) : -Infinity;
+        });
+        bestIndex = numericValues.indexOf(Math.max(...numericValues));
+      }
+      
+      values.forEach((value, index) => {
+        const cell = document.createElement('td');
+        cell.className = 'numeric-cell';
+        cell.setAttribute('data-testid', `${testIdPrefix}-${index}`);
+        
+        if (index === bestIndex && bestIndex !== -1) {
+          cell.classList.add('best-value');
+        }
+        
+        if (performanceKey) {
+          const rawValue = funds[index].performance?.[performanceKey];
+          const changeClass = window.formatters.getChangeClass(rawValue);
+          if (changeClass) {
+            cell.classList.add(changeClass);
+          }
+        }
+        
+        cell.textContent = value;
+        row.appendChild(cell);
+      });
+      
+      tbody.appendChild(row);
+    }
+  </script>
+</body>
+</html>

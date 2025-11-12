@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RMF Performance Chart</title>
+  <link rel="stylesheet" href="./shared/styles.css">
+  <style>
+    .chart-container {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .chart-header {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .chart-title {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      color: var(--color-fg);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .chart-subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-fg-secondary);
+    }
+
+    .chart-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+      padding: var(--spacing-md);
+      background: var(--color-bg-tertiary);
+      border-radius: var(--radius-sm);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-fg-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-size: var(--font-size-lg);
+      font-weight: 700;
+      color: var(--color-fg);
+    }
+
+    .chart-svg {
+      width: 100%;
+      height: 300px;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .chart-line {
+      fill: none;
+      stroke: var(--color-fg);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .chart-area {
+      fill: var(--color-fg);
+      opacity: 0.1;
+    }
+
+    .chart-grid-line {
+      stroke: var(--color-border);
+      stroke-width: 1;
+      stroke-dasharray: 4 4;
+    }
+
+    .chart-axis {
+      stroke: var(--color-border);
+      stroke-width: 1;
+    }
+
+    .chart-label {
+      fill: var(--color-fg-secondary);
+      font-size: 10px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .chart-dot {
+      fill: var(--color-bg-secondary);
+      stroke: var(--color-fg);
+      stroke-width: 2;
+    }
+
+    .chart-dot:hover {
+      r: 6;
+      fill: var(--color-fg);
+    }
+
+    .tooltip {
+      position: absolute;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      font-size: var(--font-size-xs);
+      color: var(--color-fg);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 100;
+      box-shadow: var(--shadow-md);
+    }
+
+    .tooltip.visible {
+      opacity: 1;
+    }
+
+    .tooltip-date {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .tooltip-value {
+      color: var(--color-fg-secondary);
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      font-size: var(--font-size-sm);
+      color: var(--color-fg-secondary);
+    }
+
+    .legend-color {
+      width: 16px;
+      height: 3px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget-container">
+    <div id="loading-state" data-testid="loading-state">
+      <div class="state-container">
+        <div class="state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12a9 9 0 11-6.219-8.56"/>
+          </svg>
+        </div>
+        <div class="state-message">Loading chart...</div>
+      </div>
+    </div>
+
+    <div id="error-state" data-testid="error-state" style="display: none;">
+      <div class="state-container">
+        <div class="state-icon state-icon-error">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div class="state-message" id="error-message">Failed to load chart</div>
+      </div>
+    </div>
+
+    <div id="content" style="display: none;">
+      <div class="chart-container">
+        <div class="chart-header">
+          <div class="chart-title" data-testid="text-title" id="chart-title"></div>
+          <div class="chart-subtitle" data-testid="text-subtitle" id="chart-subtitle"></div>
+        </div>
+
+        <div class="chart-stats">
+          <div class="stat-item">
+            <div class="stat-label">Period Return</div>
+            <div class="stat-value" data-testid="text-period-return" id="period-return">-</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Min NAV</div>
+            <div class="stat-value" data-testid="text-min-nav" id="min-nav">-</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Max NAV</div>
+            <div class="stat-value" data-testid="text-max-nav" id="max-nav">-</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Volatility</div>
+            <div class="stat-value" data-testid="text-volatility" id="volatility">-</div>
+          </div>
+        </div>
+
+        <svg class="chart-svg" data-testid="chart-svg" id="chart-svg"></svg>
+        
+        <div class="legend" id="legend"></div>
+      </div>
+    </div>
+
+    <div class="tooltip" data-testid="tooltip" id="tooltip">
+      <div class="tooltip-date" id="tooltip-date"></div>
+      <div class="tooltip-value" id="tooltip-value"></div>
+    </div>
+  </div>
+
+  <script src="./shared/utils.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      window.openai.matchTheme();
+      
+      try {
+        const data = window.openai.toolOutput.structuredContent();
+        if (!data || !data.navHistory || data.navHistory.length === 0) {
+          throw new Error('No NAV history data available');
+        }
+        
+        renderChart(data);
+        
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+      } catch (error) {
+        console.error('Error rendering chart:', error);
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('error-state').style.display = 'block';
+        document.getElementById('error-message').textContent = error.message || 'Failed to load chart';
+      }
+    });
+
+    function renderChart(data) {
+      document.getElementById('chart-title').textContent = `${data.fund_name} (${data.symbol})`;
+      document.getElementById('chart-subtitle').textContent = `NAV History - ${data.days} days`;
+      
+      const stats = data.statistics || {};
+      document.getElementById('period-return').textContent = stats.periodReturn || 'N/A';
+      document.getElementById('min-nav').textContent = stats.minNav ? window.formatters.formatCurrency(parseFloat(stats.minNav)) : 'N/A';
+      document.getElementById('max-nav').textContent = stats.maxNav ? window.formatters.formatCurrency(parseFloat(stats.maxNav)) : 'N/A';
+      document.getElementById('volatility').textContent = stats.volatility ? `${stats.volatility}%` : 'N/A';
+      
+      const history = data.navHistory.filter(h => h.nav !== null && h.nav !== undefined);
+      if (history.length === 0) {
+        throw new Error('No valid NAV data points');
+      }
+      
+      drawLineChart(history);
+    }
+
+    function drawLineChart(data) {
+      const svg = document.getElementById('chart-svg');
+      const width = svg.clientWidth;
+      const height = 300;
+      const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+      const chartWidth = width - padding.left - padding.right;
+      const chartHeight = height - padding.top - padding.bottom;
+      
+      const navValues = data.map(d => d.nav);
+      const minNav = Math.min(...navValues);
+      const maxNav = Math.max(...navValues);
+      const navRange = maxNav - minNav;
+      const yMin = minNav - navRange * 0.1;
+      const yMax = maxNav + navRange * 0.1;
+      
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.innerHTML = '';
+      
+      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+      const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+      gradient.setAttribute('id', 'areaGradient');
+      gradient.setAttribute('x1', '0%');
+      gradient.setAttribute('y1', '0%');
+      gradient.setAttribute('x2', '0%');
+      gradient.setAttribute('y2', '100%');
+      gradient.innerHTML = `
+        <stop offset="0%" style="stop-color:currentColor;stop-opacity:0.3" />
+        <stop offset="100%" style="stop-color:currentColor;stop-opacity:0" />
+      `;
+      defs.appendChild(gradient);
+      svg.appendChild(defs);
+      
+      for (let i = 0; i <= 5; i++) {
+        const y = padding.top + (chartHeight / 5) * i;
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('class', 'chart-grid-line');
+        line.setAttribute('x1', padding.left);
+        line.setAttribute('y1', y);
+        line.setAttribute('x2', width - padding.right);
+        line.setAttribute('y2', y);
+        svg.appendChild(line);
+        
+        const value = yMax - ((yMax - yMin) / 5) * i;
+        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        label.setAttribute('class', 'chart-label');
+        label.setAttribute('x', padding.left - 10);
+        label.setAttribute('y', y + 4);
+        label.setAttribute('text-anchor', 'end');
+        label.textContent = value.toFixed(2);
+        svg.appendChild(label);
+      }
+      
+      const points = data.map((d, i) => {
+        const x = padding.left + (chartWidth / (data.length - 1)) * i;
+        const y = padding.top + chartHeight - ((d.nav - yMin) / (yMax - yMin)) * chartHeight;
+        return { x, y, data: d };
+      });
+      
+      const pathData = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+      const areaData = `${pathData} L ${points[points.length - 1].x} ${height - padding.bottom} L ${points[0].x} ${height - padding.bottom} Z`;
+      
+      const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      area.setAttribute('class', 'chart-area');
+      area.setAttribute('d', areaData);
+      area.setAttribute('fill', 'url(#areaGradient)');
+      svg.appendChild(area);
+      
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      line.setAttribute('class', 'chart-line');
+      line.setAttribute('d', pathData);
+      svg.appendChild(line);
+      
+      const maxPointsToShow = Math.min(data.length, 10);
+      const step = Math.ceil(data.length / maxPointsToShow);
+      
+      data.forEach((d, i) => {
+        if (i % step === 0 || i === data.length - 1) {
+          const point = points[i];
+          const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          label.setAttribute('class', 'chart-label');
+          label.setAttribute('x', point.x);
+          label.setAttribute('y', height - padding.bottom + 20);
+          label.setAttribute('text-anchor', 'middle');
+          label.textContent = window.formatters.formatDate(d.date).split(' ')[0];
+          svg.appendChild(label);
+        }
+      });
+      
+      const tooltip = document.getElementById('tooltip');
+      points.forEach((point, i) => {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('class', 'chart-dot');
+        circle.setAttribute('cx', point.x);
+        circle.setAttribute('cy', point.y);
+        circle.setAttribute('r', 4);
+        circle.setAttribute('data-testid', `chart-dot-${i}`);
+        
+        circle.addEventListener('mouseenter', (e) => {
+          const rect = svg.getBoundingClientRect();
+          tooltip.style.left = `${e.clientX - rect.left + 10}px`;
+          tooltip.style.top = `${e.clientY - rect.top - 10}px`;
+          document.getElementById('tooltip-date').textContent = window.formatters.formatDate(point.data.date);
+          document.getElementById('tooltip-value').textContent = `NAV: ${window.formatters.formatCurrency(point.data.nav)}`;
+          tooltip.classList.add('visible');
+        });
+        
+        circle.addEventListener('mouseleave', () => {
+          tooltip.classList.remove('visible');
+        });
+        
+        svg.appendChild(circle);
+      });
+    }
+  </script>
+</body>
+</html>
