@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP Widget Testing</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .test-section {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .test-section h2 {
+      margin-bottom: 15px;
+      color: #555;
+      font-size: 18px;
+    }
+
+    .widget-frame {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      min-height: 400px;
+      background: white;
+    }
+
+    .test-controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 8px 16px;
+      background: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #0052a3;
+    }
+
+    button.secondary {
+      background: #6c757d;
+    }
+
+    button.secondary:hover {
+      background: #5a6268;
+    }
+
+    .status {
+      padding: 10px;
+      background: #e7f3ff;
+      border-left: 4px solid #0066cc;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .error {
+      background: #ffe7e7;
+      border-left-color: #cc0000;
+    }
+
+    .success {
+      background: #e7ffe7;
+      border-left-color: #00cc00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>MCP Widget Integration Testing</h1>
+    
+    <div class="test-section">
+      <h2>1. Fund List Widget</h2>
+      <div class="test-controls">
+        <button onclick="testFundList()">Load Sample Data</button>
+        <button class="secondary" onclick="testFundListEmpty()">Test Empty State</button>
+        <button class="secondary" onclick="testFundListError()">Test Error State</button>
+      </div>
+      <div id="status-1" class="status" style="display: none;"></div>
+      <iframe id="frame-1" class="widget-frame" src="about:blank"></iframe>
+    </div>
+
+    <div class="test-section">
+      <h2>2. Fund Card Widget</h2>
+      <div class="test-controls">
+        <button onclick="testFundCard()">Load Sample Fund</button>
+        <button class="secondary" onclick="testFundCardWithBenchmark()">With Benchmark</button>
+      </div>
+      <div id="status-2" class="status" style="display: none;"></div>
+      <iframe id="frame-2" class="widget-frame" src="about:blank"></iframe>
+    </div>
+
+    <div class="test-section">
+      <h2>3. Comparison Table Widget</h2>
+      <div class="test-controls">
+        <button onclick="testComparison()">Compare 2 Funds</button>
+        <button class="secondary" onclick="testComparison5()">Compare 5 Funds</button>
+      </div>
+      <div id="status-3" class="status" style="display: none;"></div>
+      <iframe id="frame-3" class="widget-frame" src="about:blank"></iframe>
+    </div>
+
+    <div class="test-section">
+      <h2>4. Performance Chart Widget</h2>
+      <div class="test-controls">
+        <button onclick="testChart()">Load NAV History</button>
+        <button class="secondary" onclick="testChart30Days()">30-Day History</button>
+      </div>
+      <div id="status-4" class="status" style="display: none;"></div>
+      <iframe id="frame-4" class="widget-frame" src="about:blank"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const sampleFundList = {
+      funds: [
+        {
+          symbol: "DAOL-GOLDRMF",
+          fund_name: "DAOL GOLD AND SILVER EQUITY RETIREMENT MUTUAL FUND",
+          amc: "DAOL INVESTMENT MANAGEMENT COMPANY LIMITED",
+          nav_value: 13.8018,
+          nav_change: 0.65,
+          nav_change_percent: 4.95,
+          risk_level: 7,
+          perf_ytd: 107.1
+        },
+        {
+          symbol: "ABAPAC-RMF",
+          fund_name: "abrdn Asia Pacific Equity Retirement Mutual Fund",
+          amc: "ABERDEEN ASSET MANAGEMENT (THAILAND) LIMITED",
+          nav_value: 15.626,
+          nav_change: -0.23,
+          nav_change_percent: -1.45,
+          risk_level: 6,
+          perf_ytd: 8.8
+        },
+        {
+          symbol: "SCBRMFIXED",
+          fund_name: "SCB Fixed Income RMF",
+          amc: "SCB ASSET MANAGEMENT COMPANY LIMITED",
+          nav_value: 12.4567,
+          nav_change: 0.012,
+          nav_change_percent: 0.096,
+          risk_level: 3,
+          perf_ytd: 2.5
+        }
+      ],
+      totalCount: 403,
+      timestamp: new Date().toISOString()
+    };
+
+    const sampleFund = {
+      symbol: "DAOL-GOLDRMF",
+      fund_name: "DAOL GOLD AND SILVER EQUITY RETIREMENT MUTUAL FUND",
+      amc: "DAOL INVESTMENT MANAGEMENT COMPANY LIMITED",
+      nav_value: 13.8018,
+      nav_change: 0.65,
+      nav_change_percent: 4.95,
+      nav_date: "2025-11-07",
+      risk_level: 7,
+      asset_type: "Equity Fund",
+      policy: "General Equity Fund",
+      registrar: "Thailand Securities Depository Company Limited",
+      performance: {
+        ytd: 107.1,
+        "3m": 45.2,
+        "6m": 68.5,
+        "1y": 88.07,
+        "3y": 32.5,
+        "5y": 25.3,
+        "10y": null
+      }
+    };
+
+    const sampleFundWithBenchmark = {
+      ...sampleFund,
+      benchmark: {
+        name: "Gold Spot (LBMA) USD/t oz.",
+        ytd: 28.45,
+        "1y": 35.2,
+        "3y": 12.8,
+        "5y": 15.6
+      }
+    };
+
+    const sampleComparison = {
+      compareBy: "all",
+      fundCount: 2,
+      funds: [
+        {
+          symbol: "DAOL-GOLDRMF",
+          fund_name: "DAOL GOLD AND SILVER EQUITY RETIREMENT MUTUAL FUND",
+          amc: "DAOL INVESTMENT MANAGEMENT COMPANY LIMITED",
+          nav_value: 13.8018,
+          risk_level: 7,
+          performance: { ytd: 107.1, "1y": 88.07, "3y": 32.5 },
+          frontend_fee: 0,
+          management_fee: 2.14
+        },
+        {
+          symbol: "ABAPAC-RMF",
+          fund_name: "abrdn Asia Pacific Equity Retirement Mutual Fund",
+          amc: "ABERDEEN ASSET MANAGEMENT (THAILAND) LIMITED",
+          nav_value: 15.626,
+          risk_level: 6,
+          performance: { ytd: 8.8, "1y": 6.65, "3y": 3.45 },
+          frontend_fee: 0,
+          management_fee: 1.93
+        }
+      ]
+    };
+
+    const sampleChart = {
+      symbol: "DAOL-GOLDRMF",
+      fund_name: "DAOL GOLD AND SILVER EQUITY RETIREMENT MUTUAL FUND",
+      days: 7,
+      navHistory: [
+        { date: "2025-11-07", nav: 13.8018, previous_nav: 13.1508, change: 0.651, change_percent: "4.95" },
+        { date: "2025-11-06", nav: 13.8086, previous_nav: 13.526, change: 0.2826, change_percent: "2.09" },
+        { date: "2025-11-05", nav: 13.5268, previous_nav: 14.1797, change: -0.6529, change_percent: "-4.60" },
+        { date: "2025-11-04", nav: 14.1797, previous_nav: 14.463, change: -0.2833, change_percent: "-1.96" },
+        { date: "2025-11-03", nav: 14.463, previous_nav: 14.2, change: 0.263, change_percent: "1.85" },
+        { date: "2025-11-02", nav: 14.2, previous_nav: 14.05, change: 0.15, change_percent: "1.07" },
+        { date: "2025-11-01", nav: 14.05, previous_nav: 13.9, change: 0.15, change_percent: "1.08" }
+      ],
+      statistics: {
+        minNav: "13.5268",
+        maxNav: "14.4630",
+        avgNav: "14.0057",
+        periodReturn: "-0.78",
+        volatility: "2.53"
+      }
+    };
+
+    function loadWidget(frameId, widgetPath, data) {
+      const frame = document.getElementById(frameId);
+      const statusDiv = document.getElementById(`status-${frameId.split('-')[1]}`);
+      
+      statusDiv.textContent = 'Loading widget...';
+      statusDiv.className = 'status';
+      statusDiv.style.display = 'block';
+      
+      frame.onload = () => {
+        try {
+          frame.contentWindow.window.openai = {
+            matchTheme: () => {},
+            toolOutput: {
+              structuredContent: () => data
+            }
+          };
+          
+          const loadEvent = new Event('load');
+          frame.contentWindow.dispatchEvent(loadEvent);
+          
+          statusDiv.textContent = 'Widget loaded successfully';
+          statusDiv.className = 'status success';
+        } catch (error) {
+          statusDiv.textContent = `Error: ${error.message}`;
+          statusDiv.className = 'status error';
+        }
+      };
+      
+      frame.src = widgetPath;
+    }
+
+    function testFundList() {
+      loadWidget('frame-1', '/mcp-components/rmf-fund-list.html', sampleFundList);
+    }
+
+    function testFundListEmpty() {
+      loadWidget('frame-1', '/mcp-components/rmf-fund-list.html', { funds: [], totalCount: 0 });
+    }
+
+    function testFundListError() {
+      loadWidget('frame-1', '/mcp-components/rmf-fund-list.html', null);
+    }
+
+    function testFundCard() {
+      loadWidget('frame-2', '/mcp-components/rmf-fund-card.html', sampleFund);
+    }
+
+    function testFundCardWithBenchmark() {
+      loadWidget('frame-2', '/mcp-components/rmf-fund-card.html', sampleFundWithBenchmark);
+    }
+
+    function testComparison() {
+      loadWidget('frame-3', '/mcp-components/rmf-comparison-table.html', sampleComparison);
+    }
+
+    function testComparison5() {
+      const data = {
+        ...sampleComparison,
+        fundCount: 5,
+        funds: [
+          ...sampleComparison.funds,
+          {
+            symbol: "SCBRMFIXED",
+            fund_name: "SCB Fixed Income RMF",
+            amc: "SCB ASSET MANAGEMENT COMPANY LIMITED",
+            nav_value: 12.4567,
+            risk_level: 3,
+            performance: { ytd: 2.5, "1y": 3.2, "3y": 2.8 },
+            frontend_fee: 0,
+            management_fee: 0.75
+          },
+          {
+            symbol: "K-EMERGING",
+            fund_name: "KASIKORN EMERGING MARKETS RMF",
+            amc: "KASIKORN ASSET MANAGEMENT COMPANY LIMITED",
+            nav_value: 18.234,
+            risk_level: 6,
+            performance: { ytd: 12.3, "1y": 15.6, "3y": 8.9 },
+            frontend_fee: 0,
+            management_fee: 1.85
+          },
+          {
+            symbol: "BBL-TECH-RMF",
+            fund_name: "BBL Technology Sector RMF",
+            amc: "BBL ASSET MANAGEMENT COMPANY LIMITED",
+            nav_value: 22.567,
+            risk_level: 7,
+            performance: { ytd: 25.8, "1y": 32.4, "3y": 18.7 },
+            frontend_fee: 0,
+            management_fee: 2.25
+          }
+        ]
+      };
+      loadWidget('frame-3', '/mcp-components/rmf-comparison-table.html', data);
+    }
+
+    function testChart() {
+      loadWidget('frame-4', '/mcp-components/rmf-performance-chart.html', sampleChart);
+    }
+
+    function testChart30Days() {
+      const days30 = [];
+      const baseNav = 13.8;
+      for (let i = 0; i < 30; i++) {
+        const date = new Date();
+        date.setDate(date.getDate() - (29 - i));
+        const nav = baseNav + (Math.random() - 0.5) * 2;
+        const prevNav = i > 0 ? days30[i - 1].nav : baseNav;
+        const change = nav - prevNav;
+        const changePercent = ((change / prevNav) * 100).toFixed(2);
+        
+        days30.push({
+          date: date.toISOString().split('T')[0],
+          nav: parseFloat(nav.toFixed(4)),
+          previous_nav: parseFloat(prevNav.toFixed(4)),
+          change: parseFloat(change.toFixed(4)),
+          change_percent: changePercent
+        });
+      }
+      
+      const data = {
+        ...sampleChart,
+        days: 30,
+        navHistory: days30,
+        statistics: {
+          minNav: Math.min(...days30.map(d => d.nav)).toFixed(4),
+          maxNav: Math.max(...days30.map(d => d.nav)).toFixed(4),
+          avgNav: (days30.reduce((sum, d) => sum + d.nav, 0) / 30).toFixed(4),
+          periodReturn: ((days30[29].nav - days30[0].nav) / days30[0].nav * 100).toFixed(2),
+          volatility: "3.24"
+        }
+      };
+      
+      loadWidget('frame-4', '/mcp-components/rmf-performance-chart.html', data);
+    }
+  </script>
+</body>
+</html>
