@@ -13,14 +13,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Debug endpoint to test SEC API key
+  // SECURITY: Disabled in production to prevent information leakage
   app.get("/api/debug/sec", async (_req, res) => {
+    // Disable in production environment
+    if (process.env.NODE_ENV === 'production') {
+      return res.status(404).json({
+        error: "Not found",
+      });
+    }
+
     const SEC_API_KEY = process.env.SEC_API_KEY;
-    
+
     if (!SEC_API_KEY) {
       return res.json({
         status: "error",
         message: "SEC_API_KEY environment variable not set",
-        keyLength: 0,
       });
     }
 
@@ -37,13 +44,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       const responseText = await response.text();
-      
+
       return res.json({
         status: response.ok ? "success" : "error",
         statusCode: response.status,
         statusText: response.statusText,
-        keyLength: SEC_API_KEY.length,
-        keyPrefix: SEC_API_KEY.substring(0, 8) + '...',
+        hasValidKey: !!SEC_API_KEY,
         responsePreview: responseText.substring(0, 500),
         timestamp: new Date().toISOString(),
       });
@@ -51,7 +57,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.json({
         status: "error",
         message: error instanceof Error ? error.message : "Unknown error",
-        keyLength: SEC_API_KEY.length,
       });
     }
   });
