@@ -73,6 +73,34 @@ This directory contains extracted documentation for building OpenAI apps using t
     - OAuth flow steps and token verification
     - Recommended providers and testing strategy
 
+11. **[Examples](11-build-examples.md)** - Sample applications and patterns
+    - Pizzaz demo app overview
+    - GitHub repository with code samples
+    - Implementation patterns and best practices
+    - Component and tool integration examples
+
+### Deploy Phase
+
+12. **[Testing & Integration](12-deploy-testing.md)** - Testing strategies and validation
+    - Unit testing tool handlers
+    - MCP Inspector for development
+    - ChatGPT developer mode testing
+    - Pre-launch validation checklist
+
+13. **[Production Deployment](13-deploy-production.md)** - Hosting and production setup
+    - Hosting platform options (containers, serverless, K8s)
+    - Critical requirements and HTTPS setup
+    - Production readiness checklist
+    - Monitoring and maintenance
+
+### Reference
+
+14. **[API Reference](14-api-reference.md)** - Complete API documentation
+    - `window.openai` component bridge
+    - Tool descriptor parameters and `_meta` fields
+    - Component resource configuration
+    - Client-provided metadata fields
+
 ## Overview
 
 The OpenAI Apps SDK allows developers to build applications for ChatGPT using:
@@ -90,7 +118,9 @@ The OpenAI Apps SDK allows developers to build applications for ChatGPT using:
 
 - [Official MCP Specification](https://modelcontextprotocol.io/)
 - [OpenAI Apps SDK](https://developers.openai.com/apps-sdk)
+- [Apps SDK Examples Repository](https://github.com/openai/openai-apps-sdk-examples)
 - [Figma Component Library](https://www.figma.com/community/file/1560064615791108827/apps-in-chatgpt-components-templates)
+- [API Playground](https://platform.openai.com/playground)
 
 ## Our Implementation
 
