@@ -103,28 +103,28 @@
   - [x] 0.9 Verify existing MCP endpoint: `curl -X POST http://localhost:5000/mcp -H "Content-Type: application/json" -d '{"method":"tools/list"}'`
   - [x] 0.10 Document any environment issues in `docs/SETUP_ISSUES.md`
 
-### Phase 0: Data Contract & Schema Setup (2 days)
+### Phase 0: Data Contract & Schema Setup (2 days) ✅ COMPLETED
 
-- [ ] **1.0 Audit Data Quality & Define Tool Contracts**
-  - [ ] 1.1 Sample 5+ diverse funds from `docs/rmf-funds-consolidated.csv` (equity, fixed income, Thai-only, global, cancelled)
-  - [ ] 1.2 Verify all 60 columns are populated or have predictable nulls
-  - [ ] 1.3 Run existing script `npm run data:rmf:identify-incomplete` to check fund completeness
-  - [ ] 1.4 Document data gaps in new file `docs/openai-app-sdk/DATA_GAPS.md` (missing fields, null patterns, edge cases)
-    - [ ] 1.4.1 Document "Unknown" values in fees_json, parties_json fields
-    - [ ] 1.4.2 Document null benchmarks (estimate % of funds affected)
-    - [ ] 1.4.3 Document missing 3Y/5Y/10Y performance data
-    - [ ] 1.4.4 **PHASE 0 GATE**: Verify at least 90% of funds have non-null NAV data
-    - [ ] 1.4.5 **PHASE 0 GATE**: Verify at least 80% of funds have YTD performance data
-    - [ ] 1.4.6 Create mitigation plan for each gap (display "N/A", hide section, or skip fund)
-  - [ ] 1.5 Create `docs/openai-app-sdk/TOOLS_CONTRACT.md` with specifications for all 6 tools (get_rmf_funds, search_rmf_funds, get_rmf_fund_detail, get_rmf_fund_performance, get_rmf_fund_nav_history, compare_rmf_funds)
-  - [ ] 1.6 Define JSON input/output schemas for each tool with sample payloads from real funds
-  - [ ] 1.7 Add MCP-specific Zod schemas to `shared/schema.ts`:
-    - [ ] 1.7.1 `mcpFundSummarySchema` - For fund list responses
-    - [ ] 1.7.2 `mcpFundDetailSchema` - For single fund details
-    - [ ] 1.7.3 `mcpNavHistorySchema` - For NAV chart data
-    - [ ] 1.7.4 `mcpComparisonSchema` - For fund comparison
-    - [ ] 1.7.5 `mcpToolResponseSchema` - Base response wrapper with `content`, `structuredContent`, `_meta`
-  - [ ] 1.8 Review and get stakeholder approval on tool contracts
+- [x] **1.0 Audit Data Quality & Define Tool Contracts**
+  - [x] 1.1 Sample 5+ diverse funds from `docs/rmf-funds-consolidated.csv` (equity, fixed income, Thai-only, global, cancelled)
+  - [x] 1.2 Verify all 60 columns are populated or have predictable nulls
+  - [x] 1.3 Run existing script `npm run data:rmf:identify-incomplete` to check fund completeness
+  - [x] 1.4 Document data gaps in new file `docs/openai-app-sdk/DATA_GAPS.md` (missing fields, null patterns, edge cases)
+    - [x] 1.4.1 Document "Unknown" values in fees_json, parties_json fields
+    - [x] 1.4.2 Document null benchmarks (estimate % of funds affected)
+    - [x] 1.4.3 Document missing 3Y/5Y/10Y performance data
+    - [x] 1.4.4 **PHASE 0 GATE**: Verify at least 90% of funds have non-null NAV data
+    - [x] 1.4.5 **PHASE 0 GATE**: Verify at least 80% of funds have YTD performance data
+    - [x] 1.4.6 Create mitigation plan for each gap (display "N/A", hide section, or skip fund)
+  - [x] 1.5 Create `docs/openai-app-sdk/TOOLS_CONTRACT.md` with specifications for all 6 tools (get_rmf_funds, search_rmf_funds, get_rmf_fund_detail, get_rmf_fund_performance, get_rmf_fund_nav_history, compare_rmf_funds)
+  - [x] 1.6 Define JSON input/output schemas for each tool with sample payloads from real funds
+  - [x] 1.7 Add MCP-specific Zod schemas to `shared/schema.ts`:
+    - [x] 1.7.1 `mcpFundSummarySchema` - For fund list responses
+    - [x] 1.7.2 `mcpFundDetailSchema` - For single fund details
+    - [x] 1.7.3 `mcpNavHistorySchema` - For NAV chart data
+    - [x] 1.7.4 `mcpComparisonSchema` - For fund comparison
+    - [x] 1.7.5 `mcpToolResponseSchema` - Base response wrapper with `content`, `structuredContent`, `_meta`
+  - [x] 1.8 Review and get stakeholder approval on tool contracts
 
 ### Phase 1: Backend Infrastructure (3-4 days)
 
