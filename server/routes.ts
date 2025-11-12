@@ -6,7 +6,7 @@ import {
   searchRMFFunds,
 } from "./services/secApi";
 import { rmfMCPServer } from "./mcp";
-import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { createMcpHttpHandler } from "../services/mcp-server";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
@@ -123,33 +123,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // MCP Protocol endpoint for ChatGPT integration
-  app.post("/mcp", async (req, res) => {
-    try {
-      const transport = new StreamableHTTPServerTransport({
-        sessionIdGenerator: undefined,
-        enableJsonResponse: true,
-      });
-
-      res.on('close', () => {
-        transport.close();
-      });
-
-      await rmfMCPServer.getServer().connect(transport);
-      await transport.handleRequest(req, res, req.body);
-    } catch (error) {
-      console.error('MCP endpoint error:', error);
-      if (!res.headersSent) {
-        res.status(500).json({
-          jsonrpc: '2.0',
-          error: {
-            code: -32603,
-            message: error instanceof Error ? error.message : 'Internal error',
-          },
-          id: null,
-        });
-      }
-    }
-  });
+  app.post("/mcp", createMcpHttpHandler(rmfMCPServer));
 
   const httpServer = createServer(app);
   return httpServer;

@@ -17,7 +17,8 @@
     "data:rmf:parse": "node scripts/data-parsing/rmf/parse-rmf-funds.js",
     "data:rmf:consolidate-csv": "tsx scripts/data-extraction/rmf/consolidate-to-csv.ts",
     "data:esg:generate-list": "tsx scripts/data-extraction/esg/generate-thai-esg-fund-list.ts",
-    "data:esgx:generate-list": "tsx scripts/data-extraction/esgx/generate-thai-esgx-fund-list.ts"
+    "data:esgx:generate-list": "tsx scripts/data-extraction/esgx/generate-thai-esg-fund-list.ts",
+    "mcp:standalone": "tsx services/mcp-server/src/standalone.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

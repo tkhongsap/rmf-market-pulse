@@ -257,8 +257,16 @@ window.addEventListener('load', () => {
 ├── server/
 │   ├── services/
 │   │   └── rmfDataService.ts    # Data access layer (319 lines)
-│   ├── mcp.ts                   # MCP server implementation (591 lines)
+│   ├── mcp.ts                   # Wrapper that wires data service into MCP server
 │   └── routes.ts                # REST + MCP endpoints
+├── services/
+│   └── mcp-server/              # Modular MCP service ready for reuse
+│       ├── README.md
+│       └── src/
+│           ├── index.ts         # Public exports (factory + handler)
+│           ├── rmfMcpServer.ts  # MCP tool registration + handlers
+│           ├── httpHandler.ts   # Express-compatible request handler
+│           └── standalone.ts    # Minimal Express bootstrap
 ├── public/
 │   └── mcp-components/
 │       ├── shared/
